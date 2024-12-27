@@ -71,7 +71,10 @@ export const AboutPage = () => {
               {author.achievements.map((achievement, index) => (
                 <li key={index} className="text-neutral-300 flex items-start">
                   <span className="text-blue-500 mr-2">•</span>
-                  {achievement}
+                  {achievement.description}
+                  <a target="_blank" rel="noopener noreferrer" href={achievement.link} className="text-blue-500 ml-2">
+                    Link
+                  </a>
                 </li>
               ))}
             </ul>

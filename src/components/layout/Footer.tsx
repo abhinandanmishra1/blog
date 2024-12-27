@@ -1,21 +1,24 @@
 import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
 
+import { Link } from 'react-router-dom';
+import { siteMetadata } from '../../data/metadata';
+
 export const Footer = () => {
   return (
     <footer className="bg-neutral-900 border-t border-neutral-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div className="space-y-6">
-            <div className="text-white text-2xl font-bold">TechBlog</div>
-            <p className="text-neutral-400">Exploring the latest in web development, programming, and technology through in-depth articles and tutorials.</p>
+            <div className="text-white text-2xl font-bold">{siteMetadata.title}</div>
+            <p className="text-neutral-400">{siteMetadata.description}</p>
             <div className="flex space-x-4">
-              <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">
+              <a href={siteMetadata.author.social.twitter} className="text-neutral-400 hover:text-white transition-colors duration-300">
                 <Twitter className="h-6 w-6" />
               </a>
-              <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">
+              <a href={siteMetadata.author.social.github} className="text-neutral-400 hover:text-white transition-colors duration-300">
                 <Github className="h-6 w-6" />
               </a>
-              <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">
+              <a href={siteMetadata.author.social.linkedin} className="text-neutral-400 hover:text-white transition-colors duration-300">
                 <Linkedin className="h-6 w-6" />
               </a>
             </div>
@@ -23,12 +26,21 @@ export const Footer = () => {
 
           <div>
             <h3 className="text-white font-semibold mb-6">Quick Links</h3>
-            <ul className="space-y-4">
-              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">Home</a></li>
-              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">About</a></li>
-              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">Articles</a></li>
-              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">Categories</a></li>
-            </ul>
+            {/* this link should separate in two columns */}
+            <div className="grid grid-cols-2">
+              <ul className="space-y-4">
+                <li><Link to="/" className="text-neutral-400 hover:text-white transition-colors duration-300">Home</Link></li>
+                <li><Link to="/about" className="text-neutral-400 hover:text-white transition-colors duration-300">About</Link></li>
+                <li><Link to="/articles" className="text-neutral-400 hover:text-white transition-colors duration-300">Articles</Link></li>
+                <li><Link to="/categories" className="text-neutral-400 hover:text-white transition-colors duration-300">Categories</Link></li>
+              </ul>
+              <ul className="space-y-4">
+                <li><Link to="/" className="text-neutral-400 hover:text-white transition-colors duration-300">Home</Link></li>
+                <li><Link to="/about" className="text-neutral-400 hover:text-white transition-colors duration-300">About</Link></li>
+                <li><Link to="/articles" className="text-neutral-400 hover:text-white transition-colors duration-300">Articles</Link></li>
+                <li><Link to="/categories" className="text-neutral-400 hover:text-white transition-colors duration-300">Categories</Link></li>
+              </ul>
+            </div>
           </div>
 
           <div>
@@ -62,7 +74,7 @@ export const Footer = () => {
         <div className="pt-8 border-t border-neutral-800">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-neutral-400 text-sm">
-              © 2024 TechBlog. All rights reserved.
+              © 2024 {siteMetadata.title}. All rights reserved.
             </div>
             <div className="flex space-x-6 text-sm">
               <a href="#" className="text-neutral-400 hover:text-white transition-colors duration-300">Privacy Policy</a>

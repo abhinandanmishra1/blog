@@ -10,8 +10,7 @@ export function HomePage() {
   return (
     <>
       <Hero />
-      <ArticleGrid
-      />
+      <ArticleGrid />
       <AboutAuthor />
       <Categories />
       <Newsletter />

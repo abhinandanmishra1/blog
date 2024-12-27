@@ -8,14 +8,44 @@ export const siteMetadata: SiteMetadata = {
     name: "Abhinandan Mishra",
     username: 'abhinandanmishra1',
     tagline: 'Full Stack Developer & Technical Writer',
-    bio: "Software Engineer and Technical Writer passionate about web development.",
+    bio: "Software Engineer and Technical Writer passionate about web development",
     avatar: "https://abhicdn.netlify.app/images/profile.png",
     achievements: [
-      "Led development of 5+ enterprise-scale web applications",
-      "Increased application performance by 40% through optimization",
-      "Published 50+ technical articles reaching 100k+ monthly readers",
-      "Mentored 10+ junior developers to senior positions",
-      "Open source contributor to React and Node.js ecosystems"
+      {
+        title: "Achieved 311th rank globally in Google Kickstart Round H 2022",
+        description: "Achieved 311th rank globally in Google Kickstart Round H 2022",
+        link: "https://drive.google.com/file/d/11Ej36IDaoE5f6hUwx13f02D1IpzbrPHM/view"
+      },
+      {
+        title: "Secured 60th rank globally in February Codechef Starters 2020",
+        description: "Secured 60th rank globally in February Codechef Starters 2020",
+        link: "https://www.codechef.com/rankings/START1C?order=asc&search=abhimishra1&sortBy=rank"
+      },
+      {
+        title: "Ranked 93rd in ICPC Kanpur Mathura Region 2021",
+        description: "Ranked 93rd in ICPC Kanpur Mathura Region 2021",
+        link: "https://drive.google.com/file/d/1QVzYOfo_-L49EMxLi3NCRjDb4zi0VZT3/view"
+      },
+      {
+        title: "Placed 226th globally in Codechef July Lunchtime 2021",
+        description: "Placed 226th globally in Codechef July Lunchtime 2021",
+        link: "https://www.codechef.com/rankings/LTIME98B?order=asc&search=abhimishra1&sortBy=rank"
+      },
+      {
+        title: "Attained 435th rank (in ASIA) in HackerRank Hackfest 2020",
+        description: "Attained 435th rank (in ASIA) in HackerRank Hackfest 2020",
+        link: "https://www.hackerrank.com/results/hackerrank-hackfest-2020/abhi_mishra_1?h_r=profile"
+      },
+      {
+        title: "Max-Rating of 2026 on Leetcode.",
+        description: "Max-Rating of 2026 on Leetcode.",
+        link: "https://leetcode.com/abhinandanmishra1/"
+      },
+      {
+        title: "Max-Rating of 1825(4*) on Codechef.",
+        description: "Max-Rating of 1825(4*) on Codechef.",
+        link: "https://www.codechef.com/users/abhimishra1"
+      }
     ],
     experience: [
       {
@@ -23,9 +53,9 @@ export const siteMetadata: SiteMetadata = {
         company: "Infosys",
         period: "Oct,2023 - Present",
         highlights: [
-          "Architected and led development of microservices-based platform",
-          "Implemented CI/CD pipelines reducing deployment time by 60%",
-          "Mentored team of 5 developers on best practices"
+          "Developed scalable backend services using .NET Core on Microsoft Azure for high performance.",
+          "Automated deployment pipelines on Azure DevOps, reducing deployment times and errors.",
+          "Enhanced efficiency by 96% through automating processes for Azure resource management."
         ]
       },
       {
@@ -33,24 +63,37 @@ export const siteMetadata: SiteMetadata = {
         company: "Cosmocloud",
         period: "Jan,2023 - Oct,2023",
         highlights: [
-          "Developed responsive web applications using React",
-          "Optimized database queries improving performance by 35%",
-          "Led migration from monolith to microservices architecture"
+          "Implemented Full Text Search feature, enabling users to create custom analyzers for faster searches.",
+          "Created a Search API template to reduce time in generating search APIs using search indexes.",
+          "Designed and developed an environment management system for multiple environments support.",
+          "Developed a user-friendly subscription feature integrated with Zoho subscriptions for resource allocation.",
+          "Designed and orchestrated a comprehensive design system using styled components and Ant Design UI library to ensure a consistent visual interface across the application."
+        ]
+      },
+      {
+        title: "SDE Intern",
+        company: "Scaler",
+        period: "Jul,2022 - Dec,2022",
+        highlights: [
+          "Developed frontend for Scaler Academy and Interviewbit using React and erb, enhancing user experience.",
+          "Implemented admin dashboard with React, JavaScript, and SCSS, improving internal operations.",
+          "Enhanced email filters, Freshchat visibility, and attribution tracking using Ruby on Rails and JavaScript.",
+          "Contributed to backend development with Ruby on Rails, API building, and database integration.",
         ]
       }
     ],
     education: [
       {
-        degree: "Master of Science in Computer Science",
-        school: "Tech University",
-        year: "2017",
-        honors: "Magna Cum Laude"
+        degree: "Bachelor of Technology",
+        school: "Madan Mohan Malaviya University of Technology",
+        year: "2023",
+        honors: "Information Technology"
       },
       {
-        degree: "Bachelor of Science in Software Engineering",
-        school: "State University",
-        year: "2015",
-        honors: "Dean's List"
+        degree: "Intermediate",
+        school: "Children Senior Secondary School",
+        year: "2018",
+        honors: "Science"
       }
     ],
     social: {
@@ -130,6 +173,36 @@ export const siteMetadata: SiteMetadata = {
       description: "Explore diverse topics in tech",
       color: "rgb(180, 180, 180)",
       tags: ["others"],
+    },
+  ],
+  seriesList: [
+    {
+      title: "Web Development Fundamentals",
+      description:
+        "Master the basics of modern web development with practical examples",
+      icon:  "BookOpen",
+      color: "rgb(59, 130, 246)",
+      rating: 4.8,
+      articleCount: 12,
+      readCount: "2.5k",
+    },
+    {
+      title: "Advanced React Patterns",
+      description: "Deep dive into advanced React patterns and best practices",
+      icon: "BookOpen",
+      color: "rgb(236, 72, 153)",
+      rating: 4.9,
+      articleCount: 8,
+      readCount: "1.8k",
+    },
+    {
+      title: "System Design",
+      description: "Learn how to design scalable systems and architecture",
+      icon: "BookOpen",
+      color: "rgb(34, 197, 94)",
+      rating: 4.7,
+      articleCount: 10,
+      readCount: "3.2k",
     },
   ]
 };

@@ -1,4 +1,4 @@
-import { BlogContent, SeriesCard } from '../components';
+import { BlogContent, ViewSeries } from '../components';
 import { Link, useParams } from 'react-router-dom';
 
 import { ArrowLeft } from 'lucide-react';
@@ -101,7 +101,7 @@ export const BlogPost = () => {
 
         {post.series && (
           <div className="mb-12">
-            <SeriesCard series={post.series} />
+            <ViewSeries series={post.series} />
           </div>
         )}
 

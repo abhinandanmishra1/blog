@@ -1,3 +1,3 @@
-export { ArticleGrid } from './ArticleGrid';
-export { BlogContent } from './BlogContent';
-export { SeriesCard } from './SeriesCard';
+export * from './BlogContent';
+export * from './ViewSeries';
+export * from './ArticleGrid';

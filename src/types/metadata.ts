@@ -18,6 +18,12 @@ export interface SocialLinks {
     year: string;
     honors?: string;
   }
+
+  export interface Achievement {
+    title: string;
+    description: string;
+    link: string;
+  }
   
   export interface Author {
     name: string;
@@ -25,7 +31,7 @@ export interface SocialLinks {
     avatar: string;
     tagline: string;
     username: string;
-    achievements?: string[];
+    achievements?: Achievement[];
     experience?: Experience[];
     education?: Education[];
     social: SocialLinks;
@@ -41,6 +47,16 @@ export interface SocialLinks {
     color: string;
   }
 
+  export interface Series {
+    title: string;
+    description: string;
+    icon: string;
+    color: string;
+    rating: number;
+    articleCount: number;
+    readCount: string;
+  }
+
   export interface Navigation {
     home: string;
     about: string;
@@ -53,5 +69,6 @@ export interface SocialLinks {
     siteUrl: string;
     author: Author;
     categories: Category[];
+    seriesList: Series[];
     // navigation: Navigation;
   }

@@ -1,5 +1,6 @@
 import { ArticleCard, ArticleLoader } from "../components";
 
+import { PageHeader } from "../components/ui";
 import { useFetchPosts } from "../hooks";
 import { useState } from "react";
 
@@ -10,8 +11,8 @@ export const Articles = () => {
 
   if (isLoading && !posts.length) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-         <h1 className="text-4xl font-bold text-gray-100 mb-8">All Articles</h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <PageHeader title="All Articles" description="Explore all articles on different topics like Web Development, System Design, Computer Science, etc." />
         <ArticleLoader />
       </div>
     )
@@ -24,15 +25,14 @@ export const Articles = () => {
     );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <h1 className="text-4xl font-bold text-gray-100 mb-8">All Articles</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <PageHeader title="All Articles" description="Explore all articles on different topics like Web Development, System Design, Computer Science, etc." />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post) => (
           <ArticleCard key={post.id} article={post} />
         ))}
       </div>
-      {isLoading}
       {pageInfo?.hasNextPage && !isFetching && (
         <div className="text-center mt-12">
           <button

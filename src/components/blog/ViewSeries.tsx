@@ -1,12 +1,12 @@
+import { HashnodeSeries } from '../../types';
 import { Link } from 'react-router-dom';
 import React from 'react';
-import { Series } from '../../types';
 
-interface SeriesCardProps {
-  series: Series;
+interface ViewSeriesProps {
+  series: HashnodeSeries;
 }
 
-export const SeriesCard: React.FC<SeriesCardProps> = ({ series }) => {
+export const ViewSeries: React.FC<ViewSeriesProps> = ({ series }) => {
   return (
     <Link to={`/series/${series.slug}`} className="block">
       <div className="bg-neutral-800 border border-neutral-700 rounded-xl p-6 hover:bg-neutral-750 transition-all duration-300">

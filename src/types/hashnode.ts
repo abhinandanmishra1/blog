@@ -16,7 +16,7 @@ export interface Tag {
   slug: string;
 }
 
-export interface Series {
+export interface HashnodeSeries {
   name: string;
   slug: string;
   description: {
@@ -46,7 +46,7 @@ interface BasePost {
   slug: string;
   readTimeInMinutes: number;
   tags: Tag[];
-  series?: Series;
+  series?: HashnodeSeries;
   coverImage: CoverImage;
 }
 
@@ -85,6 +85,6 @@ export interface PostData {
 
 export interface SeriesData {
   publication: {
-    series: Series[];
+    series: HashnodeSeries[];
   };
 }

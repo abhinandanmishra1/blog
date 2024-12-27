@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { Menu } from 'lucide-react';
 import React from 'react';
+import { siteMetadata } from '../../data/metadata';
 
 interface NavbarProps {
   onMenuToggle: () => void;
@@ -16,12 +17,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle }) => {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => navigate('/')}>
-              <span className="text-white font-bold text-xl">TechBlog</span>
+              <span className="text-white font-bold text-xl">{siteMetadata.title}</span>
             </div>
           </div>
           <div className="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-8">
             <Link to="articles" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">Articles</Link>
-            <a href="#" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">Categories</a>
+            <Link to="categories" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">Categories</Link>
+            <Link to="series" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">Series</Link>
             <Link to="about" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">About</Link>
           </div>
           <div className="flex items-center lg:hidden">
