@@ -1,11 +1,11 @@
-import type { AllPostsData, Post, PostData, SeriesData } from "../types";
+import type { AllPostsData, PageInfo, Post, PostData, SeriesData } from "../types";
 import { GraphQLClient, gql } from "graphql-request";
 
 export const getClient = () => {
   return new GraphQLClient("https://gql.hashnode.com");
 };
 
-const myHashnodeURL = "abhinandanmishra1.hashnode.dev";
+const hashnodeURL = "abhinandanmishra1.hashnode.dev";
 
 export const getPreviewPosts = async () => {
   const client = getClient();
@@ -13,7 +13,7 @@ export const getPreviewPosts = async () => {
   const allPosts = await client.request<AllPostsData>(
     gql`
       query allPosts {
-        publication(host: "${myHashnodeURL}") {
+        publication(host: "${hashnodeURL}") {
           id
           title
           posts(first: 6) {
@@ -61,10 +61,10 @@ const getPostsAtCursor = async (cursor = "") => {
   const allPosts = await client.request<AllPostsData>(
     gql`
       query allPosts {
-        publication(host: "${myHashnodeURL}") {
+        publication(host: "${hashnodeURL}") {
           id
           title
-          posts(first: 10, after: "${cursor}") {
+          posts(first: 6, after: "${cursor}") {
             pageInfo{
               hasNextPage
               endCursor
@@ -116,23 +116,13 @@ const getPostsAtCursor = async (cursor = "") => {
   return allPosts;
 };
 
-export const fetchAllPosts = async (): Promise<Post[]> => {
-  let cursor = "";
-  let hasNextPage = true;
-  const postList = [];
+export const fetchAllPosts = async (cursor: string = ""): Promise<{ posts: Post[], pageInfo: PageInfo }> => {
+  const data = await getPostsAtCursor(cursor);
 
-  while (hasNextPage) {
-    const data = await getPostsAtCursor(cursor);
-
-    postList.push(
-      ...data.publication.posts.edges.map(({ node }: { node: Post }) => node)
-    );
-
-    cursor = data.publication.posts.pageInfo.endCursor;
-    hasNextPage = data.publication.posts.pageInfo.hasNextPage;
-  }
-
-  return postList;
+  return {
+    posts: data.publication.posts.edges.map(({ node }: { node: Post }) => node),
+    pageInfo: data.publication.posts.pageInfo,
+  };
 };
 
 export const getPost = async (slug?: string) => {
@@ -141,7 +131,7 @@ export const getPost = async (slug?: string) => {
   const data = await client.request<PostData>(
     gql`
       query postDetails($slug: String!) {
-        publication(host: "${myHashnodeURL}") {
+        publication(host: "${hashnodeURL}") {
           post(slug: $slug) {
             id
             author {
@@ -195,7 +185,7 @@ export const getAllSeries = async () => {
   const data = await client.request<SeriesData>(
     gql`
       query getAllSeries {
-        publication(host: "${myHashnodeURL}") {
+        publication(host: "${hashnodeURL}") {
           series {
             name
             slug

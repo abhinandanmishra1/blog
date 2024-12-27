@@ -23,6 +23,8 @@ export interface SocialLinks {
     name: string;
     bio: string;
     avatar: string;
+    tagline: string;
+    username: string;
     achievements?: string[];
     experience?: Experience[];
     education?: Education[];

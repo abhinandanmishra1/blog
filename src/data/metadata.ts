@@ -1,13 +1,15 @@
 import { SiteMetadata } from '../types/metadata';
 
 export const siteMetadata: SiteMetadata = {
-  title: "TechBlog",
+  title: "Abhinandan's Blog",
   description: "Exploring the latest in web development, programming, and technology through in-depth articles and tutorials.",
   siteUrl: "https://techblog.com",
   author: {
-    name: "John Doe",
-    bio: "Senior Software Engineer and Technical Writer passionate about web development and teaching others.",
-    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.0",
+    name: "Abhinandan Mishra",
+    username: 'abhinandanmishra1',
+    tagline: 'Full Stack Developer & Technical Writer',
+    bio: "Software Engineer and Technical Writer passionate about web development.",
+    avatar: "https://abhicdn.netlify.app/images/profile.png",
     achievements: [
       "Led development of 5+ enterprise-scale web applications",
       "Increased application performance by 40% through optimization",
@@ -17,9 +19,9 @@ export const siteMetadata: SiteMetadata = {
     ],
     experience: [
       {
-        title: "Senior Software Engineer",
-        company: "Tech Solutions Inc",
-        period: "2020 - Present",
+        title: "Specialist Programmer",
+        company: "Infosys",
+        period: "Oct,2023 - Present",
         highlights: [
           "Architected and led development of microservices-based platform",
           "Implemented CI/CD pipelines reducing deployment time by 60%",
@@ -28,8 +30,8 @@ export const siteMetadata: SiteMetadata = {
       },
       {
         title: "Software Engineer",
-        company: "WebDev Corp",
-        period: "2017 - 2020",
+        company: "Cosmocloud",
+        period: "Jan,2023 - Oct,2023",
         highlights: [
           "Developed responsive web applications using React",
           "Optimized database queries improving performance by 35%",
@@ -52,10 +54,10 @@ export const siteMetadata: SiteMetadata = {
       }
     ],
     social: {
-      twitter: "johndoe",
-      github: "johndoe",
-      linkedin: "johndoe",
-      email: "john@example.com"
+      twitter: "https://twitter.com/abhinandan_001",
+      github: "https://github.com/abhinandanmishra1",
+      linkedin: "https://linkedin.com/in/abhinandanmishra1",
+      email: "mailto:abhinandanmishra360@gmail.com"
     }
   },
   categories: [

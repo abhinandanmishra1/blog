@@ -21,7 +21,7 @@ export const AboutPage = () => {
           <div className="flex justify-center space-x-6">
             {author.social.twitter && (
               <a
-                href={`https://twitter.com/${author.social.twitter}`}
+                href={author.social.twitter}
                 className="text-neutral-400 hover:text-white transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -31,7 +31,7 @@ export const AboutPage = () => {
             )}
             {author.social.linkedin && (
               <a
-                href={`https://linkedin.com/in/${author.social.linkedin}`}
+                href={author.social.linkedin}
                 className="text-neutral-400 hover:text-white transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -41,7 +41,7 @@ export const AboutPage = () => {
             )}
             {author.social.github && (
               <a
-                href={`https://github.com/${author.social.github}`}
+                href={author.social.github}
                 className="text-neutral-400 hover:text-white transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -51,7 +51,7 @@ export const AboutPage = () => {
             )}
             {author.social.email && (
               <a
-                href={`mailto:${author.social.email}`}
+                href={author.social.email}
                 className="text-neutral-400 hover:text-white transition-colors"
               >
                 <Mail className="w-6 h-6" />

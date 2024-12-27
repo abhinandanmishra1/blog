@@ -1,4 +1,4 @@
-import {ArticleCard} from './ArticleCard';
+import {ArticleCard} from '../ui/ArticleCard';
 import { Post } from '../../types';
 import React from 'react';
 

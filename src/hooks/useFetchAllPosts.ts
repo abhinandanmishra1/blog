@@ -1,11 +1,30 @@
-import { fetchAllPosts, getPreviewPosts } from "../api/hashnode";
+import { useEffect, useState } from "react";
 
+import { Post } from "../types";
+import { fetchAllPosts } from "../api/hashnode";
 import { useQuery } from "react-query";
 
-export const useFetchAllPosts = (showAll: boolean = false) => {
-  return useQuery({
-    queryKey: [showAll? "posts" : "previewPosts"],
-    queryFn: showAll ? fetchAllPosts : getPreviewPosts,
-    enabled: showAll,
+export const useFetchPosts = (cursor: string) => {
+  const [allPosts, setAllPosts] = useState<Post[]>([]);
+
+  const query = useQuery({
+    queryKey: ["posts", cursor],
+    queryFn: () => fetchAllPosts(cursor),
   });
+
+  useEffect(() => {
+    if (query.data?.posts) {
+      if (!cursor) {
+        setAllPosts(query.data?.posts || []);
+      } else {
+        setAllPosts((prev) => [...prev, ...query.data.posts]);
+      }
+    }
+  }, [query.data?.posts]);
+
+  return {
+    ...query,
+    posts: allPosts,
+    pageInfo: query.data?.pageInfo,
+  };
 };

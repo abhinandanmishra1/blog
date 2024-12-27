@@ -2,7 +2,7 @@ import { Check, Mail } from 'lucide-react';
 
 export const Newsletter = () => {
   return (
-    <section className="bg-neutral-900 py-24 relative overflow-hidden">
+    <section id="newsletter" className="bg-neutral-900 py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-3xl mx-auto text-center mb-12">
