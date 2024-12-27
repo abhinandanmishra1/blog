@@ -1,33 +1,26 @@
 import {ArticleCard} from '../ui/ArticleCard';
-import { Post } from '../../types';
-import React from 'react';
+import { ArticleLoader } from '../ui';
+import { useFetchPreviewPosts } from '../../hooks/useFetchPreviewPosts';
 
-interface ArticleGridProps {
-  title: string;
-  articles: Post[];
-  isLoading?: boolean;
-}
+export const ArticleGrid= () => {
+  const { data: articles, isLoading, error } = useFetchPreviewPosts();
 
-export const ArticleGrid: React.FC<ArticleGridProps> = ({ title, articles, isLoading }) => {
   if (isLoading) {
     return (
-      <section className="bg-neutral-900 py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">{title}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-neutral-800 border border-neutral-700 rounded-xl h-96 animate-pulse" />
-            ))}
-          </div>
-        </div>
+      <section className="bg-neutral-900 py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className='text-3xl md:text-4xl font-bold mb-12 text-white text-center'>Latest Articles</h1>
+        <ArticleLoader />
       </section>
     );
   }
 
+  if (error) return <div>Error loading articles</div>;
+  if (!articles) return <div>No articles found</div>;
+
   return (
     <section className="bg-neutral-900 py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">{title}</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">Latest Articles</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {articles?.map((article) => (
             <ArticleCard key={article.id} article={article} />

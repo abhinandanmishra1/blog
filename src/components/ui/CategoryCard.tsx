@@ -5,7 +5,7 @@ interface CategoryCardProps {
   title: string;
   description: string;
   count: number;
-  color: "blue" | "yellow" | "green";
+  color: "blue" | "yellow" | "green" | string;
 }
 
 export const CategoryCard: React.FC<CategoryCardProps> = ({
@@ -15,13 +15,6 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
   count,
   color,
 }) => {
-  const colorClasses = {
-    blue: "text-blue-400 group-hover:text-blue-300",
-    yellow: "text-yellow-400 group-hover:text-yellow-300",
-    green: "text-green-400 group-hover:text-green-300",
-  };
-
-
   return (
     <Card3D color={color}>
       <div className="group bg-neutral-800 border border-neutral-700 rounded-xl p-6 hover:bg-neutral-750 transition-all duration-300">
@@ -32,7 +25,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
           <span className="text-neutral-400 text-sm">{count} articles</span>
         </div>
         <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-        <p className="text-neutral-400 mb-4">{description}</p>
+        <p className="text-neutral-400 mb-4 line-clamp-1">{description}</p>
         <div className="flex justify-between items-center">
           <div className="flex -space-x-2">
             {[1, 2, 3].map((i) => (
@@ -46,7 +39,8 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
           </div>
           <a
             href="#"
-            className={`${colorClasses[color]} transition-colors duration-300`}
+            style={{ color }}
+            className={`transition-colors duration-300`}
           >
             View All →
           </a>

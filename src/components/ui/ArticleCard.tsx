@@ -11,7 +11,7 @@ interface ArticleCardProps {
 export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   return (
     <Link to={`/blog/${article.slug}`}>
-      <Card3D>
+      <Card3D color="rgb(255, 255, 255)">
         <article className="bg-neutral-800 border border-neutral-700 rounded-xl overflow-hidden transition-transform duration-300">
           <div className="aspect-[16/9]">
             <img

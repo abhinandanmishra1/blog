@@ -61,9 +61,75 @@ export const siteMetadata: SiteMetadata = {
     }
   },
   categories: [
-    // ... existing categories remain unchanged
-  ],
-//   navigation: {
-//     // ... existing navigation remains unchanged
-//   }
+    {
+      icon: "Code2", // React
+      title: "React",
+      description: "Modern web development with React, hooks, and best practices",
+      color: "rgb(66, 153, 225)",
+      tags: ["react"],
+    },
+    {
+      icon: 'Cpu', // JavaScript
+      title: "JavaScript",
+      description: "Core concepts, ES6+, and advanced JavaScript patterns",
+      color: "rgb(255, 193, 7)",
+      tags: ["javascript"],
+    },
+    {
+      icon: 'Gauge', // Web Development
+      title: "Web Development",
+      description: "Optimization techniques and responsive design patterns",
+      color: "rgb(72, 187, 120)",
+      tags: ["web-development"],
+    },
+    {
+      icon: 'Code2', // TypeScript
+      title: "TypeScript",
+      description: "Type-safe JavaScript with modern patterns",
+      color: "rgb(99, 179, 237)",
+      tags: ["typescript"],
+    },
+    {
+      icon: 'Layout', // CSS
+      title: "CSS",
+      description: "Styling for modern web applications",
+      color: "rgb(225, 112, 85)",
+      tags: ["css"],
+    },
+    {
+      icon: 'Server', // System Design
+      title: "System Design",
+      description: "Architectural patterns and large-scale system planning",
+      color: "rgb(144, 104, 252)",
+      tags: ["system-design"],
+    },
+    {
+      icon: 'Monitor', // Computer Networks
+      title: "Computer Networks",
+      description: "Networking basics and advanced concepts",
+      color: "rgb(85, 212, 245)",
+      tags: ["computer-networks"],
+    },
+    {
+      icon: 'Database', // Database Management
+      title: "Database Management",
+      description: "Efficient data storage and querying techniques",
+      color: "rgb(240, 165, 0)",
+      tags: ["database-management"],
+    },
+    {
+      icon: 'Cpu', // Operating Systems
+      title: "Operating Systems",
+      description: "Understanding OS fundamentals and advanced topics",
+      color: "rgb(250, 87, 97)",
+      tags: ["operating-systems"],
+    },
+    {
+      icon: 'Box', // Others
+      title: "Others",
+      description: "Explore diverse topics in tech",
+      color: "rgb(180, 180, 180)",
+      tags: ["others"],
+    },
+  ]
 };

@@ -34,8 +34,11 @@ export interface SocialLinks {
   // ... rest of the interfaces remain unchanged
   
   export interface Category {
-    name: string;
+    title: string;
     description: string;
+    tags: string[];
+    icon: string;
+    color: string;
   }
 
   export interface Navigation {

@@ -3,10 +3,10 @@ import { useState } from 'react';
 interface Card3DProps {
     children: React.ReactNode;
     className?: string;
-    color?: 'blue' | 'yellow' | 'green' | 'white';
+    color: string;
 }
 
-export const Card3D = ({ children, className = '', color = 'white' }: Card3DProps) => {
+export const Card3D = ({ children, className = '', color }: Card3DProps) => {
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [spotlight, setSpotlight] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
@@ -39,12 +39,7 @@ export const Card3D = ({ children, className = '', color = 'white' }: Card3DProp
     setRotation({ x: 0, y: 0 });
   };
 
-  const colorRgbMap = {
-    blue: '0, 0, 255',
-    green: '0, 255, 0',
-    yellow: '255, 255, 0',
-    white: '255, 255, 255'
-  }
+  const colorRgb = color.substring(4, color.length - 1);
 
   return (
     <div className="w-full" style={{ perspective: '1000px' }}>
@@ -64,8 +59,8 @@ export const Card3D = ({ children, className = '', color = 'white' }: Card3DProp
           <div 
             className="pointer-events-none absolute inset-0 transition duration-300 opacity-70"
             style={{
-              // make the color slightly less opacity and more distributed
-              background: `radial-gradient(circle at ${spotlight.x}% ${spotlight.y}%, rgba(${colorRgbMap[color]}, 0.15), transparent 80%)`
+                // make the color slightly less opacity and more distributed
+                background: `radial-gradient(circle at ${spotlight.x}% ${spotlight.y}%, rgba(${colorRgb}, 0.15), transparent 80%)`
             }}
           />
         )}
