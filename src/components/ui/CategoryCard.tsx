@@ -26,7 +26,11 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
           <div className="w-12 h-12 bg-neutral-700/30 rounded-lg flex items-center justify-center">
             {icon}
           </div>
-          <span className="text-neutral-400 text-sm">{count} articles</span>
+          {
+            count > 0 && (
+              <span className="text-neutral-400 text-sm">{count} articles</span>
+            )
+          }
         </div>
         <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
         <p className="text-neutral-400 mb-4 line-clamp-1">{description}</p>

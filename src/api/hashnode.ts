@@ -4,6 +4,7 @@ import type {
   HashnodeSeries,
   PostData,
   SeriesData,
+  SubscribeToNewsletterResponse,
   Tag,
 } from "../types";
 import { GraphQLClient, gql } from "graphql-request";
@@ -170,12 +171,7 @@ export const getPost = async (slug?: string) => {
                 html
               }
               posts(first: 20) {
-                edges {
-                  node {
-                    title
-                    slug
-                  }
-                }
+                totalDocuments
               }
             }
             coverImage {
@@ -254,11 +250,9 @@ export const getAllPostsTagWise = async () => {
   return tagWisePosts;
 };
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const getSeries = async (slug?: string, cursor: string = "") => {
   const client = getClient();
-  await wait(2000);
   const data = await client.request<{
     publication: { series: HashnodeSeries };
   }>(
@@ -310,4 +304,28 @@ export const getSeries = async (slug?: string, cursor: string = "") => {
       0
     ),
   };
+};
+
+export const subscribeToNewsletter = async (email: string) => {
+  const client = getClient();
+  try {
+    const data = await client.request<SubscribeToNewsletterResponse>(gql`
+      mutation subscribeToNewsletter($input: SubscribeToNewsletterInput!) {
+        subscribeToNewsletter(input: $input) {
+          status
+        }
+      }
+    `, { input: { email, publicationId: "62a0d9bb68ad9b73958af585" } });
+
+    return {
+      status: data.subscribeToNewsletter.status,
+      error: null
+    };
+  } catch (error: any) {
+    const errorMessage = error.response?.errors?.[0]?.message;
+    return {
+      status: "error",
+      error: errorMessage || "Something went wrong",
+    };
+  }
 };

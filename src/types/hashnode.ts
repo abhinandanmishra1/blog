@@ -23,6 +23,7 @@ export interface HashnodePosts {
     node: HashnodePostNode;
   }[];
   pageInfo: PageInfo;
+  totalDocuments: number;
 }
 
 export interface HashnodeSeries {
@@ -92,5 +93,14 @@ export interface SeriesData {
         node: HashnodeSeries;
       }[];
     };
+  };
+}
+
+export interface SubscribeToNewsletterResponse {
+  subscribeToNewsletter: {
+    status: string;
+    errors?: {
+      message: string;
+    }[];
   };
 }

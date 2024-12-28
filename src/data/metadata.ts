@@ -134,7 +134,7 @@ export const siteMetadata: SiteMetadata = {
       description: "Type-safe JavaScript with modern patterns",
       color: "rgb(99, 179, 237)",
       tag: "typescript",
-      coverImage: "https://abhicdn.netlify.app/images/cover/typescript.png"
+      coverImage: "https://abhicdn.netlify.app/images/cover/typescript-1.webp"
     },
     {
       icon: 'Layout', // CSS
