@@ -177,6 +177,37 @@ export const getPost = async (slug?: string) => {
             coverImage {
               url
             }
+            comments(first: 8) {
+              edges {
+                node {
+                  content {
+                    html
+                  }
+                  replies(first: 4) {
+                    totalDocuments
+                    edges {
+                      node {
+                        content {
+                          html
+                        }
+                        author {
+                          name
+                          id
+                          profilePicture
+                        }
+                        dateAdded
+                      }
+                    }
+                  }
+                  author {
+                    name
+                    id
+                    profilePicture
+                  }
+                  dateAdded
+                }
+              }
+            }
           }
         }
       }
@@ -186,6 +217,7 @@ export const getPost = async (slug?: string) => {
 
   return data.publication.post;
 };
+
 
 export const getAllSeries = async () => {
   const client = getClient();

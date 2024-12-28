@@ -1,16 +1,18 @@
-import { BlogContent, ViewSeries } from '../components';
-import { Link, useParams } from 'react-router-dom';
+import { BlogContent, ViewSeries } from "../components";
+import { Link, useParams } from "react-router-dom";
 
-import { ArrowLeft } from 'lucide-react';
-import { formatDate } from '../utils/dateUtils';
-import { useFetchPost } from '../hooks/useFetchPost';
+import { ArrowLeft } from "lucide-react";
+import { Comments } from "../components";
+import { formatDate } from "../utils/dateUtils";
+import { useFetchPost } from "../hooks/useFetchPost";
 
 export const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
 
   const { data: post, isLoading, error } = useFetchPost(slug);
-
-  console.log(post)
+  const navigateToHashnode = () => {
+    window.open(`https://hashnode.com/post/${slug}`, '_blank');
+  };
 
   if (isLoading) {
     return (
@@ -34,8 +36,10 @@ export const BlogPost = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-white mb-4">Error</h1>
-          <p className="text-neutral-400 mb-8">There was an error loading the blog post.</p>
-          <Link 
+          <p className="text-neutral-400 mb-8">
+            There was an error loading the blog post.
+          </p>
+          <Link
             to="/"
             className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300"
           >
@@ -51,7 +55,7 @@ export const BlogPost = () => {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
         <h1 className="text-2xl font-bold text-white mb-4">Post not found</h1>
-        <Link 
+        <Link
           to="/"
           className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300"
         >
@@ -64,7 +68,7 @@ export const BlogPost = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      <Link 
+      <Link
         to="/"
         className="inline-flex items-center gap-2 text-neutral-400 hover:text-white mb-8"
       >
@@ -77,8 +81,8 @@ export const BlogPost = () => {
           <h1 className="text-4xl font-bold text-white mb-6">{post.title}</h1>
           <div className="flex items-center gap-6 text-neutral-400">
             <div className="flex items-center gap-3">
-              <img 
-                src={post.author.profilePicture} 
+              <img
+                src={post.author.profilePicture}
                 alt={post.author.name}
                 className="w-10 h-10 rounded-full"
               />
@@ -91,8 +95,8 @@ export const BlogPost = () => {
 
         {post.coverImage?.url && (
           <div className="mb-12">
-            <img 
-              src={post.coverImage.url} 
+            <img
+              src={post.coverImage.url}
               alt={post.title}
               className="w-full rounded-xl"
             />
@@ -120,6 +124,18 @@ export const BlogPost = () => {
             ))}
           </div>
         </footer>
+
+        {/* <Comments comments={post.comments} /> */}
+        <Comments
+          comments={post.comments}
+          userProfilePicture={post.author.profilePicture}
+          // userProfilePicture={currentUser?.profilePicture} // Add this
+          onPostComment={async (content) => {
+            // Add your comment posting logic here
+            console.log("Posting comment:", content);
+          }}
+          navigateToHashnode={navigateToHashnode}
+        />
       </article>
     </div>
   );

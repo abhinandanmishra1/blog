@@ -60,11 +60,34 @@ export interface HashnodePostNode {
   views: number;
 }
 
+export interface Comment {
+  content: {
+    html: string;
+  };
+  author: {
+    name: string;
+    id: string;
+    profilePicture: string;
+  };
+  dateAdded: string;
+  replies: {
+    totalDocuments: number;
+    edges: {
+      node: Comment;
+    }[];
+  };
+}
 
 export interface FullPost extends HashnodePostNode {
   content: {
     html: string;
     markdown: string;
+  };
+  comments: {
+    totalDocuments: number;
+    edges: {
+      node: Comment;
+    }[];
   };
 }
 
