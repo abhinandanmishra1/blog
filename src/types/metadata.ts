@@ -42,7 +42,7 @@ export interface SocialLinks {
   export interface Category {
     title: string;
     description: string;
-    tags: string[];
+    tag: string;
     icon: string;
     color: string;
   }
@@ -62,6 +62,12 @@ export interface SocialLinks {
     about: string;
     articles: string;
   }
+
+  export interface Tag {
+    name: string;
+    slug: string;
+    description: string;
+  }
   
   export interface SiteMetadata {
     title: string;
@@ -70,5 +76,6 @@ export interface SocialLinks {
     author: Author;
     categories: Category[];
     seriesList: Series[];
+    tags: Tag[];
     // navigation: Navigation;
   }

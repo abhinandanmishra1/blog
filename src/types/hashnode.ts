@@ -16,16 +16,24 @@ export interface Tag {
   slug: string;
 }
 
+export interface HashnodePosts {
+  title: string;
+  slug: string;
+  edges: {
+    node: HashnodePostNode;
+  }[];
+  pageInfo: PageInfo;
+}
+
 export interface HashnodeSeries {
   name: string;
   slug: string;
+  coverImage: string;
   description: {
     html: string;
   };
-  posts?: {
-    title: string;
-    slug: string;
-  }[];
+  posts: HashnodePosts;
+  views: number;
 }
 
 interface Author {
@@ -37,7 +45,7 @@ interface CoverImage {
   url: string;
 }
 
-interface BasePost {
+export interface HashnodePostNode {
   id: string;
   author: Author;
   publishedAt: string;
@@ -48,11 +56,11 @@ interface BasePost {
   tags: Tag[];
   series?: HashnodeSeries;
   coverImage: CoverImage;
+  views: number;
 }
 
-export interface Post extends BasePost {}
 
-export interface FullPost extends BasePost {
+export interface FullPost extends HashnodePostNode {
   content: {
     html: string;
     markdown: string;
@@ -66,14 +74,7 @@ export interface PageInfo {
 
 export interface AllPostsData {
   publication: {
-    id: string;
-    title: string;
-    posts: {
-      pageInfo: PageInfo;
-      edges: {
-        node: Post;
-      }[];
-    };
+    posts: HashnodePosts;
   };
 }
 
@@ -85,6 +86,11 @@ export interface PostData {
 
 export interface SeriesData {
   publication: {
-    series: HashnodeSeries[];
+    seriesList: {
+      totalDocuments: number;
+      edges: {
+        node: HashnodeSeries;
+      }[];
+    };
   };
 }

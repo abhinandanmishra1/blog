@@ -109,70 +109,127 @@ export const siteMetadata: SiteMetadata = {
       title: "React",
       description: "Modern web development with React, hooks, and best practices",
       color: "rgb(66, 153, 225)",
-      tags: ["react"],
+      tag: "react",
     },
     {
       icon: 'Cpu', // JavaScript
       title: "JavaScript",
       description: "Core concepts, ES6+, and advanced JavaScript patterns",
       color: "rgb(255, 193, 7)",
-      tags: ["javascript"],
+      tag: "javascript",
     },
     {
       icon: 'Gauge', // Web Development
       title: "Web Development",
       description: "Optimization techniques and responsive design patterns",
       color: "rgb(72, 187, 120)",
-      tags: ["web-development"],
+      tag: "web-development",
     },
     {
       icon: 'Code2', // TypeScript
       title: "TypeScript",
       description: "Type-safe JavaScript with modern patterns",
       color: "rgb(99, 179, 237)",
-      tags: ["typescript"],
+      tag: "typescript",
     },
     {
       icon: 'Layout', // CSS
       title: "CSS",
       description: "Styling for modern web applications",
       color: "rgb(225, 112, 85)",
-      tags: ["css"],
+      tag: "css",
     },
     {
       icon: 'Server', // System Design
       title: "System Design",
       description: "Architectural patterns and large-scale system planning",
       color: "rgb(144, 104, 252)",
-      tags: ["system-design"],
+      tag: "system-design",
     },
     {
       icon: 'Monitor', // Computer Networks
       title: "Computer Networks",
       description: "Networking basics and advanced concepts",
       color: "rgb(85, 212, 245)",
-      tags: ["computer-networks"],
+      tag: "computer-network",
     },
     {
       icon: 'Database', // Database Management
-      title: "Database Management",
+      title: "Databases",
       description: "Efficient data storage and querying techniques",
       color: "rgb(240, 165, 0)",
-      tags: ["database-management"],
+      tag: "databases",
     },
     {
       icon: 'Cpu', // Operating Systems
       title: "Operating Systems",
       description: "Understanding OS fundamentals and advanced topics",
       color: "rgb(250, 87, 97)",
-      tags: ["operating-systems"],
+      tag: "operating-system",
     },
     {
       icon: 'Box', // Others
       title: "Others",
       description: "Explore diverse topics in tech",
       color: "rgb(180, 180, 180)",
-      tags: ["others"],
+      tag: "others",
+    },
+  ],
+  tags: [
+    {
+      name: "react",
+      slug: "react",
+      description: "Modern web development with React, hooks, and best practices",
+    },
+    {
+      name: "javascript",
+      slug: "javascript",
+      description: "Core concepts, ES6+, and advanced JavaScript patterns",
+    },
+    {
+      name: "web-development",
+      slug: "web-development",
+      description: "Optimization techniques and responsive design patterns",
+    },
+    {
+      name: "typescript",
+      slug: "typescript",
+      description: "Type-safe JavaScript with modern patterns",
+    },
+    {
+      name: "css",
+      slug: "css",
+      description: "Styling for modern web applications",
+    },
+    {
+      name: "system-design",
+      slug: "system-design",
+      description: "Architectural patterns and large-scale system planning",
+    },
+    {
+      name: "computer-network",
+      slug: "computer-network",
+      description: "Networking basics and advanced concepts",
+    },
+    {
+      name: "databases",
+      slug: "databases",
+      description: "Efficient data storage and querying techniques",
+    },
+    {
+      name: "operating-systems",
+      slug: "operating-system",
+      description: "Understanding OS fundamentals and advanced topics",
+    },
+    {
+      name: "others",
+      slug: "others",
+      description: "Explore diverse topics in tech",
+    },
+    {
+      name: "programming",
+      slug: "problem-solving",
+      description: "Programming concepts and best practices",
     },
   ],
   seriesList: [

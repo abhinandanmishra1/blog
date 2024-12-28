@@ -1,5 +1,14 @@
-import type { AllPostsData, PageInfo, Post, PostData, SeriesData } from "../types";
+import type {
+  AllPostsData,
+  HashnodePostNode,
+  HashnodeSeries,
+  PostData,
+  SeriesData,
+  Tag,
+} from "../types";
 import { GraphQLClient, gql } from "graphql-request";
+
+import { siteMetadata } from "../data/metadata";
 
 export const getClient = () => {
   return new GraphQLClient("https://gql.hashnode.com");
@@ -101,6 +110,7 @@ const getPostsAtCursor = async (cursor = "") => {
                 seo {
                   description
                 }
+                views
               }
             }
             pageInfo {
@@ -116,11 +126,13 @@ const getPostsAtCursor = async (cursor = "") => {
   return allPosts;
 };
 
-export const fetchAllPosts = async (cursor: string = ""): Promise<{ posts: Post[], pageInfo: PageInfo }> => {
+export const fetchAllPosts = async (
+  cursor: string = ""
+) => {
   const data = await getPostsAtCursor(cursor);
 
   return {
-    posts: data.publication.posts.edges.map(({ node }: { node: Post }) => node),
+    posts: data.publication.posts.edges.map(({ node }) => node),
     pageInfo: data.publication.posts.pageInfo,
   };
 };
@@ -186,13 +198,24 @@ export const getAllSeries = async () => {
     gql`
       query getAllSeries {
         publication(host: "${hashnodeURL}") {
-          series {
-            name
-            slug
-            description
-            posts {
-              title
-              slug
+          seriesList(first: 20) {
+            edges {
+              node {
+                name
+                description {
+                  html
+                }
+                coverImage
+                slug
+
+                posts(first: 20) {
+                  edges {
+                    node {
+                      views
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -200,5 +223,91 @@ export const getAllSeries = async () => {
     `
   );
 
-  return data.publication.series;
+  return data.publication.seriesList.edges.map(({ node }) => {
+    return {
+      ...node,
+      views:
+        node.posts?.edges.reduce((acc, curr) => acc + curr.node.views, 0) || 0,
+    };
+  });
+};
+
+export const getAllPostsTagWise = async () => {
+  let cursor = "";
+  let hasNextPage = true;
+  const allPosts: HashnodePostNode[] = [];
+
+  while (hasNextPage) {
+    const { posts, pageInfo } = await fetchAllPosts(cursor);
+    allPosts.push(...posts);
+    cursor = pageInfo.endCursor;
+    hasNextPage = pageInfo.hasNextPage;
+  }
+
+  const tagWisePosts = siteMetadata.tags.reduce((acc, tag) => {
+    acc[tag.slug] = allPosts.filter((post) =>
+      post.tags.some((t: Tag) => t.slug === tag.slug)
+    );
+    return acc;
+  }, {} as Record<string, HashnodePostNode[]>);
+
+  return tagWisePosts;
+};
+
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export const getSeries = async (slug?: string, cursor: string = "") => {
+  const client = getClient();
+  await wait(2000);
+  const data = await client.request<{
+    publication: { series: HashnodeSeries };
+  }>(
+    gql`
+      query getSeries($slug: String!) {
+        publication(host: "${hashnodeURL}") {
+          series(slug: $slug) {
+            id
+            name
+            description {
+              html
+            }
+            coverImage
+            slug
+            posts(first: 8, after: "${cursor}") {
+              edges {
+                node {
+                  title
+                  slug
+                  brief
+                  tags {
+                    name
+                    slug
+                  }
+                  coverImage {
+                    url
+                  }
+                  publishedAt
+                  updatedAt
+                  readTimeInMinutes
+                }
+              }
+              pageInfo {
+                endCursor
+                hasNextPage
+              }
+            }
+          }
+        }
+      }
+    `,
+    { slug }
+  );
+
+  return {
+    ...data.publication.series,
+    views: data.publication.series.posts.edges.reduce(
+      (acc, curr) => acc + curr.node.views,
+      0
+    ),
+  };
 };

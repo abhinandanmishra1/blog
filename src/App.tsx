@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import { Layout } from "./components";
 import { SeriesPage } from "./pages/Series";
+import SeriesView from "./pages/SeriesView";
 
 function App() {
   return (
@@ -13,7 +14,10 @@ function App() {
         <Route path="/articles" element={<Articles />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="/series" element={<SeriesPage />} />
+        <Route path="/series" >
+          <Route index element={<SeriesPage />} />
+          <Route path=":slug" element={<SeriesView />} />
+        </Route>
       </Route>
     </Routes>
   );

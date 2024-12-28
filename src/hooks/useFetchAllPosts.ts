@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-import { Post } from "../types";
+import { HashnodePostNode } from "../types";
 import { fetchAllPosts } from "../api/hashnode";
 import { useQuery } from "react-query";
 
 export const useFetchPosts = (cursor: string) => {
-  const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [allPosts, setAllPosts] = useState<HashnodePostNode[]>([]);
 
   const query = useQuery({
     queryKey: ["posts", cursor],

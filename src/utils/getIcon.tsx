@@ -28,8 +28,6 @@ export const getIcon = (icon: string, color: string) => {
       return <Cpu className="w-6 h-6" style={{ color: color }} />;
     case "Box":
       return <Box className="w-6 h-6" style={{ color: color }} />;
-    case "BookOpen":
-      return <BookOpen className="w-6 h-6" style={{color: 'white'}} />;
     default:
       return null;
   }

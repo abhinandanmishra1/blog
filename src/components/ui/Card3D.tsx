@@ -42,7 +42,7 @@ export const Card3D = ({ children, className = '', color }: Card3DProps) => {
   const colorRgb = color.substring(4, color.length - 1);
 
   return (
-    <div className="w-full" style={{ perspective: '1000px' }}>
+    <div className="w-full cursor-pointer" style={{ perspective: '1000px' }}>
       <div
         className={`relative w-full rounded-xl bg-gray-800/50 backdrop-blur-sm shadow-lg 
           transition-all duration-200 ease-linear overflow-hidden ${className}`}
