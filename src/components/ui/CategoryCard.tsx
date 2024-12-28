@@ -1,8 +1,10 @@
 import { Card3D } from "./Card3D";
+import { useNavigate } from "react-router-dom";
 
 interface CategoryCardProps {
   icon: React.ReactNode;
   title: string;
+  slug: string;
   description: string;
   count: number;
   color: "blue" | "yellow" | "green" | string;
@@ -14,10 +16,12 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
   description,
   count,
   color,
+  slug,
 }) => {
+  const navigate = useNavigate();
   return (
     <Card3D color={color}>
-      <div className="group bg-neutral-800 border border-neutral-700 rounded-xl p-6 hover:bg-neutral-750 transition-all duration-300">
+      <div onClick={() => navigate(`/categories/${slug}`)} className="group bg-neutral-800 border border-neutral-700 rounded-xl p-6 hover:bg-neutral-750 transition-all duration-300">
         <div className="flex items-center justify-between mb-4">
           <div className="w-12 h-12 bg-neutral-700/30 rounded-lg flex items-center justify-center">
             {icon}

@@ -1,4 +1,4 @@
-import { SeriesArticleCard, SeriesArticleLoader, SeriesViewLoader } from "../components";
+import { Article2Loader, Article2ViewLoader, ArticleCard2 } from "../components";
 
 import { useGetSeries } from "../hooks/useGetSeries";
 import { useParams } from "react-router-dom";
@@ -9,10 +9,8 @@ const SeriesView = () => {
     slug as string
   );
 
-  if (isLoading && !series.slug) return <SeriesViewLoader />;
+  if (isLoading && !series.slug) return <Article2ViewLoader />;
   if (error) return <div>Series not found</div>;
-
-  console.log(series);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
@@ -33,15 +31,15 @@ const SeriesView = () => {
 
       <div className="space-y-6">
         {series.posts?.edges?.map((article) => (
-          <SeriesArticleCard key={article.node.slug} article={article.node} />
+          <ArticleCard2 key={article.node.slug} article={article.node} />
         ))}
       </div>
 
       {
         isLoading && (
           <div className="flex justify-center mt-6">
-            <SeriesArticleLoader />
-            <SeriesArticleLoader />
+            <Article2Loader />
+            <Article2Loader />
           </div>
         )
       }

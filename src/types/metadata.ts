@@ -45,6 +45,7 @@ export interface SocialLinks {
     tag: string;
     icon: string;
     color: string;
+    coverImage: string;
   }
 
   export interface Series {

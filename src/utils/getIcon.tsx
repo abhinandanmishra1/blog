@@ -1,5 +1,4 @@
 import {
-  BookOpen,
   Box,
   Code2,
   Cpu,
@@ -10,24 +9,24 @@ import {
   Server,
 } from "lucide-react";
 
-export const getIcon = (icon: string, color: string) => {
+export const getIcon = (icon: string, color: string, className: string = "w-6 h-6") => {
   switch (icon) {
     case "Gauge":
-      return <Gauge className="w-6 h-6" style={{ color: color }} />;
+      return <Gauge className={className} style={{ color: color }} />;
     case "Code2":
-      return <Code2 className="w-6 h-6" style={{ color: color }} />;
+      return <Code2 className={className} style={{ color: color }} />;
     case "Layout":
-      return <Layout className="w-6 h-6" style={{ color: color }} />;
+      return <Layout className={className} style={{ color: color }} />;
     case "Server":
-      return <Server className="w-6 h-6" style={{ color: color }} />;
+      return <Server className={className} style={{ color: color }} />;
     case "Monitor":
-      return <Monitor className="w-6 h-6" style={{ color: color }} />;
+      return <Monitor className={className} style={{ color: color }} />;
     case "Database":
-      return <Database className="w-6 h-6" style={{ color: color }} />;
+      return <Database className={className} style={{ color: color }} />;
     case "Cpu":
-      return <Cpu className="w-6 h-6" style={{ color: color }} />;
+      return <Cpu className={className} style={{ color: color }} />;
     case "Box":
-      return <Box className="w-6 h-6" style={{ color: color }} />;
+      return <Box className={className} style={{ color: color }} />;
     default:
       return null;
   }

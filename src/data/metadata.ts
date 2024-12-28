@@ -110,6 +110,7 @@ export const siteMetadata: SiteMetadata = {
       description: "Modern web development with React, hooks, and best practices",
       color: "rgb(66, 153, 225)",
       tag: "react",
+      coverImage: "https://abhicdn.netlify.app/images/cover/react-1.webp"
     },
     {
       icon: 'Cpu', // JavaScript
@@ -117,6 +118,7 @@ export const siteMetadata: SiteMetadata = {
       description: "Core concepts, ES6+, and advanced JavaScript patterns",
       color: "rgb(255, 193, 7)",
       tag: "javascript",
+      coverImage: "https://abhicdn.netlify.app/images/cover/javascript-1.webp"
     },
     {
       icon: 'Gauge', // Web Development
@@ -124,6 +126,7 @@ export const siteMetadata: SiteMetadata = {
       description: "Optimization techniques and responsive design patterns",
       color: "rgb(72, 187, 120)",
       tag: "web-development",
+      coverImage: "https://abhicdn.netlify.app/images/cover/web-development-3.png"
     },
     {
       icon: 'Code2', // TypeScript
@@ -131,6 +134,7 @@ export const siteMetadata: SiteMetadata = {
       description: "Type-safe JavaScript with modern patterns",
       color: "rgb(99, 179, 237)",
       tag: "typescript",
+      coverImage: "https://abhicdn.netlify.app/images/cover/typescript.png"
     },
     {
       icon: 'Layout', // CSS
@@ -138,6 +142,7 @@ export const siteMetadata: SiteMetadata = {
       description: "Styling for modern web applications",
       color: "rgb(225, 112, 85)",
       tag: "css",
+      coverImage: "https://abhicdn.netlify.app/images/cover/css-1.webp"
     },
     {
       icon: 'Server', // System Design
@@ -145,6 +150,7 @@ export const siteMetadata: SiteMetadata = {
       description: "Architectural patterns and large-scale system planning",
       color: "rgb(144, 104, 252)",
       tag: "system-design",
+      coverImage: "https://abhicdn.netlify.app/images/cover/system-design.png"
     },
     {
       icon: 'Monitor', // Computer Networks
@@ -152,6 +158,7 @@ export const siteMetadata: SiteMetadata = {
       description: "Networking basics and advanced concepts",
       color: "rgb(85, 212, 245)",
       tag: "computer-network",
+      coverImage: "https://abhicdn.netlify.app/images/cover/computer-network-1.webp"
     },
     {
       icon: 'Database', // Database Management
@@ -159,6 +166,7 @@ export const siteMetadata: SiteMetadata = {
       description: "Efficient data storage and querying techniques",
       color: "rgb(240, 165, 0)",
       tag: "databases",
+      coverImage: "https://abhicdn.netlify.app/images/cover/databases-1.png"
     },
     {
       icon: 'Cpu', // Operating Systems
@@ -166,6 +174,7 @@ export const siteMetadata: SiteMetadata = {
       description: "Understanding OS fundamentals and advanced topics",
       color: "rgb(250, 87, 97)",
       tag: "operating-system",
+      coverImage: "https://abhicdn.netlify.app/images/cover/operating-system.webp"
     },
     {
       icon: 'Box', // Others
@@ -173,6 +182,7 @@ export const siteMetadata: SiteMetadata = {
       description: "Explore diverse topics in tech",
       color: "rgb(180, 180, 180)",
       tag: "others",
+      coverImage: "https://abhicdn.netlify.app/images/cover/web-development-1.png"
     },
   ],
   tags: [

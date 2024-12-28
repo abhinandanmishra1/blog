@@ -3,7 +3,7 @@ import { Calendar, Clock, User } from "lucide-react";
 import { formatDate } from "../../utils";
 import { useNavigate } from "react-router-dom";
 
-interface SeriesArticle {
+interface Article {
   slug: string;
   title: string;
   brief: string;
@@ -22,7 +22,7 @@ interface SeriesArticle {
   publishedAt: string;
 }
 
-export const SeriesArticleCard = ({ article }: { article?: SeriesArticle }) => {
+export const ArticleCard2 = ({ article }: { article?: Article }) => {
   const navigate = useNavigate();
   if (!article) return null;
 

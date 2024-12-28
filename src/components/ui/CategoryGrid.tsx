@@ -18,6 +18,7 @@ export const CategoryGrid = ({ first = 3 }: { first?: number }) => {
       {categories.filter((category) => tagWisePosts?.[category.tag]?.length || 0 > 0).map((category) => (
         <CategoryCard
           key={category.title}
+          slug={category.tag}
           icon={category.icon}
           title={category.title}
           description={category.description}

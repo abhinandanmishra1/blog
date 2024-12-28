@@ -6,4 +6,4 @@ export * from "./PageHeader";
 export * from "./CategoryGrid";
 export * from "./SeriesCard";
 export * from "./SeriesGrid";
-export * from "./SeriesArticleCard";
+export * from "./ArticleCard2";
