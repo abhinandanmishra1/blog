@@ -29,7 +29,7 @@ export const ArticleCard2 = ({ article }: { article?: Article }) => {
   return (
     <div
       className="group relative bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 ease-out hover:border-zinc-700 cursor-pointer"
-      onClick={() => navigate(`/blog/${article.slug}`)}
+      onClick={() => navigate(`/articles/${article.slug}`)}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-zinc-900/0 via-zinc-900/0 to-zinc-900/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
 

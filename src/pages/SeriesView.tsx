@@ -1,4 +1,4 @@
-import { Article2Loader, Article2ViewLoader, ArticleCard2 } from "../components";
+import { Article2Loader, Article2ViewLoader, ArticleCard2, BackButton } from "../components";
 
 import { useGetSeries } from "../hooks/useGetSeries";
 import { useParams } from "react-router-dom";
@@ -14,6 +14,7 @@ const SeriesView = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <BackButton />
       <div className="relative rounded-2xl overflow-hidden mb-12">
         <img
           src={series.coverImage}

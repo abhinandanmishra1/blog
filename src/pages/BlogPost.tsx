@@ -1,4 +1,4 @@
-import { BlogContent, ViewSeries } from "../components";
+import { BackButton, BlogContent, ViewSeries } from "../components";
 import { Link, useParams } from "react-router-dom";
 
 import { ArrowLeft } from "lucide-react";
@@ -39,13 +39,7 @@ export const BlogPost = () => {
           <p className="text-neutral-400 mb-8">
             There was an error loading the blog post.
           </p>
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Home
-          </Link>
+          <BackButton className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300" />
         </div>
       </div>
     );
@@ -68,13 +62,7 @@ export const BlogPost = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-2 text-neutral-400 hover:text-white mb-8"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        Back to Home
-      </Link>
+      <BackButton />
 
       <article>
         <header className="mb-12">

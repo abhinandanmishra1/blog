@@ -1,10 +1,11 @@
-import { Article2ViewLoader, ArticleCard2 } from '../components';
+import { Article2ViewLoader, ArticleCard2, BackButton } from '../components';
 
 import { getIcon } from '../utils';
 import { siteMetadata } from '../data/metadata';
 import { useGetAllPostsTagWise } from '../hooks';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+import { HashnodePostNode } from '../types';
 
 export const CategoryView = () => {
   const { slug } = useParams();
@@ -23,6 +24,7 @@ export const CategoryView = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <BackButton />
       <div className="relative rounded-2xl overflow-hidden mb-12">
         <img
           src={currentCategory?.coverImage}
@@ -56,7 +58,7 @@ export const CategoryView = () => {
       </div>
 
       <div className="space-y-6">
-        {categoryPosts.map((article) => (
+        {categoryPosts.map((article: HashnodePostNode) => (
           <ArticleCard2 key={article.slug} article={article} />
         ))}
       </div>

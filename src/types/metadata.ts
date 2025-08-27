@@ -63,12 +63,6 @@ export interface SocialLinks {
     about: string;
     articles: string;
   }
-
-  export interface Tag {
-    name: string;
-    slug: string;
-    description: string;
-  }
   
   export interface SiteMetadata {
     title: string;
