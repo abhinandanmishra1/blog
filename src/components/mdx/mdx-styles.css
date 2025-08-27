@@ -1,0 +1,80 @@
+/* MDX Content Styles */
+.mdx-content {
+  @apply text-neutral-300;
+}
+
+/* Code highlighting for highlight.js */
+.mdx-content pre code.hljs {
+  @apply !bg-transparent;
+}
+
+.mdx-content .hljs {
+  @apply !bg-neutral-900;
+}
+
+/* Ensure proper spacing in nested components */
+.mdx-content > * + * {
+  @apply mt-4;
+}
+
+.mdx-content h1 + *,
+.mdx-content h2 + *,
+.mdx-content h3 + *,
+.mdx-content h4 + *,
+.mdx-content h5 + *,
+.mdx-content h6 + * {
+  @apply mt-4;
+}
+
+/* Custom scrollbar for code blocks */
+.mdx-content pre {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(64, 64, 64) rgb(23, 23, 23);
+}
+
+.mdx-content pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.mdx-content pre::-webkit-scrollbar-track {
+  @apply bg-neutral-900;
+}
+
+.mdx-content pre::-webkit-scrollbar-thumb {
+  @apply bg-neutral-600 rounded;
+}
+
+.mdx-content pre::-webkit-scrollbar-thumb:hover {
+  @apply bg-neutral-500;
+}
+
+/* Focus styles for interactive elements */
+.mdx-content button:focus-visible,
+.mdx-content [tabindex]:focus-visible {
+  @apply outline-2 outline-blue-500 outline-offset-2;
+}
+
+/* Table responsive wrapper */
+.mdx-content table {
+  @apply border-collapse border border-neutral-700;
+}
+
+.mdx-content tbody tr:nth-child(even) {
+  @apply bg-neutral-800/30;
+}
+
+/* Link hover effects */
+.mdx-content a:hover {
+  @apply decoration-2;
+}
+
+/* Print styles */
+@media print {
+  .mdx-content {
+    @apply text-black;
+  }
+  
+  .mdx-content pre {
+    @apply border border-gray-300;
+  }
+}

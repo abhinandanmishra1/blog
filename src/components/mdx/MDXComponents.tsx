@@ -1,31 +1,16 @@
-import "./index.css";
-
-import { QueryClient, QueryClientProvider } from "react-query";
-
-import App from "./App.tsx";
-import { BrowserRouter } from "react-router-dom";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
 import { MDXProvider } from '@mdx-js/react';
-import { 
-  Badge, 
-  Callout, 
-  CodeBlock, 
-  CodeSandbox, 
-  FileTree, 
-  FileTreeItem, 
-  ImageComparison, 
-  InlineCode, 
-  Steps, 
-  Step, 
-  Tabs, 
-  TabItem, 
-  YouTube 
-} from './components/mdx';
+import { Badge } from './Badge';
+import { Callout } from './Callout';
+import { CodeBlock } from './CodeBlock';
+import { CodeSandbox } from './CodeSandbox';
+import { FileTree, FileTreeItem } from './FileTree';
+import { ImageComparison } from './ImageComparison';
+import { InlineCode } from './InlineCode';
+import { Steps, Step } from './Steps';
+import { Tabs, TabItem } from './Tabs';
+import { YouTube } from './YouTube';
 
-const queryClient = new QueryClient();
-
-const mdxComponents = {
+const components = {
   // Standard HTML elements with custom styling
   h1: (props: any) => (
     <h1 className="text-4xl font-bold text-white mb-6 mt-8" {...props} />
@@ -121,7 +106,6 @@ const mdxComponents = {
   FileTree,
   FileTreeItem,
   ImageComparison,
-  InlineCode,
   Steps,
   Step,
   Tabs,
@@ -129,14 +113,16 @@ const mdxComponents = {
   YouTube,
 };
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <MDXProvider components={mdxComponents}>
-          <App />
-        </MDXProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
-  </StrictMode>
-);
+interface MDXComponentsProps {
+  children: React.ReactNode;
+}
+
+export const MDXComponents: React.FC<MDXComponentsProps> = ({ children }) => {
+  return (
+    <MDXProvider components={components}>
+      <div className="prose prose-neutral prose-invert max-w-none">
+        {children}
+      </div>
+    </MDXProvider>
+  );
+};

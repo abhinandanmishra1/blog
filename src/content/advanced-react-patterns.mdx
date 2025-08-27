@@ -1,0 +1,193 @@
+---
+title: "Advanced React Patterns You Should Know"
+brief: "Explore advanced React patterns including render props, higher-order components, and custom hooks to build scalable applications."
+publishedAt: "2024-01-20T14:30:00Z"
+readTimeInMinutes: 25
+tags:
+  - name: "React"
+    slug: "react"
+  - name: "Advanced"
+    slug: "advanced"
+  - name: "Patterns"
+    slug: "patterns"
+  - name: "Best Practices"
+    slug: "best-practices"
+coverImage:
+  url: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?w=800&h=400&fit=crop"
+author:
+  name: "Abhinandan Mishra"
+  profilePicture: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+views: 890
+series:
+  name: "React TypeScript Mastery"
+  slug: "react-typescript-mastery"
+  description:
+    html: "<p>A comprehensive series on mastering React with TypeScript for modern web development.</p>"
+  coverImage: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=200&fit=crop"
+---
+
+# Advanced React Patterns You Should Know
+
+In this article, we'll dive deep into advanced React patterns that will help you build more maintainable and scalable applications.
+
+<Callout type="info" title="Prerequisites">
+This article assumes you have a solid understanding of React fundamentals including components, state, and props.
+</Callout>
+
+## Render Props Pattern
+
+The render props pattern is a technique for sharing code between React components using a prop whose value is a function.
+
+<Tabs defaultValue="render-props">
+<TabItem value="render-props" label="Render Props">
+
+```tsx filename="src/components/Mouse.tsx"
+import React, { useState, MouseEvent } from 'react';
+
+interface MouseProps {
+  render: (mouse: { x: number; y: number }) => React.ReactNode;
+}
+
+export const Mouse: React.FC<MouseProps> = ({ render }) => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    setPosition({
+      x: event.clientX,
+      y: event.clientY,
+    });
+  };
+
+  return (
+    <div onMouseMove={handleMouseMove} style={{ height: '100vh' }}>
+      {render(position)}
+    </div>
+  );
+};
+```
+
+</TabItem>
+
+<TabItem value="usage" label="Usage">
+
+```tsx filename="src/App.tsx"
+import { Mouse } from './components/Mouse';
+
+function App() {
+  return (
+    <Mouse
+      render={({ x, y }) => (
+        <h1>The mouse position is ({x}, {y})</h1>
+      )}
+    />
+  );
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Higher-Order Components (HOCs)
+
+HOCs are functions that take a component and return a new component with additional functionality.
+
+```tsx filename="src/hocs/withLoading.tsx"
+import React from 'react';
+
+interface WithLoadingProps {
+  isLoading: boolean;
+}
+
+export const withLoading = <P extends object>(
+  Component: React.ComponentType<P>
+) => {
+  return (props: P & WithLoadingProps) => {
+    const { isLoading, ...componentProps } = props;
+    
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+    
+    return <Component {...(componentProps as P)} />;
+  };
+};
+```
+
+<Callout type="success" title="Best Practice">
+While HOCs are powerful, React Hooks often provide a more flexible and composable solution for sharing logic.
+</Callout>
+
+## Custom Hooks
+
+Custom hooks allow you to extract component logic into reusable functions.
+
+<Steps>
+<Step title="Create the Hook">
+
+```tsx filename="src/hooks/useLocalStorage.ts"
+import { useState, useEffect } from 'react';
+
+export const useLocalStorage = <T>(
+  key: string,
+  initialValue: T
+): [T, (value: T) => void] => {
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(`Error reading localStorage key "${key}":`, error);
+      return initialValue;
+    }
+  });
+
+  const setValue = (value: T) => {
+    try {
+      setStoredValue(value);
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error(`Error setting localStorage key "${key}":`, error);
+    }
+  };
+
+  return [storedValue, setValue];
+};
+```
+
+</Step>
+
+<Step title="Use in Components">
+
+```tsx filename="src/components/Settings.tsx"
+import { useLocalStorage } from '../hooks/useLocalStorage';
+
+export const Settings = () => {
+  const [theme, setTheme] = useLocalStorage('theme', 'light');
+  
+  return (
+    <div>
+      <p>Current theme: {theme}</p>
+      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        Toggle Theme
+      </button>
+    </div>
+  );
+};
+```
+
+</Step>
+</Steps>
+
+## Conclusion
+
+<Callout type="success" title="Key Takeaways">
+- **Render Props**: Great for sharing dynamic behavior
+- **HOCs**: Useful for cross-cutting concerns, but prefer hooks when possible
+- **Custom Hooks**: The modern way to share stateful logic between components
+</Callout>
+
+These patterns will help you write more maintainable and reusable React code. Choose the right pattern based on your specific use case and team preferences.
+
+---
+
+*Happy coding! 🚀*
