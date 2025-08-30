@@ -1,37 +1,34 @@
-"use client";
-
 import { BookOpen, Star, Users } from "lucide-react";
 
 import { Card3D } from "./Card3D";
-import { HashnodeSeries } from "@/types/hashnode";
-import { useRouter } from "next/navigation";
+import { HashnodeSeries } from "../../types/hashnode";
+import { getRandomColorInRGB } from "../../utils";
+import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const SeriesCard = ({ series }: { series: HashnodeSeries }) => {
-  const router = useRouter();
-  const color = "rgb(59, 130, 246)"; // Default blue color
+  const color = getRandomColorInRGB();
+  const navigate = useNavigate();
 
-  const rating = (() => {
+  const rating = useMemo(() => {
     if(series.views > 1000) return 5;
     if(series.views > 500) return 4.5;
     if(series.views > 200) return 4;
     if(series.views > 100) return 3.5;
     return 3;
-  })();
+  }, [series.views]);
 
-  const views = (() => {
+  const views = useMemo(() => {
     if(series.views > 1000) return '1k+';
     if(series.views > 500) return '500+';
     if(series.views > 200) return '200+';
     if(series.views > 100) return '100+';
     return series.views;
-  })();
+  }, [series.views]);
 
   return (
-    <Card3D color={color}>
-      <div 
-        className="w-full cursor-pointer" 
-        onClick={() => router.push(`/series/${series.slug}`)}
-      >
+    <Card3D color={color || ''}>
+      <div className="w-full" style={{ perspective: "1000px" }} onClick={() => navigate(`${series.slug}`)}>
         <div
           className="relative w-full h-full rounded-xl bg-zinc-900/50 border border-zinc-800 backdrop-blur-sm 
           transition-all duration-200 ease-linear overflow-hidden group hover:border-zinc-700"

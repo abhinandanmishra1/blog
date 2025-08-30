@@ -1,17 +1,23 @@
-import { CategoryCard } from "./CategoryCard";
-import { getIcon } from "@/lib/getIcon";
-import { siteMetadata } from "@/data/metadata";
+import { CategoryCard } from "../ui";
+import { getIcon } from "../../utils";
+import { siteMetadata } from "../../data/metadata";
+import { useGetAllPostsTagWise } from "../../hooks/useGetAllPostsTagWise";
+import { useMemo } from "react";
 
-interface CategoryGridProps {
-  first?: number;
-  tagWisePosts?: Record<string, any[]>;
-}
+export const CategoryGrid = ({ first = 3 }: { first?: number }) => {
+  const { data: tagWisePosts } = useGetAllPostsTagWise();
+  const categories = useMemo(() => {
+    const categoriesData = siteMetadata.categories.slice(0, first).map((category) => ({
+      ...category,
+      icon: getIcon(category.icon, category.color),
+    }));
 
-export const CategoryGrid = ({ first = 3, tagWisePosts }: CategoryGridProps) => {
-  const categories = siteMetadata.categories.slice(0, first).map((category) => ({
-    ...category,
-    icon: getIcon(category.icon, category.color),
-  }));
+    // if(tagWisePosts) {
+    //   return categoriesData.filter((category) => tagWisePosts?.[category.tag]?.length || 0 > 0);
+    // }
+
+    return categoriesData;
+  }, [first]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

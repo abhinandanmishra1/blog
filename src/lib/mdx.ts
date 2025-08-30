@@ -1,8 +1,21 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { HashnodePostNode } from '@/types';
 
 const contentDirectory = path.join(process.cwd(), 'src/content')
+
+export interface MDXArticleMetadata extends Omit<HashnodePostNode, 'series'> {
+  // Optional series support for MDX articles
+  series?: {
+    name: string;
+    slug: string;
+    description: {
+      html: string;
+    };
+    coverImage: string;
+  };
+}
 
 export interface BlogPost {
   slug: string
