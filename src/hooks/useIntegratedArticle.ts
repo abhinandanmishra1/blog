@@ -2,13 +2,7 @@ import { useFetchPost } from './useFetchPost';
 import { getMDXArticle, mdxArticleExists } from '../utils/mdxArticles';
 
 export const useIntegratedArticle = (slug: string | undefined) => {
-  // Check if it's an MDX article first
   const isMDXArticle = slug ? mdxArticleExists(slug) : false;
-  
-  // Use the Hashnode hook only if it's not an MDX article
-  const hashnodeQuery = useFetchPost(slug, {
-    enabled: !!slug && !isMDXArticle
-  });
 
   if (isMDXArticle && slug) {
     const mdxArticle = getMDXArticle(slug);
@@ -19,6 +13,9 @@ export const useIntegratedArticle = (slug: string | undefined) => {
       isError: !mdxArticle
     };
   }
+
+  const hashnodeQuery = useFetchPost(slug);
+
 
   // Return Hashnode query result, transforming the data structure
   return {

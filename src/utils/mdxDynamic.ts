@@ -63,15 +63,6 @@ for (const path in mdxFiles) {
       series: data.series || undefined
     };
     
-    // Debug log for testing
-    console.log(`Processed MDX file: ${slug}`, {
-      componentType: typeof componentModule.default,
-      componentName: componentModule.default.name,
-      metadata: metadata.title
-    });
-
-    console.log({bodyBegin, frontmatter, body})
-    
     processedMDXFiles.set(slug, {
       metadata,
       component: componentModule.default
