@@ -37,7 +37,11 @@ export interface SocialLinks {
     social: SocialLinks;
   }
   
-  // ... rest of the interfaces remain unchanged
+  export interface BlogTag {
+    name: string;
+    slug: string;
+    description?: string;
+  }
   
   export interface Category {
     title: string;
@@ -71,6 +75,6 @@ export interface SocialLinks {
     author: Author;
     categories: Category[];
     seriesList: Series[];
-    tags: Tag[];
+    tags: BlogTag[];
     // navigation: Navigation;
   }

@@ -1,15 +1,19 @@
 import { SeriesCard } from "./SeriesCard";
-import { useFetchAllSeries } from "../../hooks/useFetchAllSeries";
+import { getAllSeries } from "@/lib/api/hashnode";
 
-export const SeriesGrid = ({ first = 3 }) => {
-  const { data: seriesList, isLoading, error } = useFetchAllSeries();
+interface SeriesGridProps {
+  first?: number;
+  seriesList?: any[];
+}
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>There was an error fetching the series</div>;
+export const SeriesGrid = ({ first = 3, seriesList }: SeriesGridProps) => {
+  if (!seriesList) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {seriesList?.slice(0, first).map((series) => (
+      {seriesList.slice(0, first).map((series) => (
         <SeriesCard key={series.name} series={series} />
       ))}
     </div>

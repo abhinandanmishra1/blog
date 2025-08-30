@@ -1,5 +1,6 @@
+"use client";
 import { Card3D } from "./Card3D";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 interface CategoryCardProps {
   icon: React.ReactNode;
@@ -10,27 +11,29 @@ interface CategoryCardProps {
   color: "blue" | "yellow" | "green" | string;
 }
 
-export const CategoryCard: React.FC<CategoryCardProps> = ({
+export const CategoryCard = ({
   icon,
   title,
   description,
   count,
   color,
   slug,
-}) => {
-  const navigate = useNavigate();
+}: CategoryCardProps) => {
+  const router = useRouter();
+  
   return (
     <Card3D color={color}>
-      <div onClick={() => navigate(`/categories/${slug}`)} className="group bg-neutral-800 border border-neutral-700 rounded-xl p-6 hover:bg-neutral-750 transition-all duration-300">
+      <div 
+        onClick={() => router.push(`/categories/${slug}`)} 
+        className="group bg-neutral-800 border border-neutral-700 rounded-xl p-6 hover:bg-neutral-750 transition-all duration-300 cursor-pointer"
+      >
         <div className="flex items-center justify-between mb-4">
           <div className="w-12 h-12 bg-neutral-700/30 rounded-lg flex items-center justify-center">
             {icon}
           </div>
-          {
-            count > 0 && (
-              <span className="text-neutral-400 text-sm">{count} articles</span>
-            )
-          }
+          {count > 0 && (
+            <span className="text-neutral-400 text-sm">{count} articles</span>
+          )}
         </div>
         <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
         <p className="text-neutral-400 mb-4 line-clamp-1">{description}</p>
@@ -45,13 +48,12 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
               />
             ))}
           </div>
-          <a
-            href="#"
+          <span
             style={{ color }}
-            className={`transition-colors duration-300`}
+            className="transition-colors duration-300"
           >
             View All →
-          </a>
+          </span>
         </div>
       </div>
     </Card3D>

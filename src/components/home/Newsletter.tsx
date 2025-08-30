@@ -1,21 +1,21 @@
-import { Check, Mail, Send } from "lucide-react";
+'use client'
 
-import { useSubscribeToNewsletter } from "../../hooks/useSubscribeToNewsletter";
+import { Check, Mail, Send } from "lucide-react";
+import { useState } from "react";
 
 export const Newsletter = () => {
-  const {
-    mutate: subscribeToNewsletter,
-    data,
-    isIdle,
-    isLoading,
-    error,
-  } = useSubscribeToNewsletter();
-  console.log(error, data);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const email = formData.get("email") as string;
-    subscribeToNewsletter(email);
+    setIsLoading(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubscribed(true);
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
@@ -36,7 +36,7 @@ export const Newsletter = () => {
         </div>
 
         <div className="max-w-xl mx-auto">
-          {(isIdle || isLoading) && (
+          {!isSubscribed && (
             <div className="bg-neutral-800 border border-neutral-700 rounded-2xl p-8">
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="space-y-4">
@@ -45,15 +45,23 @@ export const Newsletter = () => {
                     name="email"
                     placeholder="Enter your email"
                     className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-blue-500 transition-colors duration-300"
+                    required
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2"
+                  disabled={isLoading}
+                  className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2"
                 >
-                  <Mail className="w-5 h-5" />
-                  Subscribe Now
+                  {isLoading ? (
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <Mail className="w-5 h-5" />
+                      Subscribe Now
+                    </>
+                  )}
                 </button>
               </form>
 
@@ -75,28 +83,19 @@ export const Newsletter = () => {
               </div>
             </div>
           )}
-          {data?.status === "PENDING" && (
+          
+          {isSubscribed && (
             <div className="flex flex-col items-center overflow-hidden rounded-lg border border-green-600 bg-neutral-800 p-5 text-center text-white">
               <span className="text-green-400">
                 <Send className="mb-5 h-10 w-10 animate-bounce" />
               </span>
               <p className="font-semibold">
-                We've sent a confirmation email;
+                Thank you for subscribing!
                 <br />
-                click on the link to complete your subscription to this
-                newsletter.
+                You&apos;ll receive our latest articles and updates.
               </p>
             </div>
           )}
-          {
-            data?.error && (
-              <div className="flex flex-col items-center overflow-hidden rounded-lg border border-red-600 bg-neutral-800 p-5 text-center text-white">
-                <p className="font-semibold">
-                  {data?.error}
-                </p>
-              </div>
-            )
-          }
         </div>
       </div>
     </section>
