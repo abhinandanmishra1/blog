@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Award, Briefcase, Github, GraduationCap, Linkedin, Mail, Twitter } from 'lucide-react';
 import { siteMetadata } from '@/data/metadata';
 
@@ -9,14 +10,16 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <img
+          <Image
             src={author.avatar}
             alt={author.name}
+            width={128}
+            height={128}
             className="w-32 h-32 rounded-full mx-auto mb-6"
           />
           <h1 className="text-4xl font-bold text-white mb-4">{author.name}</h1>
           <p className="text-xl text-gray-400 mb-8">{author.bio}</p>
-          
+
           <div className="flex justify-center space-x-6">
             {author.social.twitter && (
               <a

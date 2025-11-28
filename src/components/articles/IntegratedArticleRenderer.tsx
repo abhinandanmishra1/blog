@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { BlogContent } from '../blog/BlogContent';
 import { FullPost } from '@/types';
 import { ViewSeries } from '../blog';
@@ -32,11 +33,12 @@ export const IntegratedArticleRenderer: React.FC<IntegratedArticleRendererProps>
         />
 
         {hashnodePost.coverImage?.url && (
-          <div className="mb-12">
-            <img
+          <div className="mb-12 relative aspect-[21/9]">
+            <Image
               src={hashnodePost.coverImage.url}
               alt={hashnodePost.title}
-              className="w-full rounded-xl"
+              fill
+              className="rounded-xl object-cover"
             />
           </div>
         )}

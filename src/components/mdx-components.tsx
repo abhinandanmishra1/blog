@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { MDXComponents } from 'mdx/types'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
@@ -25,9 +26,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <p className="text-neutral-300 mb-4 leading-relaxed" {...props} />
     ),
     a: (props: any) => (
-      <a 
-        className="text-blue-400 hover:text-blue-300 underline underline-offset-2" 
-        {...props} 
+      <a
+        className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+        {...props}
       />
     ),
     ul: (props: any) => (
@@ -40,9 +41,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <li className="mb-1" {...props} />
     ),
     blockquote: (props: any) => (
-      <blockquote 
-        className="border-l-4 border-neutral-600 pl-4 py-2 my-6 bg-neutral-800/50 text-neutral-300 italic" 
-        {...props} 
+      <blockquote
+        className="border-l-4 border-neutral-600 pl-4 py-2 my-6 bg-neutral-800/50 text-neutral-300 italic"
+        {...props}
       />
     ),
     code: ({ className, children, ...props }: any) => {
@@ -65,9 +66,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <div {...props} />
     ),
     img: (props: any) => (
-      <img 
-        className="rounded-lg my-6 max-w-full h-auto" 
-        {...props} 
+      <Image
+        className="rounded-lg my-6 max-w-full h-auto"
+        width={800}
+        height={600}
+        {...props}
       />
     ),
     hr: (props: any) => (
@@ -82,15 +85,15 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <thead className="bg-neutral-800" {...props} />
     ),
     th: (props: any) => (
-      <th 
-        className="px-6 py-3 text-left text-xs font-medium text-neutral-300 uppercase tracking-wider" 
-        {...props} 
+      <th
+        className="px-6 py-3 text-left text-xs font-medium text-neutral-300 uppercase tracking-wider"
+        {...props}
       />
     ),
     td: (props: any) => (
-      <td 
-        className="px-6 py-4 whitespace-nowrap text-sm text-neutral-300" 
-        {...props} 
+      <td
+        className="px-6 py-4 whitespace-nowrap text-sm text-neutral-300"
+        {...props}
       />
     ),
     tr: (props: any) => (

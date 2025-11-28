@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { HashnodePostNode } from '@/types/hashnode';
 import { Card3D } from '@/components/shared/cards/Card3D';
 
@@ -13,11 +14,12 @@ export const ArticleCard = ({ article, variant = 'default' }: ArticleCardProps) 
       <div className="absolute inset-0 bg-gradient-to-r from-zinc-900/0 via-zinc-900/0 to-zinc-900/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
 
       <div className="flex flex-col">
-        <div className="aspect-[16/9]">
-          <img
-            src={article.coverImage?.url}
+        <div className="aspect-[16/9] relative">
+          <Image
+            src={article.coverImage?.url || ''}
             alt={article.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 
@@ -41,9 +43,11 @@ export const ArticleCard = ({ article, variant = 'default' }: ArticleCardProps) 
 
           <div className="flex items-center justify-between text-zinc-400">
             <div className="flex items-center gap-4">
-              <img
-                src={article.author?.profilePicture}
-                alt={article.author?.name}
+              <Image
+                src={article.author?.profilePicture || ''}
+                alt={article.author?.name || ''}
+                width={32}
+                height={32}
                 className="w-8 h-8 rounded-full"
               />
               <span className="text-sm">

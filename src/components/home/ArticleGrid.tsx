@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getPreviewPosts } from '@/lib/api/hashnode';
 
 export const ArticleGrid = async () => {
@@ -20,11 +21,12 @@ export const ArticleGrid = async () => {
               <div className="absolute inset-0 bg-gradient-to-r from-zinc-900/0 via-zinc-900/0 to-zinc-900/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
 
               <div className="flex flex-col">
-                <div className="aspect-[16/9]">
-                  <img
-                    src={post.coverImage?.url}
+                <div className="aspect-[16/9] relative">
+                  <Image
+                    src={post.coverImage?.url || ''}
                     alt={post.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 
@@ -50,9 +52,11 @@ export const ArticleGrid = async () => {
 
                   <div className="flex items-center gap-6 text-zinc-400">
                     <div className="flex items-center gap-2">
-                      <img
-                        src={post.author?.profilePicture}
-                        alt={post.author?.name}
+                      <Image
+                        src={post.author?.profilePicture || ''}
+                        alt={post.author?.name || ''}
+                        width={24}
+                        height={24}
                         className="w-6 h-6 rounded-full"
                       />
                       <span className="text-sm">{post.author?.name}</span>

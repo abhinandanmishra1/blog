@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Badge } from './elements/Badge';
 import { Callout } from './elements/Callout';
 import { CodeBlock } from './code/CodeBlock';
@@ -65,8 +66,10 @@ export const mdxComponents = {
     <div {...props} />
   ),
   img: (props: any) => (
-    <img
+    <Image
       className="rounded-lg my-6 max-w-full h-auto"
+      width={800}
+      height={600}
       {...props}
     />
   ),

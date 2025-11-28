@@ -1,4 +1,5 @@
 import { Card3D } from "./Card3D";
+import Image from 'next/image';
 import Link from "next/link";
 import { HashnodePostNode } from "../../types";
 import React from "react";
@@ -13,11 +14,12 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
     <Link href={`/articles/${article.slug}`}>
       <Card3D color="rgb(255, 255, 255)">
         <article className="bg-neutral-800 border border-neutral-700 rounded-xl overflow-hidden transition-transform duration-300">
-          <div className="aspect-[16/9]">
-            <img
-              src={article.coverImage?.url}
+          <div className="aspect-[16/9] relative">
+            <Image
+              src={article.coverImage?.url || ''}
               alt={article.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
           </div>
           <div className="p-6">
@@ -39,9 +41,11 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
             </p>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <img
-                  src={article.author?.profilePicture}
-                  alt={article.author?.name}
+                <Image
+                  src={article.author?.profilePicture || ''}
+                  alt={article.author?.name || ''}
+                  width={32}
+                  height={32}
                   className="w-8 h-8 rounded-full"
                 />
                 <span className="text-sm text-neutral-300">

@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image';
 import { Card3D } from "./Card3D";
 import { useRouter } from "next/navigation";
 
@@ -38,9 +39,11 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
         <div className="flex justify-between items-center">
           <div className="flex -space-x-2">
             {[1, 2, 3].map((i) => (
-              <img
+              <Image
                 key={i}
                 src={`https://avatar.iran.liara.run/public/${i}`}
+                width={24}
+                height={24}
                 className="w-6 h-6 rounded-full border-2 border-neutral-800"
                 alt={`Author ${i}`}
               />

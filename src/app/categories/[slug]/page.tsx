@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { siteMetadata } from '@/data/metadata';
 import { getIcon } from '@/lib/getIcon';
@@ -15,7 +16,7 @@ interface CategoryPageProps {
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
   const currentCategory = siteMetadata.categories.find(category => category.tag === slug);
-  
+
   if (!currentCategory) {
     notFound();
   }
@@ -28,26 +29,27 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      <Link 
+      <Link
         href="/"
         className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors mb-8"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Home
       </Link>
-      
-      <div className="relative rounded-2xl overflow-hidden mb-12">
-        <img
+
+      <div className="relative rounded-2xl overflow-hidden mb-12 h-[300px]">
+        <Image
           src={currentCategory.coverImage}
           alt={currentCategory.title}
-          className="w-full h-[300px] object-cover"
+          fill
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/50 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-zinc-900/90 to-transparent" />
-        
+
         <div className="absolute bottom-0 left-0 right-0 p-8">
           <div className="flex items-center gap-4 mb-4">
-            <div 
+            <div
               className="w-12 h-12 rounded-xl flex items-center justify-center"
               style={{ backgroundColor: `${currentCategory.color}20` }}
             >
@@ -57,11 +59,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {currentCategory.title}
             </h1>
           </div>
-          
+
           <p className="text-lg text-zinc-300 max-w-3xl">
             {currentCategory.description}
           </p>
-          
+
           <div className="mt-4 text-sm text-zinc-400">
             {categoryPosts.length} articles
           </div>

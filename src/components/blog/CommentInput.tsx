@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from 'next/image';
 
 export interface Comment {
   content: {
@@ -55,9 +56,11 @@ export const CommentInput = ({
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="flex gap-4">
         {showAvatar && (
-          <img
+          <Image
             src={userProfilePicture}
             alt="Your avatar"
+            width={40}
+            height={40}
             className="w-10 h-10 rounded-full"
           />
         )}

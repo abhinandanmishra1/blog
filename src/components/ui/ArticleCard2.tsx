@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image';
 import { Calendar, Clock, User } from "lucide-react";
 
 import { formatDate } from "../../lib";
@@ -36,11 +37,12 @@ export const ArticleCard2 = ({ article }: { article?: Article }) => {
 
       <div className="flex flex-col md:flex-row">
         <div className="md:w-48 lg:w-64">
-          <div className="aspect-[16/9] md:aspect-square">
-            <img
-              src={article.coverImage?.url}
+          <div className="aspect-[16/9] md:aspect-square relative">
+            <Image
+              src={article.coverImage?.url || ''}
               alt={article.title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>
         </div>

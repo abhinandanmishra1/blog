@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image';
 import { siteMetadata } from "../../data/metadata";
 
 export const AboutAuthor = () => {
@@ -18,7 +19,7 @@ export const AboutAuthor = () => {
           <div className="relative">
             <div className="relative w-64 h-64 mx-auto lg:mx-0">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
-              <img src={siteMetadata.author.avatar} alt={siteMetadata.author.username} className="absolute inset-2 rounded-full w-60 h-60 object-cover border-4 border-neutral-800" />
+              <Image src={siteMetadata.author.avatar} alt={siteMetadata.author.username} width={240} height={240} className="absolute inset-2 rounded-full w-60 h-60 object-cover border-4 border-neutral-800" />
             </div>
             <div className="absolute -bottom-4 left-1/2 lg:left-32 transform -translate-x-1/2 bg-neutral-800 rounded-full py-2 px-6 border border-neutral-700">
               <div className="flex items-center gap-2">
@@ -36,7 +37,7 @@ export const AboutAuthor = () => {
             <p className="text-neutral-300 text-lg mb-8 leading-relaxed">
               A passionate developer and technical writer sharing knowledge through detailed articles and tutorials.
             </p>
-            
+
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start mb-8">
               <div className="bg-neutral-800 rounded-xl p-4 border border-neutral-700">
                 <div className="text-2xl font-bold text-white mb-1">50+</div>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { formatDate } from '@/lib';
 
 export interface Comment {
@@ -38,9 +39,8 @@ export const CommentCard = ({
       {/* Vertical connection line */}
       {depth > 0 && (
         <div
-          className={`absolute left-0 top-0 w-px bg-neutral-700 ${
-            isLastComment ? "h-[40px]" : "h-full"
-          }`}
+          className={`absolute left-0 top-0 w-px bg-neutral-700 ${isLastComment ? "h-[40px]" : "h-full"
+            }`}
         />
       )}
 
@@ -51,9 +51,11 @@ export const CommentCard = ({
       <div className="relative">
         <div className="bg-neutral-800/50 rounded-lg p-4">
           <div className="flex items-center gap-3 mb-3">
-            <img
+            <Image
               src={comment.author.profilePicture}
               alt={comment.author.name}
+              width={40}
+              height={40}
               className="w-10 h-10 rounded-full"
             />
             <span className="font-medium text-white">

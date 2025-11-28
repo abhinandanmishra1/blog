@@ -1,4 +1,5 @@
 "use client"
+import Image from 'next/image';
 import { formatDate } from "@/lib";
 import { MdxAuthor } from "@/types/mdx";
 import { Badge } from "../mdx";
@@ -21,9 +22,11 @@ export const ArticleHeader = ({ title, author, publishedAt, readTimeInMinutes, t
                 {author && (
                     <div className="flex items-center gap-3">
                         {(author.avatar || author.profilePicture) && (
-                            <img
-                                src={author.avatar || author.profilePicture}
+                            <Image
+                                src={author.avatar || author.profilePicture || ''}
                                 alt={author.name}
+                                width={40}
+                                height={40}
                                 className="w-10 h-10 rounded-full"
                             />
                         )}
