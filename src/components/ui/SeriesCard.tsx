@@ -29,7 +29,7 @@ export const SeriesCard = ({ series }: { series: HashnodeSeries }) => {
 
   return (
     <Card3D color={color || ''}>
-      <div className="w-full" style={{ perspective: "1000px" }} onClick={() => router.push(`${series.slug}`)}>
+      <div className="w-full" style={{ perspective: "1000px" }} onClick={() => router.push(`series/${series.slug}`)}>
         <div
           className="relative w-full h-full rounded-xl bg-zinc-900/50 border border-zinc-800 backdrop-blur-sm 
           transition-all duration-200 ease-linear overflow-hidden group hover:border-zinc-700"

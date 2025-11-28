@@ -14,19 +14,25 @@ interface ArticlesClientProps {
 type FilterType = 'all' | 'mdx' | 'hashnode';
 
 export const ArticlesClient = ({ initialPosts, mdxPosts, initialPageInfo }: ArticlesClientProps) => {
-    const [posts, setPosts] = useState<HashnodePostNode[]>(initialPosts);
+    const [allHashnodePosts, setAllHashnodePosts] = useState<HashnodePostNode[]>(initialPosts);
     const [pageInfo, setPageInfo] = useState<PageInfo>(initialPageInfo);
     const [isLoading, setIsLoading] = useState(false);
     const [filter, setFilter] = useState<FilterType>('all');
+    const [displayCount, setDisplayCount] = useState(6); // Track how many posts to display
 
     const loadMore = async () => {
-        if (!pageInfo.hasNextPage || isLoading) return;
+        if (isLoading) return;
 
         setIsLoading(true);
         try {
-            const { posts: newPosts, pageInfo: newPageInfo } = await fetchAllPosts(pageInfo.endCursor);
-            setPosts([...posts, ...newPosts]);
-            setPageInfo(newPageInfo);
+            // If we need more posts and there are more available, fetch them
+            if (displayCount >= allHashnodePosts.length && pageInfo.hasNextPage) {
+                const { posts: newPosts, pageInfo: newPageInfo } = await fetchAllPosts(pageInfo.endCursor);
+                setAllHashnodePosts([...allHashnodePosts, ...newPosts]);
+                setPageInfo(newPageInfo);
+            }
+            // Increase display count by 6
+            setDisplayCount(prev => prev + 6);
         } catch (error) {
             console.error('Error loading more posts:', error);
         } finally {
@@ -38,17 +44,19 @@ export const ArticlesClient = ({ initialPosts, mdxPosts, initialPageInfo }: Arti
         let displayedPosts: (HashnodePostNode | MdxPost)[] = [];
 
         if (filter === 'all') {
-            displayedPosts = [...mdxPosts, ...posts].sort((a, b) =>
-                new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-            );
+            displayedPosts = [...mdxPosts, ...allHashnodePosts];
         } else if (filter === 'mdx') {
-            displayedPosts = mdxPosts;
+            displayedPosts = [...mdxPosts];
         } else {
-            displayedPosts = posts;
+            displayedPosts = [...allHashnodePosts];
         }
 
-        return displayedPosts;
-    }, [filter, mdxPosts, posts]);
+        const sortedPosts = displayedPosts.sort((a, b) =>
+            new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+        );
+
+        return sortedPosts.slice(0, displayCount);
+    }, [filter, mdxPosts, allHashnodePosts, displayCount]);
 
     return (
         <>
@@ -56,8 +64,8 @@ export const ArticlesClient = ({ initialPosts, mdxPosts, initialPageInfo }: Arti
                 <button
                     onClick={() => setFilter('all')}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${filter === 'all'
-                            ? 'bg-blue-500 text-white'
-                            : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
                         }`}
                 >
                     All Posts
@@ -65,8 +73,8 @@ export const ArticlesClient = ({ initialPosts, mdxPosts, initialPageInfo }: Arti
                 <button
                     onClick={() => setFilter('mdx')}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${filter === 'mdx'
-                            ? 'bg-blue-500 text-white'
-                            : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
                         }`}
                 >
                     MDX Blogs
@@ -74,8 +82,8 @@ export const ArticlesClient = ({ initialPosts, mdxPosts, initialPageInfo }: Arti
                 <button
                     onClick={() => setFilter('hashnode')}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${filter === 'hashnode'
-                            ? 'bg-blue-500 text-white'
-                            : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
                         }`}
                 >
                     Hashnode Articles
@@ -94,7 +102,7 @@ export const ArticlesClient = ({ initialPosts, mdxPosts, initialPageInfo }: Arti
                 </div>
             )}
 
-            {filter !== 'mdx' && pageInfo.hasNextPage && (
+            {filter !== 'mdx' && (displayCount < allHashnodePosts.length || pageInfo.hasNextPage) && (
                 <div className="flex justify-center mt-12">
                     <button
                         onClick={loadMore}

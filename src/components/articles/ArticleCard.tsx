@@ -18,7 +18,7 @@ export const ArticleCard = ({ article }: ArticleCardProps) => {
       <div className="absolute inset-0 bg-gradient-to-r from-zinc-900/0 via-zinc-900/0 to-zinc-900/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
 
       <div className="flex flex-col">
-        <div className="aspect-[16/9]">
+        <div className="aspect-[16/9] overflow-hidden">
           <img
             src={coverImage}
             alt={article.title}
