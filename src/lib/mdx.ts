@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { HashnodePostNode } from '@/types';
+import { BaseTag } from '@/types/common';
 
 const contentDirectory = path.join(process.cwd(), 'src/content')
 
@@ -21,9 +22,20 @@ export interface BlogPost {
   slug: string
   title: string
   date: string
+  publishedAt: string
   excerpt?: string
-  content: string
-  tags: string[]
+  content: {
+    html?: string
+    markdown?: string
+    raw?: string
+  }
+  tags: BaseTag[]
+  readingTime: {
+    text: string
+    minutes: number
+    time: number
+    words: number
+  }
   [key: string]: any
 }
 
@@ -39,7 +51,17 @@ export function getAllPosts(): BlogPost[] {
 
       return {
         slug,
-        content,
+        content: {
+          markdown: content,
+          raw: content,
+        },
+        publishedAt: data.date || data.publishedAt || new Date().toISOString(),
+        readingTime: data.readingTime || {
+          text: '5 min read',
+          minutes: 5,
+          time: 300000,
+          words: 1000
+        },
         ...data,
       } as BlogPost
     })
@@ -56,7 +78,17 @@ export function getPostBySlug(slug: string): BlogPost | null {
 
     return {
       slug,
-      content,
+      content: {
+        markdown: content,
+        raw: content,
+      },
+      publishedAt: data.date || data.publishedAt || new Date().toISOString(),
+      readingTime: data.readingTime || {
+        text: '5 min read',
+        minutes: 5,
+        time: 300000,
+        words: 1000
+      },
       ...data,
     } as BlogPost
   } catch (error) {

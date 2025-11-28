@@ -1,14 +1,14 @@
 import React from 'react';
 import { BlogContent } from '../blog/BlogContent';
-import { FullPost, Tag } from '@/types';
+import { FullPost } from '@/types';
 import { ViewSeries } from '../blog';
-import { BlogPost } from '@/lib/mdx';
-import { formatDate } from '@/lib';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MdxPost } from '@/types/mdx';
+import { MdxRenderer } from './MdxRenderer';
+import { ArticleHeader } from './ArticleHeader';
 
 interface IntegratedArticleRendererProps {
   hashnodePost?: FullPost;
-  mdxPost?: BlogPost;
+  mdxPost?: MdxPost;
 }
 
 export const IntegratedArticleRenderer: React.FC<IntegratedArticleRendererProps> = ({
@@ -19,21 +19,7 @@ export const IntegratedArticleRenderer: React.FC<IntegratedArticleRendererProps>
   if (hashnodePost) {
     return (
       <article>
-        <header className="mb-12">
-          <h1 className="text-4xl font-bold text-white mb-6">{hashnodePost.title}</h1>
-          <div className="flex items-center gap-6 text-neutral-400">
-            <div className="flex items-center gap-3">
-              <img
-                src={hashnodePost.author.profilePicture}
-                alt={hashnodePost.author.name}
-                className="w-10 h-10 rounded-full"
-              />
-              <span>{hashnodePost.author.name}</span>
-            </div>
-            <span>{formatDate(hashnodePost.publishedAt)}</span>
-            <span>{hashnodePost.readTimeInMinutes} min read</span>
-          </div>
-        </header>
+        <ArticleHeader title={hashnodePost.title} author={hashnodePost.author} publishedAt={hashnodePost.publishedAt} readTimeInMinutes={hashnodePost.readTimeInMinutes} />
 
         {hashnodePost.coverImage?.url && (
           <div className="mb-12">
@@ -72,39 +58,10 @@ export const IntegratedArticleRenderer: React.FC<IntegratedArticleRendererProps>
   // Render MDX post
   if (mdxPost) {
     console.log(mdxPost)
-    const { content, date, excerpt, tags } = mdxPost;
-    
-    // if (!MDXComponent || typeof MDXComponent !== 'function') {
-    //   console.error('Invalid MDX component:', MDXComponent);
-    //   return (
-    //     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-    //       <h1 className="text-2xl font-bold text-white mb-4">Error Loading Article</h1>
-    //       <p className="text-neutral-400">The MDX component for this article is invalid.</p>
-    //     </div>
-    //   );
-    // }
-    
+    // const { content, date, excerpt, tags } = mdxPost;
+  
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      <article className="prose prose-lg max-w-none">
-        <header className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-4">{mdxPost.title}</h1>
-          {mdxPost.date && (
-            <time className="text-gray-400 text-sm">
-              {new Date(mdxPost.date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </time>
-          )}
-        </header>
-        
-        <div className="prose prose-lg max-w-none">
-          <MDXRemote source={mdxPost.content} />
-        </div>
-      </article>
-    </div>
+      <MdxRenderer post={mdxPost} />
     );
   }
 

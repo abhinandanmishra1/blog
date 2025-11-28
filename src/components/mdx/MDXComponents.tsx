@@ -1,14 +1,14 @@
 import { MDXProvider } from '@mdx-js/react';
-import { Badge } from './Badge';
-import { Callout } from './Callout';
-import { CodeBlock } from './CodeBlock';
-import { CodeSandbox } from './CodeSandbox';
-import { FileTree, FileTreeItem } from './FileTree';
-import { ImageComparison } from './ImageComparison';
-import { InlineCode } from './InlineCode';
-import { Steps, Step } from './Steps';
-import { Tabs, TabItem } from './Tabs';
-import { YouTube } from './YouTube';
+import { Badge } from './elements/Badge';
+import { Callout } from './elements/Callout';
+import { CodeBlock } from './code/CodeBlock';
+import { CodeSandbox } from './code/CodeSandbox';
+import { FileTree, FileTreeItem } from './elements/FileTree';
+import { ImageComparison } from './media/ImageComparison';
+import { InlineCode } from './elements/InlineCode';
+import { Steps, Step } from './elements/Steps';
+import { Tabs, TabItem } from './elements/Tabs';
+import { YouTube } from './media/YouTube';
 
 const components = {
   // Standard HTML elements with custom styling

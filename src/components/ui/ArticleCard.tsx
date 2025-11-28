@@ -1,8 +1,8 @@
 import { Card3D } from "./Card3D";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { HashnodePostNode } from "../../types";
 import React from "react";
-import { formatDate } from "../../utils/dateUtils";
+import { formatDate } from "../../lib/dateUtils";
 
 interface ArticleCardProps {
   article: HashnodePostNode;
@@ -10,7 +10,7 @@ interface ArticleCardProps {
 
 export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   return (
-    <Link to={`/articles/${article.slug}`}>
+    <Link href={`/articles/${article.slug}`}>
       <Card3D color="rgb(255, 255, 255)">
         <article className="bg-neutral-800 border border-neutral-700 rounded-xl overflow-hidden transition-transform duration-300">
           <div className="aspect-[16/9]">
@@ -40,8 +40,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <img
-                  src={article.author.profilePicture}
-                  alt={article.author.name}
+                  src={article.author?.profilePicture}
+                  alt={article.author?.name}
                   className="w-8 h-8 rounded-full"
                 />
                 <span className="text-sm text-neutral-300">

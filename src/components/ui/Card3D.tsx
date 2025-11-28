@@ -1,9 +1,10 @@
+"use client"
 import { useState } from 'react';
 
 interface Card3DProps {
-    children: React.ReactNode;
-    className?: string;
-    color: string;
+  children: React.ReactNode;
+  className?: string;
+  color: string;
 }
 
 export const Card3D = ({ children, className = '', color }: Card3DProps) => {
@@ -16,15 +17,15 @@ export const Card3D = ({ children, className = '', color }: Card3DProps) => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    
+
     const rotateY = ((x - centerX) / centerX) * 10;
     const rotateX = -((y - centerY) / centerY) * 10;
-    
+
     setRotation({ x: rotateX, y: rotateY });
-    setSpotlight({ 
+    setSpotlight({
       x: (x / rect.width) * 100,
       y: (y / rect.height) * 100
     });
@@ -56,11 +57,11 @@ export const Card3D = ({ children, className = '', color }: Card3DProps) => {
       >
         {/* Spotlight gradient effect */}
         {isHovering && (
-          <div 
+          <div
             className="pointer-events-none absolute inset-0 transition duration-300 opacity-70"
             style={{
-                // make the color slightly less opacity and more distributed
-                background: `radial-gradient(circle at ${spotlight.x}% ${spotlight.y}%, rgba(${colorRgb}, 0.15), transparent 80%)`
+              // make the color slightly less opacity and more distributed
+              background: `radial-gradient(circle at ${spotlight.x}% ${spotlight.y}%, rgba(${colorRgb}, 0.15), transparent 80%)`
             }}
           />
         )}

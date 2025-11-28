@@ -1,3 +1,3 @@
-export * from "./getIcon";
-export * from "./dateUtils";
-export * from "./getRandomColor";
+export * from './dateUtils';
+export * from './getIcon';
+export * from './getRandomColor';

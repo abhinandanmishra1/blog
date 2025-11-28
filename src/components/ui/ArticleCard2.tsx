@@ -1,7 +1,8 @@
+"use client"
 import { Calendar, Clock, User } from "lucide-react";
 
-import { formatDate } from "../../utils";
-import { useNavigate } from "react-router-dom";
+import { formatDate } from "../../lib";
+import { useRouter } from "next/navigation";
 
 interface Article {
   slug: string;
@@ -23,13 +24,13 @@ interface Article {
 }
 
 export const ArticleCard2 = ({ article }: { article?: Article }) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   if (!article) return null;
 
   return (
     <div
       className="group relative bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 ease-out hover:border-zinc-700 cursor-pointer"
-      onClick={() => navigate(`/articles/${article.slug}`)}
+      onClick={() => router.push(`/articles/${article.slug}`)}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-zinc-900/0 via-zinc-900/0 to-zinc-900/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
 

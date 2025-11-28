@@ -2,10 +2,10 @@ import type {
   AllPostsData,
   HashnodePostNode,
   HashnodeSeries,
+  HashnodeTag,
   PostData,
   SeriesData,
   SubscribeToNewsletterResponse,
-  Tag,
 } from "@/types/hashnode";
 import { GraphQLClient, gql } from "graphql-request";
 
@@ -274,7 +274,7 @@ export const getAllPostsTagWise = async () => {
 
   const tagWisePosts = siteMetadata.tags.reduce((acc, tag) => {
     acc[tag.slug] = allPosts.filter((post) =>
-      post.tags.some((t: Tag) => t.slug === tag.slug)
+      post.tags.some((t: HashnodeTag) => t.slug === tag.slug)
     );
     return acc;
   }, {} as Record<string, HashnodePostNode[]>);

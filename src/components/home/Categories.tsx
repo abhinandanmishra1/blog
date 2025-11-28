@@ -12,8 +12,8 @@ export const Categories = async () => {
           <h2 className="text-3xl font-bold text-white mb-4">Categories</h2>
           <p className="text-gray-300">Explore articles by topic</p>
         </div>
-        
-        <CategoryGrid first={6} tagWisePosts={tagWisePosts} />
+
+        <CategoryGrid first={6} />
       </div>
     </section>
   );

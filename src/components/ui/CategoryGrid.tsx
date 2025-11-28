@@ -1,11 +1,13 @@
+"use client"
 import { CategoryCard } from "../ui";
-import { getIcon } from "../../utils";
+import { getIcon } from "../../lib";
 import { siteMetadata } from "../../data/metadata";
-import { useGetAllPostsTagWise } from "../../hooks/useGetAllPostsTagWise";
+// import { useGetAllPostsTagWise } from "../../hooks/useGetAllPostsTagWise";
 import { useMemo } from "react";
 
 export const CategoryGrid = ({ first = 3 }: { first?: number }) => {
-  const { data: tagWisePosts } = useGetAllPostsTagWise();
+  // const { data: tagWisePosts } = useGetAllPostsTagWise();
+  const tagWisePosts: Record<string, any[]> | null = null as any; // TODO: Implement useGetAllPostsTagWise hook
   const categories = useMemo(() => {
     const categoriesData = siteMetadata.categories.slice(0, first).map((category) => ({
       ...category,

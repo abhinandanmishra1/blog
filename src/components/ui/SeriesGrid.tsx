@@ -1,8 +1,13 @@
+"use client"
 import { SeriesCard } from "./SeriesCard";
-import { useFetchAllSeries } from "../../hooks/useFetchAllSeries";
+// import { useFetchAllSeries } from "../../hooks/useFetchAllSeries";
 
 export const SeriesGrid = ({ first = 3 }) => {
-  const { data: seriesList, isLoading, error } = useFetchAllSeries();
+  // const { data: seriesList, isLoading, error } = useFetchAllSeries();
+  // TODO: Implement useFetchAllSeries hook for Next.js
+  const seriesList: any[] | null = null as any;
+  const isLoading = false;
+  const error = null;
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>There was an error fetching the series</div>;

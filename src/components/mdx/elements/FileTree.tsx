@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight, File, Folder } from 'lucide-react';
 
