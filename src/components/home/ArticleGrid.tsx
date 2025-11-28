@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { getPreviewPosts } from '@/lib/api/hashnode';
-import { ArticleCard } from '@/components/articles';
 
 export const ArticleGrid = async () => {
   const posts = await getPreviewPosts();
@@ -70,7 +69,7 @@ export const ArticleGrid = async () => {
             </div>
           ))}
         </div>
-        
+
         {posts.length > 0 && (
           <div className="text-center mt-12">
             <Link

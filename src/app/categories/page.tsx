@@ -12,7 +12,7 @@ export default async function CategoriesPage() {
         title="Explore by Category"
         description="Dive into various technical topics and find exactly what you're looking for"
       />
-      <CategoryGrid first={Infinity} />
+      <CategoryGrid first={Infinity} tagWisePosts={tagWisePosts} />
     </div>
   );
 }

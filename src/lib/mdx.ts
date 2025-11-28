@@ -91,8 +91,8 @@ export function getPostBySlug(slug: string): BlogPost | null {
       },
       ...data,
     } as BlogPost
-  } catch (error) {
-    return null
+  } catch {
+    return null;
   }
 }
 

@@ -1,19 +1,26 @@
 import Link from 'next/link';
 import { HashnodePostNode } from '@/types/hashnode';
+import { MdxPost } from '@/types/mdx';
+import { formatDate } from '@/lib/dateUtils';
 
 interface ArticleCardProps {
-  article: HashnodePostNode;
+  article: HashnodePostNode | MdxPost;
 }
 
 export const ArticleCard = ({ article }: ArticleCardProps) => {
+  // Helper to check if it's a Hashnode post
+  const isHashnode = 'readTimeInMinutes' in article;
+  const readTime = isHashnode ? article.readTimeInMinutes : article.readingTime?.minutes;
+  const coverImage = isHashnode ? article.coverImage?.url : article.coverImage?.url;
+
   return (
-    <div className="group relative bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 ease-out hover:border-zinc-700 cursor-pointer">
+    <Link href={`/articles/${article.slug}`} className="group relative bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 ease-out hover:border-zinc-700 cursor-pointer block">
       <div className="absolute inset-0 bg-gradient-to-r from-zinc-900/0 via-zinc-900/0 to-zinc-900/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
 
       <div className="flex flex-col">
         <div className="aspect-[16/9]">
           <img
-            src={article.coverImage?.url}
+            src={coverImage}
             alt={article.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
@@ -29,12 +36,15 @@ export const ArticleCard = ({ article }: ArticleCardProps) => {
                 {tag.name}
               </span>
             ))}
+            {!isHashnode && (
+              <span className="px-3 py-1 text-xs font-medium bg-purple-500/10 text-purple-400 rounded-full">
+                MDX
+              </span>
+            )}
           </div>
 
           <h3 className="text-xl font-bold text-zinc-200 mb-3 transition-colors duration-300 group-hover:text-white">
-            <Link href={`/articles/${article.slug}`}>
-              {article.title}
-            </Link>
+            {article.title}
           </h3>
 
           <p className="text-zinc-400 mb-4 line-clamp-2">{article.brief}</p>
@@ -49,14 +59,14 @@ export const ArticleCard = ({ article }: ArticleCardProps) => {
               <span className="text-sm">{article.author?.name}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-sm">{article.readTimeInMinutes} min</span>
+              <span className="text-sm">{readTime} min</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-sm">{new Date(article.publishedAt).toLocaleDateString()}</span>
+              <span className="text-sm">{formatDate(article.publishedAt)}</span>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

@@ -1,10 +1,6 @@
 import { CategoryGrid } from "../ui/CategoryGrid";
-import { getAllPostsTagWise } from "@/lib/api/hashnode";
 
 export const Categories = async () => {
-  // Fetch tag-wise posts for category counts
-  const tagWisePosts = await getAllPostsTagWise();
-
   return (
     <section className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

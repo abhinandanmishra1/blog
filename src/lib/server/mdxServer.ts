@@ -29,9 +29,6 @@ export function getAllPosts(): MdxPost[] {
           isDraft: false,
           isArchived: false
         },
-        content: {
-          raw: content
-        },
         publishedAt: data.date || new Date().toISOString(),
         title: data.title || fileName.replace(/\.mdx$/, ''),
         brief: data.excerpt || ''
@@ -40,7 +37,10 @@ export function getAllPosts(): MdxPost[] {
       return {
         slug,
         ...defaultData,
-        ...data
+        ...data,
+        content: {
+          raw: content
+        }
       } satisfies MdxPost
     })
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
@@ -68,9 +68,6 @@ export function getPostBySlug(slug: string): MdxPost | null {
         isDraft: false,
         isArchived: false
       },
-      content: {
-        raw: content
-      },
       publishedAt: data.date || new Date().toISOString(),
       title: data.title || slug,
       brief: data.excerpt || ''
@@ -79,10 +76,13 @@ export function getPostBySlug(slug: string): MdxPost | null {
     return {
       slug,
       ...defaultData,
-      ...data
+      ...data,
+      content: {
+        raw: content
+      }
     } satisfies MdxPost
-  } catch (error) {
-    return null
+  } catch {
+    return null;
   }
 }
 

@@ -1,4 +1,4 @@
-import { Check, Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
 import Link from "next/link";
 import { siteMetadata } from "../../data/metadata";
 

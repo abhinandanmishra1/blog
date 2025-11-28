@@ -12,7 +12,7 @@ export default async function SeriesPage() {
         title="Learning Series"
         description="Structured learning paths to master different technologies"
       />
-      <SeriesGrid first={Infinity} />
+      <SeriesGrid first={Infinity} seriesList={seriesList} />
     </div>
   );
 }

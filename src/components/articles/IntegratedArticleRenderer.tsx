@@ -15,11 +15,21 @@ export const IntegratedArticleRenderer: React.FC<IntegratedArticleRendererProps>
   hashnodePost,
   mdxPost
 }) => {
-  // Render Hashnode post
+  // Render MDX post first if available (local content priority)
+  if (mdxPost) {
+    return <MdxRenderer post={mdxPost} />;
+  }
+
+  // Render Hashnode post if available
   if (hashnodePost) {
     return (
       <article>
-        <ArticleHeader title={hashnodePost.title} author={hashnodePost.author} publishedAt={hashnodePost.publishedAt} readTimeInMinutes={hashnodePost.readTimeInMinutes} />
+        <ArticleHeader
+          title={hashnodePost.title}
+          author={hashnodePost.author}
+          publishedAt={hashnodePost.publishedAt}
+          readTimeInMinutes={hashnodePost.readTimeInMinutes}
+        />
 
         {hashnodePost.coverImage?.url && (
           <div className="mb-12">
@@ -52,16 +62,6 @@ export const IntegratedArticleRenderer: React.FC<IntegratedArticleRendererProps>
           </div>
         </footer>
       </article>
-    );
-  }
-
-  // Render MDX post
-  if (mdxPost) {
-    console.log(mdxPost)
-    // const { content, date, excerpt, tags } = mdxPost;
-  
-    return (
-      <MdxRenderer post={mdxPost} />
     );
   }
 

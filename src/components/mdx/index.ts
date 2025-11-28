@@ -5,7 +5,7 @@ export { CodeSandbox } from './code/CodeSandbox';
 export { FileTree, FileTreeItem } from './elements/FileTree';
 export { ImageComparison } from './media/ImageComparison';
 export { InlineCode } from './elements/InlineCode';
-export { MDXComponents } from './MDXComponents';
+export { mdxComponents } from './MDXComponents';
 export { Steps, Step } from './elements/Steps';
 export { Tabs, TabItem } from './elements/Tabs';
 export { YouTube } from './media/YouTube';
