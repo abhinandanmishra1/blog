@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #fafafa;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer base {
+  .prose {
+    @apply text-gray-300;
+  }
+  
+  .prose h1, .prose h2, .prose h3, .prose h4 {
+    @apply text-white font-bold;
+  }
+  
+  .prose a {
+    @apply text-blue-400 hover:text-blue-300 no-underline;
+  }
+  
+  .prose code {
+    @apply bg-gray-800 px-1.5 py-0.5 rounded text-sm;
+  }
+  
+  .prose pre {
+    @apply bg-gray-800 rounded-lg p-4;
+  }
+  
+  .prose blockquote {
+    @apply border-l-4 border-blue-500 bg-gray-800/50 px-4 py-2 rounded-r-lg;
+  }
+  
+  .prose img {
+    @apply rounded-lg;
+  }
+  
+  .prose ul {
+    @apply list-disc list-inside;
+  }
+  
+  .prose ol {
+    @apply list-decimal list-inside;
+  }
+}

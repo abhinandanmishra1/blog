@@ -1,5 +1,7 @@
+'use client'
+
 import React from 'react';
-import { siteMetadata } from '../../data/metadata';
+import { siteMetadata } from "../../data/metadata";
 
 export const Hero: React.FC = () => {
   const goToArticles = () => {

@@ -1,20 +1,21 @@
-import { CategoryCard } from "../ui";
-import { getIcon } from "../../utils";
+"use client"
+import { CategoryCard } from "./CategoryCard";
+import { getIcon } from "../../lib";
 import { siteMetadata } from "../../data/metadata";
-import { useGetAllPostsTagWise } from "../../hooks/useGetAllPostsTagWise";
 import { useMemo } from "react";
+import { HashnodePostNode } from "@/types/hashnode";
 
-export const CategoryGrid = ({ first = 3 }: { first?: number }) => {
-  const { data: tagWisePosts } = useGetAllPostsTagWise();
+interface CategoryGridProps {
+  first?: number;
+  tagWisePosts?: Record<string, HashnodePostNode[]>;
+}
+
+export const CategoryGrid = ({ first = 3, tagWisePosts }: CategoryGridProps) => {
   const categories = useMemo(() => {
     const categoriesData = siteMetadata.categories.slice(0, first).map((category) => ({
       ...category,
       icon: getIcon(category.icon, category.color),
     }));
-
-    // if(tagWisePosts) {
-    //   return categoriesData.filter((category) => tagWisePosts?.[category.tag]?.length || 0 > 0);
-    // }
 
     return categoriesData;
   }, [first]);

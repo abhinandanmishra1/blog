@@ -1,3 +1,5 @@
+'use client'
+
 import { siteMetadata } from "../../data/metadata";
 
 export const AboutAuthor = () => {
@@ -30,7 +32,7 @@ export const AboutAuthor = () => {
             <div className="inline-block px-4 py-1 bg-neutral-800 rounded-full mb-6">
               <p className="text-neutral-400 text-sm">{siteMetadata.author.tagline}</p>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Hey, I'm {siteMetadata.author.name}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Hey, I&apos;m {siteMetadata.author.name}</h2>
             <p className="text-neutral-300 text-lg mb-8 leading-relaxed">
               A passionate developer and technical writer sharing knowledge through detailed articles and tutorials.
             </p>

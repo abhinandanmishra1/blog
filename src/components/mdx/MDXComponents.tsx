@@ -1,16 +1,15 @@
-import { MDXProvider } from '@mdx-js/react';
-import { Badge } from './Badge';
-import { Callout } from './Callout';
-import { CodeBlock } from './CodeBlock';
-import { CodeSandbox } from './CodeSandbox';
-import { FileTree, FileTreeItem } from './FileTree';
-import { ImageComparison } from './ImageComparison';
-import { InlineCode } from './InlineCode';
-import { Steps, Step } from './Steps';
-import { Tabs, TabItem } from './Tabs';
-import { YouTube } from './YouTube';
+import { Badge } from './elements/Badge';
+import { Callout } from './elements/Callout';
+import { CodeBlock } from './code/CodeBlock';
+import { CodeSandbox } from './code/CodeSandbox';
+import { FileTree, FileTreeItem } from './elements/FileTree';
+import { ImageComparison } from './media/ImageComparison';
+import { InlineCode } from './elements/InlineCode';
+import { Steps, Step } from './elements/Steps';
+import { Tabs, TabItem } from './elements/Tabs';
+import { YouTube } from './media/YouTube';
 
-const components = {
+export const mdxComponents = {
   // Standard HTML elements with custom styling
   h1: (props: any) => (
     <h1 className="text-4xl font-bold text-white mb-6 mt-8" {...props} />
@@ -34,9 +33,9 @@ const components = {
     <p className="text-neutral-300 mb-4 leading-relaxed" {...props} />
   ),
   a: (props: any) => (
-    <a 
-      className="text-blue-400 hover:text-blue-300 underline underline-offset-2" 
-      {...props} 
+    <a
+      className="text-blue-400 hover:text-blue-300 underline underline-offset-2"
+      {...props}
     />
   ),
   ul: (props: any) => (
@@ -49,9 +48,9 @@ const components = {
     <li className="mb-1" {...props} />
   ),
   blockquote: (props: any) => (
-    <blockquote 
-      className="border-l-4 border-neutral-600 pl-4 py-2 my-6 bg-neutral-800/50 text-neutral-300 italic" 
-      {...props} 
+    <blockquote
+      className="border-l-4 border-neutral-600 pl-4 py-2 my-6 bg-neutral-800/50 text-neutral-300 italic"
+      {...props}
     />
   ),
   code: ({ className, children, ...props }: any) => {
@@ -66,9 +65,9 @@ const components = {
     <div {...props} />
   ),
   img: (props: any) => (
-    <img 
-      className="rounded-lg my-6 max-w-full h-auto" 
-      {...props} 
+    <img
+      className="rounded-lg my-6 max-w-full h-auto"
+      {...props}
     />
   ),
   hr: (props: any) => (
@@ -83,15 +82,15 @@ const components = {
     <thead className="bg-neutral-800" {...props} />
   ),
   th: (props: any) => (
-    <th 
-      className="px-6 py-3 text-left text-xs font-medium text-neutral-300 uppercase tracking-wider" 
-      {...props} 
+    <th
+      className="px-6 py-3 text-left text-xs font-medium text-neutral-300 uppercase tracking-wider"
+      {...props}
     />
   ),
   td: (props: any) => (
-    <td 
-      className="px-6 py-4 whitespace-nowrap text-sm text-neutral-300" 
-      {...props} 
+    <td
+      className="px-6 py-4 whitespace-nowrap text-sm text-neutral-300"
+      {...props}
     />
   ),
   tr: (props: any) => (
@@ -111,18 +110,4 @@ const components = {
   Tabs,
   TabItem,
   YouTube,
-};
-
-interface MDXComponentsProps {
-  children: React.ReactNode;
-}
-
-export const MDXComponents: React.FC<MDXComponentsProps> = ({ children }) => {
-  return (
-    <MDXProvider components={components}>
-      <div className="prose prose-neutral prose-invert max-w-none">
-        {children}
-      </div>
-    </MDXProvider>
-  );
 };

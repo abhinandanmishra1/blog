@@ -1,24 +1,16 @@
-export interface HashnodeUser {
+import { BaseAuthor, BasePost, BaseSeries, BaseTag } from './common';
+
+export interface HashnodeUser extends BaseAuthor {
   _id: string;
-  name: string;
   username: string;
   tagline: string;
   photo: string;
-  socialMedia: {
-    twitter?: string;
-    github?: string;
-    linkedin?: string;
-  };
 }
 
-export interface Tag {
-  name: string;
-  slug: string;
-}
+// HashnodeTag extends BaseTag without additional properties
+export type HashnodeTag = BaseTag;
 
 export interface HashnodePosts {
-  title: string;
-  slug: string;
   edges: {
     node: HashnodePostNode;
   }[];
@@ -26,37 +18,16 @@ export interface HashnodePosts {
   totalDocuments: number;
 }
 
-export interface HashnodeSeries {
-  name: string;
-  slug: string;
-  coverImage: string;
-  description: {
-    html: string;
-  };
+export interface HashnodeSeries extends BaseSeries {
   posts: HashnodePosts;
   views: number;
 }
 
-interface Author {
-  name: string;
-  profilePicture: string;
-}
-
-interface CoverImage {
-  url: string;
-}
-
-export interface HashnodePostNode {
+export interface HashnodePostNode extends Omit<BasePost, 'readingTime'> {
   id: string;
-  author: Author;
-  publishedAt: string;
-  title: string;
   brief: string;
-  slug: string;
   readTimeInMinutes: number;
-  tags: Tag[];
   series?: HashnodeSeries;
-  coverImage: CoverImage;
   views: number;
 }
 

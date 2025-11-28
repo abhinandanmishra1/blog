@@ -1,4 +1,4 @@
-import { formatDate } from "../../utils";
+import { formatDate } from '@/lib';
 
 export interface Comment {
   content: {

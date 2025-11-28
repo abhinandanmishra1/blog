@@ -1,3 +1,4 @@
+"use client"
 import 'highlight.js/styles/atom-one-dark.css';
 import "./blog.css"
 
@@ -39,7 +40,7 @@ const EmbedComponent: React.FC<{ url: string }> = ({ url }) => {
   }
 
   if (url.includes('youtube.com') || url.includes('youtu.be')) {
-    const videoId = url.includes('youtu.be') 
+    const videoId = url.includes('youtu.be')
       ? url.split('youtu.be/')[1]
       : url.split('v=')[1]?.split('&')[0];
     return (
@@ -66,7 +67,7 @@ export const BlogContent: React.FC<BlogContentProps> = ({ post }) => {
     const codeBlocks = contentRef.current.querySelectorAll('pre code');
     codeBlocks.forEach((block) => {
       hljs.highlightElement(block as HTMLElement);
-      
+
       const pre = block.parentElement;
       if (pre) {
         const button = document.createElement('button');
@@ -91,12 +92,12 @@ export const BlogContent: React.FC<BlogContentProps> = ({ post }) => {
 
       const url = link.href;
       const container = document.createElement('div');
-      
+
       const root = React.createElement(EmbedComponent, { url });
       wrapper.innerHTML = '';
       wrapper.appendChild(container);
-      
-      // @ts-ignore - React 18 createRoot API
+
+      // @ts-expect-error - React 18 createRoot API
       const reactRoot = ReactDOM.createRoot(container);
       reactRoot.render(root);
     });
@@ -105,7 +106,7 @@ export const BlogContent: React.FC<BlogContentProps> = ({ post }) => {
   return (
     <div className="blog-content">
       {/* Previous styles remain unchanged */}
-      <div 
+      <div
         ref={contentRef}
         dangerouslySetInnerHTML={{ __html: post.content.html }}
       />
