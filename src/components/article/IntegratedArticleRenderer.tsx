@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { ArticleContent } from './content/ArticleContent';
-import { Comments } from './comments/Comments';
+import { HashnodeMarkdownRenderer } from './HashnodeMarkdownRenderer';
 import { FullPost } from '@/types';
 import { ViewSeries } from './ViewSeries';
 import { MdxPost } from '@/types/mdx';
@@ -50,7 +49,7 @@ export const IntegratedArticleRenderer: React.FC<IntegratedArticleRendererProps>
           </div>
         )}
 
-        <ArticleContent post={hashnodePost} />
+        <HashnodeMarkdownRenderer content={hashnodePost.content.markdown} />
 
         <footer className="mt-12 pt-12 border-t border-neutral-800">
           <div className="flex flex-wrap gap-3">
