@@ -1,6 +1,6 @@
 import { fetchAllPosts } from '@/lib/api/hashnode';
 import { getAllPosts } from '@/lib/server/mdxServer';
-import { ArticlesClient } from '@/components/articles/ArticlesClient';
+import { ArticlesClient } from '@/components/article';
 import { PageHeader } from '@/components/ui';
 
 export default async function ArticlesPage() {

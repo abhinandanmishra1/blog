@@ -1,14 +1,13 @@
 "use client"
 import 'highlight.js/styles/atom-one-dark.css';
-import "./blog.css"
 
 import React, { useEffect, useRef } from 'react';
 
-import { FullPost } from '../../types';
+import { FullPost } from '@/types';
 import ReactDOM from 'react-dom';
 import hljs from 'highlight.js';
 
-interface BlogContentProps {
+interface ArticleContentProps {
   post: FullPost;
 }
 
@@ -57,7 +56,7 @@ const EmbedComponent: React.FC<{ url: string }> = ({ url }) => {
   return null;
 };
 
-export const BlogContent: React.FC<BlogContentProps> = ({ post }) => {
+export const ArticleContent: React.FC<ArticleContentProps> = ({ post }) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

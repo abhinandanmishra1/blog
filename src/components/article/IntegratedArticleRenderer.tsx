@@ -1,8 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import { BlogContent } from '../blog/BlogContent';
+import { ArticleContent } from './content/ArticleContent';
+import { Comments } from './comments/Comments';
 import { FullPost } from '@/types';
-import { ViewSeries } from '../blog';
+import { ViewSeries } from './ViewSeries';
 import { MdxPost } from '@/types/mdx';
 import { MdxRenderer } from './MdxRenderer';
 import { ArticleHeader } from './ArticleHeader';
@@ -49,7 +50,7 @@ export const IntegratedArticleRenderer: React.FC<IntegratedArticleRendererProps>
           </div>
         )}
 
-        <BlogContent post={hashnodePost} />
+        <ArticleContent post={hashnodePost} />
 
         <footer className="mt-12 pt-12 border-t border-neutral-800">
           <div className="flex flex-wrap gap-3">
