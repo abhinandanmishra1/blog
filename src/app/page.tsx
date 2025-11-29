@@ -1,5 +1,5 @@
+import { AboutAuthor } from "@/components/profile";
 import {
-  AboutAuthor,
   ArticleGrid,
   Categories,
   Hero,

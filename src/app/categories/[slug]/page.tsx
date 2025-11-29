@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { siteMetadata } from '@/data/metadata';
 import { getIcon } from '@/lib/getIcon';
 import { getAllPostsTagWise } from '@/lib/api/hashnode';
-import { ArticleCard2 } from '@/components/articles';
+import { ArticleCard2 } from '@/components/cards';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 

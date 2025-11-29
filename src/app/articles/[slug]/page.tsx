@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllSlugs } from '@/lib/mdx';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getPost } from '@/lib/api/hashnode';
-import { IntegratedArticleRenderer } from '@/components/articles/IntegratedArticleRenderer';
-import { BlogContent } from '@/components/blog';
+import { IntegratedArticleRenderer } from '@/components/article';
+import { ArticleContent } from '@/components/article/content';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -26,14 +26,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!mdxPost && !hashnodePost) {
     notFound();
   }
-  
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
       {/* <BackButton /> */}
 
-      <IntegratedArticleRenderer 
+      <IntegratedArticleRenderer
         hashnodePost={hashnodePost}
-        mdxPost={mdxPost?? undefined}
+        mdxPost={mdxPost ?? undefined}
       />
 
       {/* Only show comments for Hashnode posts */}

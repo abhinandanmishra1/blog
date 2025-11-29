@@ -1,6 +1,6 @@
 "use client"
 import { useState, useMemo } from 'react';
-import { ArticleCard } from './ArticleCard';
+import { ArticleCard } from '@/components/cards';
 import { HashnodePostNode, PageInfo } from '@/types/hashnode';
 import { MdxPost } from '@/types/mdx';
 import { fetchAllPosts } from '@/lib/api/hashnode';

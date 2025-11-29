@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getSeries } from '@/lib/api/hashnode';
-import { ArticleCard2 } from '@/components/articles';
+import { ArticleCard2 } from '@/components/cards';
 import Link from 'next/link';
 import { ArrowLeft, BookOpen, Users, Star } from 'lucide-react';
 
