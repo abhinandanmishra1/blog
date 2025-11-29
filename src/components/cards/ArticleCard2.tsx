@@ -15,12 +15,16 @@ export const ArticleCard2 = ({ article }: ArticleCard2Props) => {
         <div className="flex flex-col md:flex-row">
           <div className="md:w-48 lg:w-64">
             <div className="aspect-[16/9] md:aspect-square relative">
-              <Image
-                src={article.coverImage?.url || ''}
-                alt={article.title}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+              {article.coverImage?.url ? (
+                <Image
+                  src={article.coverImage.url}
+                  alt={article.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              ) : (
+                <div className="w-full h-full bg-zinc-800" />
+              )}
             </div>
           </div>
 
@@ -46,13 +50,17 @@ export const ArticleCard2 = ({ article }: ArticleCard2Props) => {
 
             <div className="flex items-center gap-6 text-zinc-400">
               <div className="flex items-center gap-2">
-                <Image
-                  src={article.author?.profilePicture || ''}
-                  alt={article.author?.name || ''}
-                  width={24}
-                  height={24}
-                  className="w-6 h-6 rounded-full"
-                />
+                {article.author?.profilePicture ? (
+                  <Image
+                    src={article.author.profilePicture}
+                    alt={article.author?.name || ''}
+                    width={24}
+                    height={24}
+                    className="w-6 h-6 rounded-full"
+                  />
+                ) : (
+                  <div className="w-6 h-6 rounded-full bg-zinc-800" />
+                )}
                 <span className="text-sm">{article.author?.name}</span>
               </div>
               <div className="flex items-center gap-2">
