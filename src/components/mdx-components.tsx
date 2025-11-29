@@ -70,6 +70,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         className="rounded-lg my-6 max-w-full h-auto"
         width={800}
         height={600}
+        alt={props.alt || ''}
         {...props}
       />
     ),

@@ -1,12 +1,9 @@
-import { marked } from 'marked';
+import { marked, Tokens } from 'marked';
 import highlightjs from './highlight';
 
 const renderer = new marked.Renderer();
 
-// @ts-ignore
-// @ts-ignore
-renderer.link = function (token) {
-    // @ts-ignore
+renderer.link = function (token: Tokens.Link) {
     const link = marked.Renderer.prototype.link.call(this, token);
     const { href, title } = token;
     const linkIsUserMention =
@@ -24,15 +21,12 @@ renderer.link = function (token) {
     return link.replace('<a', "<a target='_blank' rel='noopener noreferrer' ");
 };
 
-// @ts-ignore
-renderer.tablecell = function (token, flags) {
-    // @ts-ignore
+renderer.tablecell = function (token: Tokens.TableCell) {
     const content = this.parser.parseInline(token.tokens);
     const chunks = content.split('&lt;br&gt;-');
 
-    flags = flags || {};
-    const type = flags.header ? 'th' : 'td';
-    const tag = '<' + type + (flags.align ? ' align="' + flags.align + '"' : '') + '>';
+    const type = token.header ? 'th' : 'td';
+    const tag = '<' + type + (token.align ? ' align="' + token.align + '"' : '') + '>';
 
     if (chunks.length === 1) {
         return tag + content + '</' + type + '>\n';

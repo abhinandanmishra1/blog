@@ -70,6 +70,7 @@ export const mdxComponents = {
       className="rounded-lg my-6 max-w-full h-auto"
       width={800}
       height={600}
+      alt={props.alt || ''}
       {...props}
     />
   ),

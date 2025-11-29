@@ -1,6 +1,5 @@
 "use client"
 import { BookOpen, Star, Users } from "lucide-react";
-import Image from 'next/image';
 
 import { Card3D } from './Card3D';
 import { HashnodeSeries } from "../../types/hashnode";

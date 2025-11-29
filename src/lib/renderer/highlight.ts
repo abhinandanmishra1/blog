@@ -12,8 +12,10 @@ export const getLanguage = (lang: string) => {
     return hljs.getLanguage(lang);
 };
 
-export default {
+const highlightExport = {
     highlight,
     highlightAuto,
     getLanguage,
 };
+
+export default highlightExport;
