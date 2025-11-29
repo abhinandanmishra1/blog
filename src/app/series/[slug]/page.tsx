@@ -39,11 +39,11 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <Link
-          href="/"
+          href="/series"
           className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Home
+          Back to Series
         </Link>
 
         <div className="relative rounded-2xl overflow-hidden mb-12">
@@ -77,7 +77,7 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 flex flex-col gap-2">
           {series.posts?.edges?.map((article) => (
             <ArticleCard2 key={article.node.slug} article={article.node} />
           ))}

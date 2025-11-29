@@ -1,9 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllSlugs } from '@/lib/mdx';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getPost } from '@/lib/api/hashnode';
 import { IntegratedArticleRenderer } from '@/components/article';
-import { ArticleContent } from '@/components/article/content';
 
 interface BlogPostPageProps {
   params: Promise<{
