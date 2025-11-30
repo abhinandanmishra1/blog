@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link';
+import { DynamicLink } from '../ui/DynamicLink';
 import { Menu } from 'lucide-react';
 import React, { useState } from 'react';
 import { siteMetadata } from '../../data/metadata';
@@ -14,16 +14,16 @@ export const Navbar: React.FC = () => {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="text-white font-bold text-xl hover:text-blue-400 transition-colors">
+              <DynamicLink href="/" className="text-white font-bold text-xl hover:text-blue-400 transition-colors">
                 {siteMetadata.title}
-              </Link>
+              </DynamicLink>
             </div>
           </div>
           <div className="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-8">
-            <Link href="/articles" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">Articles</Link>
-            <Link href="/categories" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">Categories</Link>
-            <Link href="/series" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">Series</Link>
-            <Link href="/about" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">About</Link>
+            <DynamicLink href="/articles" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">Articles</DynamicLink>
+            <DynamicLink href="/categories" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">Categories</DynamicLink>
+            <DynamicLink href="/series" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">Series</DynamicLink>
+            <DynamicLink href="/about" className="text-neutral-300 hover:text-white transition-colors duration-300 px-3 py-2">About</DynamicLink>
           </div>
           <div className="flex items-center lg:hidden">
             <button
@@ -36,39 +36,39 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="lg:hidden bg-neutral-800/80 backdrop-blur-lg fixed inset-0 z-40 pt-16">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <Link
+            <DynamicLink
               href="/"
               className="text-neutral-300 hover:text-white block px-3 py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Home
-            </Link>
-            <Link
+            </DynamicLink>
+            <DynamicLink
               href="/articles"
               className="text-neutral-300 hover:text-white block px-3 py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Articles
-            </Link>
-            <Link
+            </DynamicLink>
+            <DynamicLink
               href="/categories"
               className="text-neutral-300 hover:text-white block px-3 py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Categories
-            </Link>
-            <Link
+            </DynamicLink>
+            <DynamicLink
               href="/about"
               className="text-neutral-300 hover:text-white block px-3 py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               About
-            </Link>
+            </DynamicLink>
           </div>
         </div>
       )}

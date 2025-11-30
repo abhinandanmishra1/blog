@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { DynamicLink } from '../ui/DynamicLink';
 import React from 'react';
 import Image from 'next/image';
 import { HashnodePostNode } from '@/types/hashnode';
@@ -86,17 +86,17 @@ export const ArticleCard = ({ article, variant = 'default' }: ArticleCardProps) 
 
     if (variant === '3d') {
         return (
-            <Link href={`/articles/${article.slug}`}>
+            <DynamicLink href={`/articles/${article.slug}`}>
                 <Card3D color="rgb(255, 255, 255)">
                     <CardContent />
                 </Card3D>
-            </Link>
+            </DynamicLink>
         );
     }
 
     return (
-        <Link href={`/articles/${article.slug}`}>
+        <DynamicLink href={`/articles/${article.slug}`}>
             <CardContent />
-        </Link>
+        </DynamicLink>
     );
 };
