@@ -7,7 +7,7 @@ const extractMentions = (content: string) => {
     const regex = /@<a([^>]*)href="@(\S+)"([^>]*)>((?:.(?!\<\/a\>))*.)<\/a>/g;
 
     const replacer = (substring: string, ...args: any[]) => {
-        const [p1, p2, p3, p4] = args;
+        const [, p2, , p4] = args;
         return `<a target='_blank' rel='noopener noreferrer' href="https://hashnode.com/@${p2}">${p4}</a>`;
     };
     return content.replace(regex, replacer);
@@ -21,9 +21,7 @@ const getHTMLFromMarkdown = (contentMarkdown: string) => {
     return marked(contentMarkdown);
 };
 
-const getOptimizedImages = (content: string) => {
-    return imageReplacer(content, true);
-};
+
 
 const pipe =
     (...fns: any[]) =>

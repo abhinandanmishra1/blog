@@ -3,10 +3,21 @@ import { getAllPosts } from '@/lib/server/mdxServer';
 import { ArticlesClient } from '@/components/article';
 import { PageHeader } from '@/components/ui';
 
-export default async function ArticlesPage() {
+export default async function ArticlesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const resolvedSearchParams = await searchParams;
+  const initialCount = typeof resolvedSearchParams.count === 'string' ? parseInt(resolvedSearchParams.count) : 6;
+  const initialSearchQuery = typeof resolvedSearchParams.q === 'string' ? resolvedSearchParams.q : '';
+  const initialTags = typeof resolvedSearchParams.tags === 'string' ? resolvedSearchParams.tags.split(',') : [];
+
   // Fetch initial posts from Hashnode API and MDX posts
+  // If we have a search query, we might want to fetch more posts initially or handle it differently,
+  // but for now, let's just fetch the requested count.
   const [{ posts, pageInfo }, mdxPosts] = await Promise.all([
-    fetchAllPosts(),
+    fetchAllPosts("", initialCount),
     getAllPosts()
   ]);
 
@@ -21,6 +32,9 @@ export default async function ArticlesPage() {
         initialPosts={posts}
         mdxPosts={mdxPosts}
         initialPageInfo={pageInfo}
+        initialCount={initialCount}
+        initialSearchQuery={initialSearchQuery}
+        initialTags={initialTags}
       />
     </div>
   );

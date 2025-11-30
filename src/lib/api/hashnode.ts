@@ -65,7 +65,7 @@ export const getPreviewPosts = async () => {
   return allPosts.publication.posts.edges.map(({ node }) => node);
 };
 
-const getPostsAtCursor = async (cursor = "") => {
+const getPostsAtCursor = async (cursor = "", limit = 6) => {
   const client = getClient();
 
   const allPosts = await client.request<AllPostsData>(
@@ -74,7 +74,7 @@ const getPostsAtCursor = async (cursor = "") => {
         publication(host: "${hashnodeURL}") {
           id
           title
-          posts(first: 6, after: "${cursor}") {
+          posts(first: ${limit}, after: "${cursor}") {
             pageInfo{
               hasNextPage
               endCursor
@@ -128,9 +128,10 @@ const getPostsAtCursor = async (cursor = "") => {
 };
 
 export const fetchAllPosts = async (
-  cursor: string = ""
+  cursor: string = "",
+  limit: number = 6
 ) => {
-  const data = await getPostsAtCursor(cursor);
+  const data = await getPostsAtCursor(cursor, limit);
 
   return {
     posts: data.publication.posts.edges.map(({ node }) => node),
@@ -360,4 +361,44 @@ export const subscribeToNewsletter = async (email: string) => {
       error: errorMessage || "Something went wrong",
     };
   }
+};
+
+export const searchPosts = async (query: string) => {
+  const client = getClient();
+  // Using the Search query from Hashnode API
+  // Note: This searches globally, so we might get posts from other publications if not scoped.
+  // However, Hashnode's GQL API usually allows filtering by publicationId or similar in search if supported.
+  // For now, we will use the publication's posts query and filter client-side if API doesn't support scoped search directly in this version,
+  // OR we can try to use the `search` query if we are sure.
+  // Given the constraints and typical usage, fetching all posts and filtering might be safer if we want strictly this publication's posts,
+  // but for "global search" as requested, maybe they mean searching all *their* posts.
+  // Let's try to fetch all posts (or a large number) and filter for now to ensure accuracy within the blog.
+  // Alternatively, if the user meant "global search" across Hashnode, that's different.
+  // Assuming "global search" means "search across all my articles".
+
+  // Strategy: Fetch all posts (iteratively) and filter. This is robust for a blog.
+  const allPosts = await getAllPostsTagWise(); // This fetches all posts.
+  // Flatten the tag-wise map to a list of unique posts
+  const uniquePosts = new Map<string, HashnodePostNode>();
+  Object.values(allPosts).flat().forEach(post => {
+    uniquePosts.set(post.slug, post);
+  });
+
+  const posts = Array.from(uniquePosts.values());
+
+  const lowerQuery = query.toLowerCase();
+  const terms = lowerQuery.split(/\s+/).filter(term => term.length > 0);
+
+  return posts.filter(post => {
+    const title = post.title.toLowerCase();
+    const brief = post.brief.toLowerCase();
+    const tags = post.tags.map(t => t.name.toLowerCase());
+
+    // Check if ALL terms match at least one field (AND logic)
+    return terms.every(term =>
+      title.includes(term) ||
+      brief.includes(term) ||
+      tags.some(tag => tag.includes(term))
+    );
+  });
 };

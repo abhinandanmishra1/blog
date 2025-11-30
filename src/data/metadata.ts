@@ -49,11 +49,21 @@ export const siteMetadata: SiteMetadata = {
     ],
     experience: [
       {
+        title: "Software Engineer",
+        company: "Project44",
+        period: "Feb, 2025 - Present",
+        highlights: [
+          'Architected and led the development of a centralized in-house UI library (on top of Material-UI), establishing a single source of truth for engineering and design, boosting UI component reusability by 100%.',
+          'Built an Adaptive Prompting Framework and a Figma-to-Code tool leveraging the Figma MCP server, enabling 90% accurate code generation from designs within 10 minutes and improving developer productivity by 60%.',
+          'Engineered and optimized core APIs for the freight optimization platform, reducing P95 latency by 15% and enabling support for 10M daily tracking updates across the logistics network.'
+        ]
+      },
+      {
         title: "Specialist Programmer",
         company: "Infosys",
-        period: "Oct,2023 - Present",
+        period: "Oct, 2023 - Feb, 2025",
         highlights: [
-          "Developed scalable backend services using .NET Core on Microsoft Azure for high performance.",
+          "Developed scalable backend services using Spring Boot on Microsoft Azure for high performance.",
           "Automated deployment pipelines on Azure DevOps, reducing deployment times and errors.",
           "Enhanced efficiency by 96% through automating processes for Azure resource management."
         ]
@@ -247,7 +257,7 @@ export const siteMetadata: SiteMetadata = {
       title: "Web Development Fundamentals",
       description:
         "Master the basics of modern web development with practical examples",
-      icon:  "BookOpen",
+      icon: "BookOpen",
       color: "rgb(59, 130, 246)",
       rating: 4.8,
       articleCount: 12,
