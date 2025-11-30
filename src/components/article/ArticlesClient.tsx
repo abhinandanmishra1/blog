@@ -8,9 +8,6 @@ import { MdxPost } from '@/types/mdx';
 import { fetchAllPosts, searchPosts } from '@/lib/api/hashnode';
 import { SearchInput, TagFilter } from '@/components/ui';
 
-// Wait, I should check if useDebounce exists. If not, I'll implement a simple debounce or create the hook.
-// I'll assume I need to create it or implement inline. Let's implement inline debounce or simple effect.
-
 import { useDebounce } from '@/hooks/useDebounce';
 
 interface ArticlesClientProps {
@@ -77,22 +74,16 @@ export const ArticlesClient = ({
         else params.count = null;
 
         const queryString = createQueryString(params);
-        // Use replace to avoid cluttering history, or push if we want back button support for every char?
-        // Usually replace for search typing, maybe push for filters?
-        // Let's use replace for now to keep it simple and avoid history spam while typing.
-        // We can optimize later if needed.
         router.replace(`${pathname}?${queryString}`, { scroll: false });
     }, [searchQuery, selectedTags, displayCount, pathname, router, createQueryString]);
 
     const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
-    // Search effect
     useEffect(() => {
         const performSearch = async () => {
             if (debouncedSearchQuery.trim()) {
                 setIsSearching(true);
                 try {
-                    // Search Hashnode posts
                     const results = await searchPosts(debouncedSearchQuery);
                     setSearchResults(results);
                 } catch (error) {
@@ -113,13 +104,11 @@ export const ArticlesClient = ({
 
         setIsLoading(true);
         try {
-            // If we need more posts and there are more available, fetch them
             if (displayCount >= allHashnodePosts.length && pageInfo.hasNextPage) {
                 const { posts: newPosts, pageInfo: newPageInfo } = await fetchAllPosts(pageInfo.endCursor);
                 setAllHashnodePosts([...allHashnodePosts, ...newPosts]);
                 setPageInfo(newPageInfo);
             }
-            // Increase display count by 6
             setDisplayCount(prev => prev + 6);
         } catch (error) {
             console.error('Error loading more posts:', error);
@@ -139,13 +128,10 @@ export const ArticlesClient = ({
     const filteredPosts = useMemo(() => {
         let displayedPosts: (HashnodePostNode | MdxPost)[] = [];
 
-        // 1. Determine base source (Hashnode)
         const hashnodeSource = searchResults !== null ? searchResults : allHashnodePosts;
 
-        // 2. Combine (No more type filter, always all)
         displayedPosts = [...mdxPosts, ...hashnodeSource];
 
-        // 3. Apply Search Query to MDX (Hashnode is already searched if results exist)
         if (searchQuery.trim()) {
             const lowerQuery = searchQuery.toLowerCase();
             displayedPosts = displayedPosts.filter(post => {
@@ -165,19 +151,16 @@ export const ArticlesClient = ({
             });
         }
 
-        // 4. Apply Tag Filter (Multiselect OR logic)
         if (selectedTags.length > 0) {
             displayedPosts = displayedPosts.filter(post =>
                 post.tags?.some(tag => selectedTags.includes(tag.slug))
             );
         }
 
-        // 5. Sort
         const sortedPosts = displayedPosts.sort((a, b) =>
             new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
         );
 
-        // 6. Slice
         return sortedPosts.slice(0, displayCount);
     }, [mdxPosts, allHashnodePosts, searchResults, searchQuery, selectedTags, displayCount]);
 

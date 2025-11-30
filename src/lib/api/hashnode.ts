@@ -365,20 +365,7 @@ export const subscribeToNewsletter = async (email: string) => {
 
 export const searchPosts = async (query: string) => {
   const client = getClient();
-  // Using the Search query from Hashnode API
-  // Note: This searches globally, so we might get posts from other publications if not scoped.
-  // However, Hashnode's GQL API usually allows filtering by publicationId or similar in search if supported.
-  // For now, we will use the publication's posts query and filter client-side if API doesn't support scoped search directly in this version,
-  // OR we can try to use the `search` query if we are sure.
-  // Given the constraints and typical usage, fetching all posts and filtering might be safer if we want strictly this publication's posts,
-  // but for "global search" as requested, maybe they mean searching all *their* posts.
-  // Let's try to fetch all posts (or a large number) and filter for now to ensure accuracy within the blog.
-  // Alternatively, if the user meant "global search" across Hashnode, that's different.
-  // Assuming "global search" means "search across all my articles".
-
-  // Strategy: Fetch all posts (iteratively) and filter. This is robust for a blog.
-  const allPosts = await getAllPostsTagWise(); // This fetches all posts.
-  // Flatten the tag-wise map to a list of unique posts
+  const allPosts = await getAllPostsTagWise();
   const uniquePosts = new Map<string, HashnodePostNode>();
   Object.values(allPosts).flat().forEach(post => {
     uniquePosts.set(post.slug, post);

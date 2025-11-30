@@ -17,8 +17,6 @@ export const TagFilter = ({ selectedTags, onSelectTag }: TagFilterProps) => {
         if (terms.length === 0) return true;
 
         const tagName = tag.name.toLowerCase();
-        // Check if ANY term matches the tag name (OR logic) to allow finding multiple distinct tags
-        // e.g. "react css" will show both "react" and "css" tags
         return terms.some(term => tagName.includes(term));
     });
 

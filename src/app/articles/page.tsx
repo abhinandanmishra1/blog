@@ -13,9 +13,6 @@ export default async function ArticlesPage({
   const initialSearchQuery = typeof resolvedSearchParams.q === 'string' ? resolvedSearchParams.q : '';
   const initialTags = typeof resolvedSearchParams.tags === 'string' ? resolvedSearchParams.tags.split(',') : [];
 
-  // Fetch initial posts from Hashnode API and MDX posts
-  // If we have a search query, we might want to fetch more posts initially or handle it differently,
-  // but for now, let's just fetch the requested count.
   const [{ posts, pageInfo }, mdxPosts] = await Promise.all([
     fetchAllPosts("", initialCount),
     getAllPosts()
