@@ -70,7 +70,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 flex flex-col">
         {categoryPosts.map((article) => (
           <ArticleCard2 key={article.slug} article={article} />
         ))}
