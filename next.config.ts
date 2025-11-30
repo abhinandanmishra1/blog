@@ -12,6 +12,19 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // adding this for portfolio/blog
+  async rewrites() {
+    return [
+      {
+        source: '/blog',
+        destination: '/',
+      },
+      {
+        source: '/blog/:path*',
+        destination: '/:path*',
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX({
