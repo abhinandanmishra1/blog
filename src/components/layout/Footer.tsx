@@ -1,5 +1,5 @@
 import { Github, Linkedin, Mail, Twitter } from "lucide-react";
-import Link from "next/link";
+import { DynamicLink } from "../ui/DynamicLink";
 import { siteMetadata } from "../../data/metadata";
 
 export default function Footer() {
@@ -39,36 +39,36 @@ export default function Footer() {
             <div className="grid grid-cols-2">
               <ul className="space-y-4">
                 <li>
-                  <Link
+                  <DynamicLink
                     href="/"
                     className="text-neutral-400 hover:text-white transition-colors duration-300"
                   >
                     Home
-                  </Link>
+                  </DynamicLink>
                 </li>
                 <li>
-                  <Link
+                  <DynamicLink
                     href="/about"
                     className="text-neutral-400 hover:text-white transition-colors duration-300"
                   >
                     About
-                  </Link>
+                  </DynamicLink>
                 </li>
                 <li>
-                  <Link
+                  <DynamicLink
                     href="/articles"
                     className="text-neutral-400 hover:text-white transition-colors duration-300"
                   >
                     Articles
-                  </Link>
+                  </DynamicLink>
                 </li>
                 <li>
-                  <Link
+                  <DynamicLink
                     href="/categories"
                     className="text-neutral-400 hover:text-white transition-colors duration-300"
                   >
                     Categories
-                  </Link>
+                  </DynamicLink>
                 </li>
               </ul>
             </div>
@@ -136,7 +136,7 @@ export default function Footer() {
         <div className="pt-8 border-t border-neutral-800">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-neutral-400 text-sm">
-              © 2024 {siteMetadata.title}. All rights reserved.
+              © {new Date().getFullYear()} {siteMetadata.title}. All rights reserved.
             </div>
             <div className="flex space-x-6 text-sm">
               <a

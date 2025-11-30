@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { Card3D } from "./Card3D";
 import { useRouter } from "next/navigation";
 
+import { getDynamicPath } from '@/utils/url';
+
 interface CategoryCardProps {
   icon: React.ReactNode;
   title: string;
@@ -23,7 +25,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
   const router = useRouter();
   return (
     <Card3D color={color}>
-      <div onClick={() => router.push(`/categories/${slug}`)} className="group bg-neutral-800 border border-neutral-700 rounded-xl p-6 hover:bg-neutral-750 transition-all duration-300">
+      <div onClick={() => router.push(getDynamicPath(`/categories/${slug}`))} className="group bg-neutral-800 border border-neutral-700 rounded-xl p-6 hover:bg-neutral-750 transition-all duration-300">
         <div className="flex items-center justify-between mb-4">
           <div className="w-12 h-12 bg-neutral-700/30 rounded-lg flex items-center justify-center">
             {icon}

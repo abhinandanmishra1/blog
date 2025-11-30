@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { DynamicLink } from '../ui/DynamicLink';
 import Image from 'next/image';
 import { HashnodePostNode } from '@/types/hashnode';
 
@@ -8,7 +8,7 @@ interface ArticleCard2Props {
 
 export const ArticleCard2 = ({ article }: ArticleCard2Props) => {
   return (
-    <Link href={`/articles/${article.slug}`}>
+    <DynamicLink href={`/articles/${article.slug}`}>
       <div className="group relative bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 ease-out hover:border-zinc-700 cursor-pointer">
         <div className="absolute inset-0 bg-gradient-to-r from-zinc-900/0 via-zinc-900/0 to-zinc-900/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 transition-all duration-500" />
 
@@ -41,9 +41,9 @@ export const ArticleCard2 = ({ article }: ArticleCard2Props) => {
             </div>
 
             <h3 className="text-xl font-bold text-zinc-200 mb-3 transition-colors duration-300 group-hover:text-white">
-              <Link href={`/articles/${article.slug}`}>
+              <DynamicLink href={`/articles/${article.slug}`}>
                 {article.title}
-              </Link>
+              </DynamicLink>
             </h3>
 
             <p className="text-zinc-400 mb-4 line-clamp-2">{article.brief}</p>
@@ -73,6 +73,6 @@ export const ArticleCard2 = ({ article }: ArticleCard2Props) => {
           </div>
         </div>
       </div>
-    </Link>
+    </DynamicLink>
   );
 };
