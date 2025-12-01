@@ -3,6 +3,7 @@ import { Badge } from './elements/Badge';
 import { Callout } from './elements/Callout';
 import { CodeBlock } from './code/CodeBlock';
 import { CodeSandbox } from './code/CodeSandbox';
+import { Demo } from './elements/Demo';
 import { FileTree, FileTreeItem } from './elements/FileTree';
 import { ImageComparison } from './media/ImageComparison';
 import { InlineCode } from './elements/InlineCode';
@@ -106,6 +107,7 @@ export const mdxComponents = {
   Callout,
   CodeBlock,
   CodeSandbox,
+  Demo,
   FileTree,
   FileTreeItem,
   ImageComparison,

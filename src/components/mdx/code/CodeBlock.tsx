@@ -1,26 +1,30 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Check, Copy } from 'lucide-react';
 
 interface CodeBlockProps {
-  children: string;
+  children: React.ReactNode;
   className?: string;
   filename?: string;
 }
 
-export const CodeBlock: React.FC<CodeBlockProps> = ({ 
-  children, 
-  className = '', 
-  filename 
+export const CodeBlock: React.FC<CodeBlockProps> = ({
+  children,
+  className = '',
+  filename
 }) => {
   const [copied, setCopied] = useState(false);
-  
+  const codeRef = useRef<HTMLElement>(null);
+
   const language = className.replace('language-', '');
-  
+
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(children);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (codeRef.current) {
+      const text = codeRef.current.textContent || '';
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   return (
@@ -31,14 +35,14 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
         </div>
       )}
       <div className="relative">
-        <pre className={`bg-neutral-900 p-4 rounded-lg ${filename ? 'rounded-t-none' : ''} overflow-x-auto`}>
-          <code className={className}>
+        <pre className={`bg-[#0d1117] p-4 rounded-lg ${filename ? 'rounded-t-none' : ''} overflow-x-auto`}>
+          <code ref={codeRef} className={`${className} block`}>
             {children}
           </code>
         </pre>
         <button
           onClick={handleCopy}
-          className="absolute top-2 right-2 p-2 bg-neutral-800 hover:bg-neutral-700 rounded transition-colors opacity-0 group-hover:opacity-100"
+          className="absolute top-2 right-2 p-2 bg-neutral-800 hover:bg-neutral-700 rounded transition-colors opacity-0 group-hover:opacity-100 border border-neutral-700"
           title="Copy code"
         >
           {copied ? (
@@ -47,8 +51,8 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
             <Copy className="w-4 h-4 text-neutral-400" />
           )}
         </button>
-        {language && (
-          <span className="absolute top-2 left-2 text-xs text-neutral-500 bg-neutral-800 px-2 py-1 rounded">
+        {language && !filename && (
+          <span className="absolute top-2 left-2 text-xs text-neutral-500 select-none">
             {language}
           </span>
         )}
