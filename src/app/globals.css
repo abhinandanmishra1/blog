@@ -1,5 +1,27 @@
-@import 'highlight.js/styles/github-dark.css';
 @tailwind base;
+
+@layer components {
+  code {
+    counter-reset: line;
+  }
+
+  code>[data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 1rem;
+    margin-right: 1rem;
+    text-align: right;
+    color: gray;
+  }
+
+  code>[data-line] {
+    display: inline-block;
+    width: 100%;
+    padding: 0 0.25rem;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 
@@ -24,35 +46,38 @@
   .prose {
     @apply text-gray-300;
   }
-  
-  .prose h1, .prose h2, .prose h3, .prose h4 {
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
     @apply text-white font-bold;
   }
-  
+
   .prose a {
     @apply text-blue-400 hover:text-blue-300 no-underline;
   }
-  
+
   .prose code {
     @apply bg-gray-800 px-1.5 py-0.5 rounded text-sm;
   }
-  
+
   .prose pre {
     @apply bg-gray-800 rounded-lg p-4;
   }
-  
+
   .prose blockquote {
     @apply border-l-4 border-blue-500 bg-gray-800/50 px-4 py-2 rounded-r-lg;
   }
-  
+
   .prose img {
     @apply rounded-lg;
   }
-  
+
   .prose ul {
     @apply list-disc list-inside;
   }
-  
+
   .prose ol {
     @apply list-decimal list-inside;
   }

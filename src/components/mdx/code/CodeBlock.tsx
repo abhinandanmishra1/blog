@@ -2,25 +2,16 @@
 import React, { useState, useRef } from 'react';
 import { Check, Copy } from 'lucide-react';
 
-interface CodeBlockProps {
-  children: React.ReactNode;
-  className?: string;
-  filename?: string;
-}
-
-export const CodeBlock: React.FC<CodeBlockProps> = ({
-  children,
-  className = '',
-  filename
-}) => {
+export const CodeBlock = ({ children, ...props }: any) => {
   const [copied, setCopied] = useState(false);
-  const codeRef = useRef<HTMLElement>(null);
+  const preRef = useRef<HTMLPreElement>(null);
 
-  const language = className.replace('language-', '');
+  const language = props['data-language'] || 'text';
+  const filename = props['data-filename'] || props.filename;
 
   const handleCopy = async () => {
-    if (codeRef.current) {
-      const text = codeRef.current.textContent || '';
+    if (preRef.current) {
+      const text = preRef.current.textContent || '';
       await navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -28,21 +19,24 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   };
 
   return (
-    <div className="relative group my-6">
+    <div className="relative group my-6 rounded-lg overflow-hidden border border-neutral-700">
       {filename && (
-        <div className="bg-neutral-800 text-neutral-300 px-4 py-2 text-sm font-medium rounded-t-lg border-b border-neutral-700">
-          {filename}
+        <div className="bg-neutral-800 text-neutral-300 px-4 py-2 text-sm font-medium border-b border-neutral-700 flex items-center justify-between">
+          <span>{filename}</span>
+          {language && <span className="text-xs text-neutral-500 uppercase">{language}</span>}
         </div>
       )}
       <div className="relative">
-        <pre className={`bg-[#0d1117] p-4 rounded-lg ${filename ? 'rounded-t-none' : ''} overflow-x-auto`}>
-          <code ref={codeRef} className={`${className} block`}>
-            {children}
-          </code>
+        <pre
+          ref={preRef}
+          {...props}
+          className={`p-4 overflow-x-auto text-sm leading-6 ${props.className || ''}`}
+        >
+          {children}
         </pre>
         <button
           onClick={handleCopy}
-          className="absolute top-2 right-2 p-2 bg-neutral-800 hover:bg-neutral-700 rounded transition-colors opacity-0 group-hover:opacity-100 border border-neutral-700"
+          className="absolute top-2 right-2 p-2 bg-neutral-800/80 hover:bg-neutral-700 rounded transition-colors opacity-0 group-hover:opacity-100 border border-neutral-700 backdrop-blur-sm"
           title="Copy code"
         >
           {copied ? (
@@ -51,11 +45,6 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
             <Copy className="w-4 h-4 text-neutral-400" />
           )}
         </button>
-        {language && !filename && (
-          <span className="absolute top-2 left-2 text-xs text-neutral-500 select-none">
-            {language}
-          </span>
-        )}
       </div>
     </div>
   );

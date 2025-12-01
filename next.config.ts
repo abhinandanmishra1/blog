@@ -34,7 +34,7 @@ const withMDX = createMDX({
   // Add markdown plugins here, as desired
   options: {
     remarkPlugins: [require('remark-gfm')],
-    rehypePlugins: [require('rehype-highlight')],
+    rehypePlugins: [require('rehype-mdx-code-props')],
   },
 });
 

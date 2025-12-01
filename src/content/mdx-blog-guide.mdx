@@ -13,8 +13,8 @@ tags:
 coverImage:
   url: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=800&h=400&fit=crop"
 author:
-  name: "Your Name"
-  profilePicture: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+  name: "Abhinandan Mishra"
+  profilePicture: "https://github.com/abhinandanmishra1.png"
 ---
 
 Welcome to your comprehensive guide on writing beautiful, interactive blog posts using MDX! This guide will show you how to leverage our powerful component library to create engaging content.
@@ -35,8 +35,7 @@ Create a new `.mdx` file in the `src/content` directory with a descriptive name.
 <Step title="Add frontmatter">
 Every blog post starts with frontmatter - metadata about your post:
 
-<CodeBlock language="yaml">
-```
+```yaml
 ---
 title: "Your Blog Title"
 brief: "A short description"
@@ -52,7 +51,6 @@ author:
   profilePicture: "your-profile-picture"
 ---
 ```
-</CodeBlock>
 </Step>
 
 <Step title="Start writing">
@@ -60,179 +58,193 @@ After the frontmatter, you can start writing your content using markdown and our
 </Step>
 </Steps>
 
-## Available Components
+## Component Library & Use Cases
 
-Let's explore the components you can use to make your blog posts more engaging:
+Here are all the available components and how to use them effectively.
 
-### 1. Text Emphasis Components
+### 1. Callouts
+**Use Case:** Highlighting warnings, tips, errors, or success messages that need to stand out from the main text.
 
-#### Badges
-Use badges to highlight important information:
-
-<Badge>Default</Badge> <Badge variant="success">Success</Badge> <Badge variant="warning">Warning</Badge>
-
-<CodeBlock language="mdx">
-{'<Badge>Default</Badge>\n<Badge variant="success">Success</Badge>\n<Badge variant="warning">Warning</Badge>'}
-</CodeBlock>
-
-#### Callouts
-Draw attention to important information:
-
-<Callout type="warning" title="Important Note">
-This is how you highlight crucial information in your blog posts.
+<Callout type="info" title="Info">
+  Use this for general information or context.
 </Callout>
 
-<CodeBlock language="mdx">
-{'<Callout type="warning" title="Important Note">\n  Your important message here\n</Callout>'}
-</CodeBlock>
+<Callout type="warning" title="Warning">
+  Use this to warn readers about potential pitfalls.
+</Callout>
 
-### 2. Code Components
+<Callout type="error" title="Error">
+  Use this to highlight critical errors or anti-patterns.
+</Callout>
 
-#### Code Blocks
-Share code snippets with syntax highlighting:
+<Callout type="success" title="Success">
+  Use this to celebrate a completed step or correct approach.
+</Callout>
+
+```tsx
+<Callout type="info" title="Info">
+  Use this for general information or context.
+</Callout>
+```
+
+### 2. Code Blocks
+**Use Case:** Displaying code snippets with syntax highlighting, file names, and copy functionality.
 
 ```typescript filename="example.ts"
 interface User {
+  id: string;
   name: string;
-  age: number;
+  email: string;
 }
 
-const user: User = {
-  name: "John",
-  age: 30
+const getUser = (id: string): User => {
+  // Fetch user logic
+  return { id, name: "John Doe", email: "john@example.com" };
 };
 ```
 
-#### Inline Code
-For short code references, use `inline code` like this.
+### 3. Interactive Demos
+**Use Case:** Showcasing interactive widgets or UI elements directly in the blog post.
 
-### 3. Interactive Components
+<Demo title="Button Component">
+  <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+    Click Me!
+  </button>
+</Demo>
 
-#### Tabs
-Organize related content in tabs:
+```tsx
+<Demo title="Button Component">
+  <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+    Click Me!
+  </button>
+</Demo>
+```
 
-<Tabs defaultValue="writing">
-<TabItem value="writing" label="Writing">
-Focus on creating valuable content first.
-</TabItem>
-<TabItem value="styling" label="Styling">
-Then enhance it with proper formatting and styling.
-</TabItem>
-</Tabs>
-
-<CodeBlock language="mdx">
-{'<Tabs defaultValue="writing">\n  <TabItem value="writing" label="Writing">\n    Your content here\n  </TabItem>\n</Tabs>'}
-</CodeBlock>
-
-### 4. Media Components
-
-#### YouTube Videos
-Embed YouTube videos in your posts:
-
-<CodeBlock language="mdx">
-{'<YouTube id="your-video-id" title="Video Title" />'}
-</CodeBlock>
-
-#### CodeSandbox
-Share live code examples:
-
-<CodeBlock language="mdx">
-{'<CodeSandbox id="your-sandbox-id" title="Demo Title" />'}
-</CodeBlock>
-
-#### Image Comparison
-Show before/after comparisons:
-
-<CodeBlock language="mdx">
-{'<ImageComparison\n  before="/path/to/before.jpg"\n  after="/path/to/after.jpg"\n  alt="Comparison description"\n/>'}
-</CodeBlock>
-
-### 5. Structure Components
-
-#### File Tree
-Display code structure:
+### 4. File Trees
+**Use Case:** Visualizing directory structures, project layouts, or file organization.
 
 <FileTree>
-<FileTreeItem name="blog" type="folder" defaultOpen>
-  <FileTreeItem name="content" type="folder">
-    <FileTreeItem name="my-post.mdx" type="file" />
+  <FileTreeItem name="src" type="folder" defaultOpen>
+    <FileTreeItem name="components" type="folder">
+      <FileTreeItem name="Button.tsx" type="file" />
+      <FileTreeItem name="Card.tsx" type="file" />
+    </FileTreeItem>
+    <FileTreeItem name="utils" type="folder">
+      <FileTreeItem name="helpers.ts" type="file" />
+    </FileTreeItem>
+    <FileTreeItem name="App.tsx" type="file" />
   </FileTreeItem>
-  <FileTreeItem name="components" type="folder">
-    <FileTreeItem name="MDXComponents.tsx" type="file" />
-  </FileTreeItem>
-</FileTreeItem>
+  <FileTreeItem name="package.json" type="file" />
 </FileTree>
 
-## Best Practices
+```tsx
+<FileTree>
+  <FileTreeItem name="src" type="folder" defaultOpen>
+    <FileTreeItem name="components" type="folder">
+      <FileTreeItem name="Button.tsx" type="file" />
+    </FileTreeItem>
+  </FileTreeItem>
+</FileTree>
+```
 
-<Callout type="success" title="Writing Tips">
-Here are some tips to make your blog posts more engaging and professional:
-</Callout>
-
-1. **Start with Structure**
-   - Plan your content with clear sections
-   - Use headings to create hierarchy
-   - Include a table of contents for longer posts
-
-2. **Use Components Wisely**
-   - Don't overuse callouts and badges
-   - Keep code examples concise and relevant
-   - Use tabs to organize related but separate content
-
-3. **Optimize for Readability**
-   - Break long paragraphs into smaller chunks
-   - Use lists and steps for sequential information
-   - Include relevant images and diagrams
-
-4. **Technical Content**
-   - Always include code examples
-   - Explain complex concepts with simple analogies
-   - Use callouts for important warnings or tips
-
-## Common Patterns
-
-Here are some common patterns you might want to use in your blog posts:
-
-### 1. Tutorial Pattern
+### 5. Steps
+**Use Case:** Guiding readers through a sequential process or tutorial.
 
 <Steps>
-<Step title="Introduction">
-Start with a brief overview
-</Step>
-<Step title="Prerequisites">
-List what readers need
-</Step>
-<Step title="Main Content">
-Step-by-step instructions
-</Step>
-<Step title="Conclusion">
-Summarize and provide next steps
-</Step>
+  <Step title="Install Dependencies">
+    Run `npm install` to install the required packages.
+  </Step>
+  <Step title="Configure">
+    Update your configuration file with the necessary API keys.
+  </Step>
+  <Step title="Run">
+    Start the development server with `npm run dev`.
+  </Step>
 </Steps>
 
-### 2. Comparison Pattern
+```tsx
+<Steps>
+  <Step title="Step 1">Description...</Step>
+  <Step title="Step 2">Description...</Step>
+</Steps>
+```
 
-<Tabs defaultValue="option1">
-<TabItem value="option1" label="Option 1">
-Describe the first approach
-</TabItem>
-<TabItem value="option2" label="Option 2">
-Describe the alternative
-</TabItem>
+### 6. Tabs
+**Use Case:** Showing multiple options (e.g., npm vs yarn), different language implementations, or before/after code.
+
+<Tabs defaultValue="npm">
+  <TabItem value="npm" label="npm">
+    ```bash
+    npm install react
+    ```
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+    ```bash
+    yarn add react
+    ```
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm">
+    ```bash
+    pnpm add react
+    ```
+  </TabItem>
 </Tabs>
+
+```tsx
+<Tabs defaultValue="npm">
+  <TabItem value="npm" label="npm">
+    npm install react
+  </TabItem>
+  <TabItem value="yarn" label="yarn">
+    yarn add react
+  </TabItem>
+</Tabs>
+```
+
+### 7. Badges
+**Use Case:** Adding small labels or status indicators inline with text.
+
+This feature is <Badge variant="success">New</Badge> and currently in <Badge variant="warning">Beta</Badge>.
+
+```tsx
+This feature is <Badge variant="success">New</Badge>
+```
+
+### 8. Image Comparison
+**Use Case:** Comparing two images, such as design iterations, optimization results, or visual changes.
+
+<ImageComparison
+  before="https://images.unsplash.com/photo-1517842645767-c639042777db?w=800&h=400&fit=crop"
+  after="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop"
+  alt="Office comparison"
+/>
+
+```tsx
+<ImageComparison
+  before="/path/to/before.jpg"
+  after="/path/to/after.jpg"
+  alt="Comparison"
+/>
+```
+
+### 9. YouTube Embed
+**Use Case:** Embedding video tutorials or demos directly into the post.
+
+<YouTube id="dQw4w9WgXcQ" title="Rick Roll" />
+
+```tsx
+<YouTube id="dQw4w9WgXcQ" title="Video Title" />
+```
+
+### 10. CodeSandbox
+**Use Case:** Embedding live code environments for complex examples.
+
+<CodeSandbox id="react-new" title="React Playground" />
+
+```tsx
+<CodeSandbox id="sandbox-id" title="Demo Title" />
+```
 
 ## Conclusion
 
-<Callout type="info" title="Ready to Write">
-Now you have all the tools you need to create engaging, interactive blog posts using MDX! Remember to experiment with different components to find what works best for your content.
-</Callout>
-
-### Next Steps
-
-- Create your first MDX blog post
-- Experiment with different components
-- Share your knowledge with the community
-
----
-
-*Happy blogging! 📝*
+These components are designed to help you tell better stories. Use them to break up walls of text, provide clear examples, and engage your readers. Happy blogging!

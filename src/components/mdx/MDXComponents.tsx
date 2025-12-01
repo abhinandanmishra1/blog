@@ -2,8 +2,12 @@ import Image from 'next/image';
 import { Badge } from './elements/Badge';
 import { Callout } from './elements/Callout';
 import { CodeBlock } from './code/CodeBlock';
+import CodeSnippet from './code/CodeSnippet';
 import { CodeSandbox } from './code/CodeSandbox';
+import { Sandpack } from './code/Sandpack';
+import { AnimatedBox } from './demos/AnimatedBox';
 import { Demo } from './elements/Demo';
+
 import { FileTree, FileTreeItem } from './elements/FileTree';
 import { ImageComparison } from './media/ImageComparison';
 import { InlineCode } from './elements/InlineCode';
@@ -12,7 +16,6 @@ import { Tabs, TabItem } from './elements/Tabs';
 import { YouTube } from './media/YouTube';
 
 export const mdxComponents = {
-  // Standard HTML elements with custom styling
   h1: (props: any) => (
     <h1 className="text-4xl font-bold text-white mb-6 mt-8" {...props} />
   ),
@@ -55,17 +58,20 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  code: ({ className, children, ...props }: any) => {
-    // If it's a code block (has className with language)
-    if (className?.startsWith('language-')) {
-      return <CodeBlock className={className} {...props}>{children}</CodeBlock>;
+  pre: (props: any) => {
+    const child = props.children;
+
+    if (child?.props?.className?.startsWith('language-')) {
+      const lang = child.props.className.replace('language-', '');
+      const code = child.props.children;
+      const filename = child.props.filename;
+
+      return <CodeSnippet code={code} lang={lang} filename={filename} />;
     }
-    // If it's inline code
-    return <InlineCode {...props}>{children}</InlineCode>;
+
+    return <pre {...props} />;
   },
-  pre: (props: any) => (
-    <div {...props} />
-  ),
+  code: InlineCode,
   img: (props: any) => (
     <Image
       className="rounded-lg my-6 max-w-full h-auto"
@@ -103,10 +109,12 @@ export const mdxComponents = {
   ),
 
   // Custom components
+  AnimatedBox,
   Badge,
   Callout,
   CodeBlock,
   CodeSandbox,
+  Sandpack,
   Demo,
   FileTree,
   FileTreeItem,

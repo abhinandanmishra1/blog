@@ -1,0 +1,75 @@
+.wrapper {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    border-radius: 12px;
+    background: var(--code-bg);
+    position: relative;
+    overflow: auto;
+}
+
+[data-highlight-lines] .line {
+    position: relative;
+}
+
+[data-highlight-lines] .line.highlighted {
+    background: rgba(255, 255, 0, 0.08);
+    border-left: 3px solid #f0d23b;
+}
+
+.header {
+    background: #1f2937;
+    color: #d1d5db;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-bottom: 1px solid #374151;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.lang {
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+
+.code pre {
+    margin: 0;
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    overflow-x: auto;
+}
+
+.copyButton {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #9ca3af;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0;
+    backdrop-filter: blur(4px);
+}
+
+.wrapper:hover .copyButton {
+    opacity: 1;
+}
+
+.copyButton:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.copyButton.copied {
+    background: rgba(34, 197, 94, 0.2);
+    border-color: rgba(34, 197, 94, 0.5);
+    color: #4ade80;
+}
