@@ -38,39 +38,48 @@ export const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="lg:hidden bg-neutral-800/80 backdrop-blur-lg fixed inset-0 z-40 pt-16">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <DynamicLink
-              href="/"
-              className="text-neutral-300 hover:text-white block px-3 py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Home
-            </DynamicLink>
-            <DynamicLink
-              href="/articles"
-              className="text-neutral-300 hover:text-white block px-3 py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Articles
-            </DynamicLink>
-            <DynamicLink
-              href="/categories"
-              className="text-neutral-300 hover:text-white block px-3 py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Categories
-            </DynamicLink>
-            <DynamicLink
-              href="/about"
-              className="text-neutral-300 hover:text-white block px-3 py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              About
-            </DynamicLink>
-          </div>
+      <div
+        className={`lg:hidden bg-neutral-800/95 backdrop-blur-lg fixed top-16 right-0 w-full shadow-2xl transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+      >
+        <div className="px-2 pt-2 pb-3 space-y-1">
+          <DynamicLink
+            href="/"
+            className="text-neutral-300 hover:text-white hover:bg-neutral-700/50 block px-3 py-2 rounded-md transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Home
+          </DynamicLink>
+          <DynamicLink
+            href="/articles"
+            className="text-neutral-300 hover:text-white hover:bg-neutral-700/50 block px-3 py-2 rounded-md transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Articles
+          </DynamicLink>
+          <DynamicLink
+            href="/categories"
+            className="text-neutral-300 hover:text-white hover:bg-neutral-700/50 block px-3 py-2 rounded-md transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Categories
+          </DynamicLink>
+          <DynamicLink
+            href="/about"
+            className="text-neutral-300 hover:text-white hover:bg-neutral-700/50 block px-3 py-2 rounded-md transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            About
+          </DynamicLink>
         </div>
+      </div>
+
+      {/* Backdrop overlay */}
+      {isMenuOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 top-16 z-[-1]"
+          onClick={() => setIsMenuOpen(false)}
+        />
       )}
     </nav>
   );
