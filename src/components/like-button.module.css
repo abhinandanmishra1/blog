@@ -1,0 +1,87 @@
+.likeButton {
+    position: fixed;
+    top: 50%;
+    right: 4rem;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 50;
+}
+
+.likeButton:hover {
+    background: rgba(0, 0, 0, 0.7);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.05);
+}
+
+.label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    text-align: center;
+}
+
+.heartContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 40.32px;
+}
+
+.heartContainer[data-bounce="true"] {
+    animation: bounce 600ms ease-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.2);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+
+    75% {
+        transform: scale(1.1);
+    }
+}
+
+.heartSvg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 2px 8px rgba(236, 72, 153, 0.3));
+}
+
+.count {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #ec4899;
+    font-family: monospace;
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .likeButton {
+        position: static;
+        transform: none;
+        margin: 2rem auto;
+    }
+
+    .likeButton:hover {
+        transform: scale(1.05);
+    }
+}

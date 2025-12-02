@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllSlugs } from '@/lib/mdx';
 import { getPost } from '@/lib/api/hashnode';
 import { IntegratedArticleRenderer } from '@/components/article';
+import LikeButton from '@/components/LikeButton';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -33,6 +34,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         hashnodePost={hashnodePost}
         mdxPost={mdxPost ?? undefined}
       />
+
+      {/* Like Button */}
+      <div className="mt-12 flex justify-center">
+        <LikeButton slug={slug} />
+      </div>
 
       {/* Only show comments for Hashnode posts */}
       {/* {post && (
