@@ -1,163 +1,169 @@
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
-import { DynamicLink } from "../ui/DynamicLink";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { siteMetadata } from "../../data/metadata";
+import { GithubIcon, LinkedinIcon, TwitterIcon } from "../common/Icons";
 
 export default function Footer() {
+  const portfolioUrl = "https://abhinandanmishra.in";
+
   return (
-    <footer className="bg-neutral-900 border-t border-neutral-800">
+    <footer className="bg-zinc-950 border-t border-zinc-800 text-zinc-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <div className="space-y-6">
-            <div className="text-white text-2xl font-bold">
-              {siteMetadata.title}
+          {/* Brand */}
+          <div className="space-y-4">
+            <div className="text-white text-xl font-bold flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block" />
+              <span>{siteMetadata.title}</span>
             </div>
-            <p className="text-neutral-400">{siteMetadata.description}</p>
-            <div className="flex space-x-4">
-              <a
-                href={siteMetadata.author.social.twitter}
-                className="text-neutral-400 hover:text-white transition-colors duration-300"
-              >
-                <Twitter className="h-6 w-6" />
-              </a>
+            <p className="text-sm text-zinc-400 leading-relaxed">
+              In-depth engineering articles on distributed systems, system design, data structures, and modern web application development.
+            </p>
+            <div className="flex space-x-3 pt-2">
               <a
                 href={siteMetadata.author.social.github}
-                className="text-neutral-400 hover:text-white transition-colors duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-colors"
+                aria-label="GitHub"
               >
-                <Github className="h-6 w-6" />
+                <GithubIcon className="h-4 w-4" />
               </a>
               <a
                 href={siteMetadata.author.social.linkedin}
-                className="text-neutral-400 hover:text-white transition-colors duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-colors"
+                aria-label="LinkedIn"
               >
-                <Linkedin className="h-6 w-6" />
+                <LinkedinIcon className="h-4 w-4" />
+              </a>
+              <a
+                href={siteMetadata.author.social.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-colors"
+                aria-label="Twitter"
+              >
+                <TwitterIcon className="h-4 w-4" />
               </a>
             </div>
           </div>
 
+          {/* Navigation */}
           <div>
-            <h3 className="text-white font-semibold mb-6">Quick Links</h3>
-            <div className="grid grid-cols-2">
-              <ul className="space-y-4">
-                <li>
-                  <DynamicLink
-                    href="/"
-                    className="text-neutral-400 hover:text-white transition-colors duration-300"
-                  >
-                    Home
-                  </DynamicLink>
-                </li>
-                <li>
-                  <DynamicLink
-                    href="/about"
-                    className="text-neutral-400 hover:text-white transition-colors duration-300"
-                  >
-                    About
-                  </DynamicLink>
-                </li>
-                <li>
-                  <DynamicLink
-                    href="/articles"
-                    className="text-neutral-400 hover:text-white transition-colors duration-300"
-                  >
-                    Articles
-                  </DynamicLink>
-                </li>
-                <li>
-                  <DynamicLink
-                    href="/categories"
-                    className="text-neutral-400 hover:text-white transition-colors duration-300"
-                  >
-                    Categories
-                  </DynamicLink>
-                </li>
-              </ul>
-            </div>
+            <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider font-mono">
+              Explore
+            </h3>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <Link href="/" className="text-zinc-400 hover:text-white transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/articles" className="text-zinc-400 hover:text-white transition-colors">
+                  All Articles
+                </Link>
+              </li>
+              <li>
+                <Link href="/categories" className="text-zinc-400 hover:text-white transition-colors">
+                  Categories & Tags
+                </Link>
+              </li>
+              <li>
+                <Link href="/series" className="text-zinc-400 hover:text-white transition-colors">
+                  Article Series
+                </Link>
+              </li>
+              <li>
+                <Link href="/admin" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
+                  Admin Dashboard
+                </Link>
+              </li>
+            </ul>
           </div>
 
+          {/* Connected Portfolio */}
           <div>
-            <h3 className="text-white font-semibold mb-6">Categories</h3>
-            <ul className="space-y-4">
+            <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider font-mono">
+              Portfolio & Products
+            </h3>
+            <ul className="space-y-2.5 text-sm">
               <li>
                 <a
-                  href="#"
-                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                  href={portfolioUrl}
+                  className="text-zinc-400 hover:text-white transition-colors inline-flex items-center gap-1"
                 >
-                  React
+                  <span>Main Portfolio</span>
+                  <ArrowUpRight className="w-3 h-3 text-zinc-500" />
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
-                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                  href="https://sdeforge.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-zinc-400 hover:text-white transition-colors inline-flex items-center gap-1"
                 >
-                  JavaScript
+                  <span>SDE Forge</span>
+                  <ArrowUpRight className="w-3 h-3 text-zinc-500" />
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
-                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                  href="https://codepad.abhinandanmishra.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-zinc-400 hover:text-white transition-colors inline-flex items-center gap-1"
                 >
-                  Web Development
+                  <span>CodePad IDE</span>
+                  <ArrowUpRight className="w-3 h-3 text-zinc-500" />
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
-                  className="text-neutral-400 hover:text-white transition-colors duration-300"
+                  href="https://github.com/abhinandanmishra1/AI-Shipment-Copilot"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-zinc-400 hover:text-white transition-colors inline-flex items-center gap-1"
                 >
-                  Programming
+                  <span>AI Shipment Copilot</span>
+                  <ArrowUpRight className="w-3 h-3 text-zinc-500" />
                 </a>
               </li>
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-white font-semibold mb-6">Stay Updated</h3>
-            <p className="text-neutral-400 mb-4">
-              Subscribe to our newsletter for the latest updates.
-            </p>
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-blue-500 transition-colors duration-300"
-                />
-              </div>
-              <button className="flex items-center gap-2 px-4 py-2 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-lg text-neutral-400 hover:text-white transition-colors duration-300">
-                <Mail className="w-4 h-4" />
-                <span className="text-sm">Subscribe</span>
-              </button>
+          {/* Author */}
+          <div className="space-y-3">
+            <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider font-mono">
+              Author
+            </h3>
+            <div className="text-sm">
+              <div className="font-semibold text-white">{siteMetadata.author.name}</div>
+              <p className="text-xs text-zinc-400 mt-1">
+                Software Engineer II @ Project44. Competitive programmer and systems enthusiast.
+              </p>
+            </div>
+            <div className="pt-2">
+              <a
+                href={portfolioUrl}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-blue-400 hover:bg-zinc-800 transition-colors font-medium"
+              >
+                <span>View Full Engineering Portfolio</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
             </div>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-neutral-800">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-neutral-400 text-sm">
-              © {new Date().getFullYear()} {siteMetadata.title}. All rights reserved.
-            </div>
-            <div className="flex space-x-6 text-sm">
-              <a
-                href="#"
-                className="text-neutral-400 hover:text-white transition-colors duration-300"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="#"
-                className="text-neutral-400 hover:text-white transition-colors duration-300"
-              >
-                Terms of Service
-              </a>
-              <a
-                href="#"
-                className="text-neutral-400 hover:text-white transition-colors duration-300"
-              >
-                Cookie Policy
-              </a>
-            </div>
+        <div className="pt-8 border-t border-zinc-800 flex flex-col sm:flex-row justify-between items-center text-xs text-zinc-500 gap-2">
+          <div>
+            © {new Date().getFullYear()} {siteMetadata.author.name}. All articles published under MDX.
+          </div>
+          <div className="font-mono">
+            Next.js 15 App Router • Pure Local MDX
           </div>
         </div>
       </div>

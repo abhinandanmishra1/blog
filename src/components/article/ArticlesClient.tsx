@@ -1,220 +1,243 @@
-"use client"
+"use client";
+
 import { useState, useMemo, useEffect, useCallback } from 'react';
-import { Filter } from 'lucide-react';
+import { Filter, Search, X } from 'lucide-react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ArticleCard } from '@/components/cards';
-import { HashnodePostNode, PageInfo } from '@/types/hashnode';
 import { MdxPost } from '@/types/mdx';
-import { fetchAllPosts, searchPosts } from '@/lib/api/hashnode';
-import { SearchInput, TagFilter } from '@/components/ui';
-
 import { useDebounce } from '@/hooks/useDebounce';
 
 interface ArticlesClientProps {
-    initialPosts: HashnodePostNode[];
-    mdxPosts: MdxPost[];
-    initialPageInfo: PageInfo;
-    initialCount?: number;
-    initialSearchQuery?: string;
-    initialTags?: string[];
+  initialPosts?: any[];
+  mdxPosts?: MdxPost[];
+  posts?: MdxPost[];
+  initialPageInfo?: any;
+  initialCount?: number;
+  initialSearchQuery?: string;
+  initialTags?: string[];
 }
 
-type FilterType = 'all' | 'mdx' | 'hashnode';
-
 export const ArticlesClient = ({
-    initialPosts,
-    mdxPosts,
-    initialPageInfo,
-    initialCount = 6,
-    initialSearchQuery = '',
-    initialTags = []
+  mdxPosts = [],
+  posts: directPosts,
+  initialCount = 9,
+  initialSearchQuery = '',
+  initialTags = [],
 }: ArticlesClientProps) => {
-    const router = useRouter();
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
+  const allPosts = directPosts || mdxPosts;
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-    const [allHashnodePosts, setAllHashnodePosts] = useState<HashnodePostNode[]>(initialPosts);
-    const [pageInfo, setPageInfo] = useState<PageInfo>(initialPageInfo);
-    const [isLoading, setIsLoading] = useState(false);
-    const [displayCount, setDisplayCount] = useState(initialCount);
-    const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
-    const [selectedTags, setSelectedTags] = useState<string[]>(initialTags);
-    const [isFilterOpen, setIsFilterOpen] = useState(initialTags.length > 0);
-    const [searchResults, setSearchResults] = useState<HashnodePostNode[] | null>(null);
-    const [isSearching, setIsSearching] = useState(false);
+  const [displayCount, setDisplayCount] = useState(initialCount);
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
+  const [selectedTags, setSelectedTags] = useState<string[]>(initialTags);
+  const [isFilterOpen, setIsFilterOpen] = useState(initialTags.length > 0);
 
-    // Sync state to URL
-    const createQueryString = useCallback(
-        (params: Record<string, string | number | null>) => {
-            const newSearchParams = new URLSearchParams(searchParams.toString());
+  // Extract all unique tags
+  const availableTags = useMemo(() => {
+    const tagMap = new Map<string, { name: string; slug: string; count: number }>();
+    allPosts.forEach((post) => {
+      (post.tags || []).forEach((t) => {
+        const slug = t.slug.toLowerCase();
+        const existing = tagMap.get(slug);
+        if (existing) {
+          existing.count += 1;
+        } else {
+          tagMap.set(slug, { name: t.name, slug, count: 1 });
+        }
+      });
+    });
+    return Array.from(tagMap.values()).sort((a, b) => b.count - a.count);
+  }, [allPosts]);
 
-            Object.entries(params).forEach(([key, value]) => {
-                if (value === null || value === '' || (Array.isArray(value) && value.length === 0)) {
-                    newSearchParams.delete(key);
-                } else {
-                    newSearchParams.set(key, String(value));
-                }
-            });
+  // Sync query params
+  const createQueryString = useCallback(
+    (params: Record<string, string | number | null>) => {
+      const newSearchParams = new URLSearchParams(searchParams.toString());
+      Object.entries(params).forEach(([key, value]) => {
+        if (value === null || value === '' || (Array.isArray(value) && value.length === 0)) {
+          newSearchParams.delete(key);
+        } else {
+          newSearchParams.set(key, String(value));
+        }
+      });
+      return newSearchParams.toString();
+    },
+    [searchParams]
+  );
 
-            return newSearchParams.toString();
-        },
-        [searchParams]
+  const debouncedSearch = useDebounce(searchQuery, 300);
+
+  useEffect(() => {
+    const params: Record<string, string | number | null> = {};
+    if (debouncedSearch) params.q = debouncedSearch;
+    if (selectedTags.length > 0) params.tags = selectedTags.join(',');
+    if (displayCount > 9) params.count = displayCount;
+
+    const queryString = createQueryString(params);
+    router.replace(`${pathname}${queryString ? `?${queryString}` : ''}`, { scroll: false });
+  }, [debouncedSearch, selectedTags, displayCount, pathname, router, createQueryString]);
+
+  const toggleTag = (slug: string) => {
+    setSelectedTags((prev) =>
+      prev.includes(slug) ? prev.filter((t) => t !== slug) : [...prev, slug]
     );
+  };
 
-    useEffect(() => {
-        const params: Record<string, string | number | null> = {};
+  // Filtered posts
+  const filteredPosts = useMemo(() => {
+    return allPosts.filter((post) => {
+      // Search query check
+      if (debouncedSearch.trim()) {
+        const terms = debouncedSearch.toLowerCase().split(/\s+/).filter(Boolean);
+        const title = (post.title || '').toLowerCase();
+        const brief = (post.brief || '').toLowerCase();
+        const content = (post.content?.raw || '').toLowerCase();
+        const tagNames = (post.tags || []).map((t) => t.name.toLowerCase()).join(' ');
 
-        if (searchQuery) params.q = searchQuery;
-        else params.q = null;
-
-        if (selectedTags.length > 0) params.tags = selectedTags.join(',');
-        else params.tags = null;
-
-        if (displayCount > 6) params.count = displayCount;
-        else params.count = null;
-
-        const queryString = createQueryString(params);
-        router.replace(`${pathname}?${queryString}`, { scroll: false });
-    }, [searchQuery, selectedTags, displayCount, pathname, router, createQueryString]);
-
-    const debouncedSearchQuery = useDebounce(searchQuery, 500);
-
-    useEffect(() => {
-        const performSearch = async () => {
-            if (debouncedSearchQuery.trim()) {
-                setIsSearching(true);
-                try {
-                    const results = await searchPosts(debouncedSearchQuery);
-                    setSearchResults(results);
-                } catch (error) {
-                    console.error("Search error:", error);
-                } finally {
-                    setIsSearching(false);
-                }
-            } else {
-                setSearchResults(null);
-            }
-        };
-
-        performSearch();
-    }, [debouncedSearchQuery]);
-
-    const loadMore = async () => {
-        if (isLoading) return;
-
-        setIsLoading(true);
-        try {
-            if (displayCount >= allHashnodePosts.length && pageInfo.hasNextPage) {
-                const { posts: newPosts, pageInfo: newPageInfo } = await fetchAllPosts(pageInfo.endCursor);
-                setAllHashnodePosts([...allHashnodePosts, ...newPosts]);
-                setPageInfo(newPageInfo);
-            }
-            setDisplayCount(prev => prev + 6);
-        } catch (error) {
-            console.error('Error loading more posts:', error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const toggleTag = (tag: string) => {
-        setSelectedTags(prev =>
-            prev.includes(tag)
-                ? prev.filter(t => t !== tag)
-                : [...prev, tag]
+        const matchesSearch = terms.every(
+          (t) => title.includes(t) || brief.includes(t) || tagNames.includes(t) || content.includes(t)
         );
-    };
+        if (!matchesSearch) return false;
+      }
 
-    const filteredPosts = useMemo(() => {
-        let displayedPosts: (HashnodePostNode | MdxPost)[] = [];
+      // Tag filter check
+      if (selectedTags.length > 0) {
+        const postTags = (post.tags || []).map((t) => t.slug.toLowerCase());
+        const matchesTags = selectedTags.some((t) => postTags.includes(t.toLowerCase()));
+        if (!matchesTags) return false;
+      }
 
-        const hashnodeSource = searchResults !== null ? searchResults : allHashnodePosts;
+      return true;
+    });
+  }, [allPosts, debouncedSearch, selectedTags]);
 
-        displayedPosts = [...mdxPosts, ...hashnodeSource];
+  const displayedPosts = filteredPosts.slice(0, displayCount);
+  const hasMore = displayCount < filteredPosts.length;
 
-        if (searchQuery.trim()) {
-            const lowerQuery = searchQuery.toLowerCase();
-            displayedPosts = displayedPosts.filter(post => {
-                const isMdx = !('readTimeInMinutes' in post);
-                if (isMdx) {
-                    const terms = lowerQuery.split(/\s+/).filter(term => term.length > 0);
-                    const title = post.title.toLowerCase();
-                    const brief = post.brief ? post.brief.toLowerCase() : '';
+  return (
+    <div className="space-y-8">
+      {/* Controls Bar */}
+      <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between">
+        {/* Search input */}
+        <div className="relative flex-1 max-w-md">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search articles by title, keywords, or topics..."
+            className="w-full pl-10 pr-10 py-2.5 rounded-lg border border-zinc-800 bg-zinc-900/60 text-white placeholder:text-zinc-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
 
-                    // Check if ALL terms match title or brief (AND logic)
-                    return terms.every(term =>
-                        title.includes(term) ||
-                        brief.includes(term)
-                    );
-                }
-                return true; // Hashnode posts are already filtered by searchPosts
-            });
-        }
+        {/* Filter Toggle Button */}
+        <button
+          onClick={() => setIsFilterOpen(!isFilterOpen)}
+          className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
+            selectedTags.length > 0 || isFilterOpen
+              ? 'border-blue-500/50 bg-blue-500/10 text-blue-400'
+              : 'border-zinc-800 bg-zinc-900/60 text-zinc-400 hover:text-white hover:bg-zinc-800'
+          }`}
+        >
+          <Filter className="w-4 h-4" />
+          <span>Filter Tags</span>
+          {selectedTags.length > 0 && (
+            <span className="w-5 h-5 rounded-full bg-blue-500 text-white text-xs flex items-center justify-center font-mono">
+              {selectedTags.length}
+            </span>
+          )}
+        </button>
+      </div>
 
-        if (selectedTags.length > 0) {
-            displayedPosts = displayedPosts.filter(post =>
-                post.tags?.some(tag => selectedTags.includes(tag.slug))
-            );
-        }
-
-        const sortedPosts = displayedPosts.sort((a, b) =>
-            new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-        );
-
-        return sortedPosts.slice(0, displayCount);
-    }, [mdxPosts, allHashnodePosts, searchResults, searchQuery, selectedTags, displayCount]);
-
-    return (
-        <>
-            <div className="flex flex-col gap-6 mb-12">
-                <div className="flex gap-4">
-                    <SearchInput
-                        value={searchQuery}
-                        onChange={setSearchQuery}
-                        placeholder="Search articles..."
-                    />
-                    <button
-                        onClick={() => setIsFilterOpen(!isFilterOpen)}
-                        className={`p-2 rounded-lg border transition-colors ${isFilterOpen
-                            ? 'bg-blue-500 border-blue-500 text-white'
-                            : 'bg-zinc-800 border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-600'
-                            }`}
-                        aria-label="Toggle filters"
-                    >
-                        <Filter className="w-5 h-5" />
-                    </button>
-                </div>
-
-                {isFilterOpen && (
-                    <TagFilter selectedTags={selectedTags} onSelectTag={toggleTag} />
-                )}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.map((article) => (
-                    <ArticleCard key={article.slug} article={article} />
-                ))}
-            </div>
-
-            {filteredPosts.length === 0 && (
-                <div className="text-center py-12">
-                    <p className="text-zinc-400">
-                        {isSearching ? 'Searching...' : 'No articles found'}
-                    </p>
-                </div>
+      {/* Tag Filter Drawer */}
+      {isFilterOpen && (
+        <div className="p-4 rounded-xl border border-zinc-800 bg-zinc-900/40 space-y-3 animate-fade-in">
+          <div className="flex items-center justify-between text-xs text-zinc-400 font-mono">
+            <span>Filter by Topic / Tag:</span>
+            {selectedTags.length > 0 && (
+              <button
+                onClick={() => setSelectedTags([])}
+                className="text-blue-400 hover:underline"
+              >
+                Clear all filters
+              </button>
             )}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {availableTags.map((tag) => {
+              const isSelected = selectedTags.includes(tag.slug);
+              return (
+                <button
+                  key={tag.slug}
+                  onClick={() => toggleTag(tag.slug)}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                    isSelected
+                      ? 'bg-blue-600 text-white font-semibold'
+                      : 'bg-zinc-800/80 hover:bg-zinc-800 text-zinc-300 border border-zinc-700/60'
+                  }`}
+                >
+                  {tag.name} <span className="text-[10px] opacity-75">({tag.count})</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
-            {!searchQuery && (displayCount < allHashnodePosts.length || pageInfo.hasNextPage) && (
-                <div className="flex justify-center mt-12">
-                    <button
-                        onClick={loadMore}
-                        disabled={isLoading}
-                        className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                        {isLoading ? 'Loading...' : 'Load More Articles'}
-                    </button>
-                </div>
-            )}
-        </>
-    );
+      {/* Results Header */}
+      <div className="flex items-center justify-between text-xs text-zinc-400 font-mono pt-2">
+        <span>Showing {displayedPosts.length} of {filteredPosts.length} articles</span>
+        {(searchQuery || selectedTags.length > 0) && (
+          <span className="text-blue-400">Filtered view active</span>
+        )}
+      </div>
+
+      {/* Grid */}
+      {displayedPosts.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {displayedPosts.map((post) => (
+            <ArticleCard key={post.slug} article={post} />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-20 border border-dashed border-zinc-800 rounded-xl space-y-3">
+          <p className="text-base text-zinc-300 font-semibold">No matching articles found</p>
+          <p className="text-xs text-zinc-500">
+            Try adjusting your search terms or clearing selected tag filters.
+          </p>
+          <button
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedTags([]);
+            }}
+            className="px-4 py-2 rounded-lg bg-blue-600 text-white text-xs font-medium hover:bg-blue-500 transition-colors"
+          >
+            Reset Filters
+          </button>
+        </div>
+      )}
+
+      {/* Load More */}
+      {hasMore && (
+        <div className="text-center pt-8">
+          <button
+            onClick={() => setDisplayCount((prev) => prev + 6)}
+            className="px-6 py-2.5 rounded-lg border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 text-sm font-semibold transition-colors"
+          >
+            Load More Articles
+          </button>
+        </div>
+      )}
+    </div>
+  );
 };

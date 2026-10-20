@@ -1,16 +1,25 @@
 import { CategoryGrid } from "@/components/ui/CategoryGrid";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { getAllPostsTagWise } from "@/lib/api/hashnode";
+import { getAllPosts } from "@/lib/server/mdxServer";
 
-export default async function CategoriesPage() {
-  // Fetch tag-wise posts for category counts
-  const tagWisePosts = await getAllPostsTagWise();
+export default function CategoriesPage() {
+  const posts = getAllPosts();
+
+  const tagWisePosts: Record<string, any[]> = {};
+  posts.forEach((post) => {
+    (post.tags || []).forEach((t) => {
+      if (!tagWisePosts[t.slug]) {
+        tagWisePosts[t.slug] = [];
+      }
+      tagWisePosts[t.slug].push(post);
+    });
+  });
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
       <PageHeader
-        title="Explore by Category"
-        description="Dive into various technical topics and find exactly what you're looking for"
+        title="Explore by Category & Topic"
+        description="Filter and discover in-depth articles across distributed systems, algorithms, system design, and modern frontend development."
       />
       <CategoryGrid first={Infinity} tagWisePosts={tagWisePosts} />
     </div>

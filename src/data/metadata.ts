@@ -3,7 +3,7 @@ import { SiteMetadata } from '../types/metadata';
 export const siteMetadata: SiteMetadata = {
   title: "Abhinandan's Blog",
   description: "Exploring the latest in web development, programming, and technology through in-depth articles and tutorials.",
-  siteUrl: "https://techblog.com",
+  siteUrl: process.env.NEXT_PUBLIC_ASSET_PREFIX || "https://blog.abhinandanmishra.in",
   author: {
     name: "Abhinandan Mishra",
     username: 'abhinandanmishra1',
